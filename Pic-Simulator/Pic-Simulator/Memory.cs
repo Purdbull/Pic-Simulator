@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    abstract class abstractMemory
+    abstract class Memory
     {
     }
 }
