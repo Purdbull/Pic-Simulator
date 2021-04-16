@@ -6,5 +6,9 @@ namespace Pic_Simulator
 {
     abstract class Memory
     {
+        public Memory(Type t)
+        {
+
+        }
     }
 }
