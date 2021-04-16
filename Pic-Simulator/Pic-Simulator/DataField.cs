@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    class DataField
+    class DataField : Memory<byte>
     {
+        public DataField() : base(1){}
     }
 }
