@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -117,6 +118,19 @@ namespace Pic_Simulator
         }
 
         private void button1_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Filter = "txt files (*.txt)|*.txt";
+            
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox2.Text = File.ReadAllText(ofd.FileName);
+            }
+
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

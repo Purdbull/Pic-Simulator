@@ -13,3 +13,18 @@ C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\De
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.dll
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.pdb
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.genruntimeconfig.cache
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.exe
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.deps.json
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.runtimeconfig.json
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.runtimeconfig.dev.json
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.dll
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.pdb
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.csprojAssemblyReference.cache
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic_Simulator.Form1.resources
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.csproj.GenerateResource.cache
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.AssemblyInfoInputs.cache
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.AssemblyInfo.cs
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.csproj.CoreCompileInputs.cache
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.dll
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.pdb
+C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.genruntimeconfig.cache
