@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    class CodeExecutioner
+    static class CodeExecution
     {
     }
 }

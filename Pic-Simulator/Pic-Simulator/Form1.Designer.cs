@@ -397,6 +397,7 @@ namespace Pic_Simulator
             this.button1.TabIndex = 8;
             this.button1.Text = "Open File";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button2
             // 
@@ -482,7 +483,7 @@ namespace Pic_Simulator
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.richTextBox1);
-            this.groupBox5.Location = new System.Drawing.Point(14, 290);
+            this.groupBox5.Location = new System.Drawing.Point(14, 282);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(478, 103);
             this.groupBox5.TabIndex = 11;
