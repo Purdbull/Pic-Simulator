@@ -168,7 +168,7 @@ namespace Pic_Simulator
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(189, 578);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Bank 1";
@@ -194,7 +194,7 @@ namespace Pic_Simulator
             this.tabPage2.Controls.Add(this.tableLayoutPanel2);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(189, 578);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bank 2";
@@ -410,6 +410,7 @@ namespace Pic_Simulator
             this.button2.TabIndex = 9;
             this.button2.Text = "Save File";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox4
             // 

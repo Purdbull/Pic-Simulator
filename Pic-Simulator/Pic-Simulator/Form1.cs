@@ -127,12 +127,21 @@ namespace Pic_Simulator
             {
                 richTextBox2.Text = File.ReadAllText(ofd.FileName);
             }
-
+            label2.Text = ofd.FileName;
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText(label2.Text, richTextBox2.Text);
+        }
+
+
+        //local methods
+
     }
 }
