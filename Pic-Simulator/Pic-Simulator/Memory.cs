@@ -26,5 +26,21 @@ namespace Pic_Simulator
 
             return (key, value);
         }
+
+        public void SetKey(int index, T key)
+        {
+            this._keys[index] = key;
+        }
+
+        public void SetValue(int index, T value)
+        {
+            this._values[index] = value;
+        }
+
+        public void SetLine(int index, T key, T value)
+        {
+            SetKey(index, key);
+            SetValue(index, value);
+        }
     }
 }
