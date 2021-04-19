@@ -193,8 +193,38 @@ namespace Pic_Simulator
             }
         }
 
+        private void richTextBox2_Click(object sender, EventArgs e)
+        {
+            int firstCharIndex = richTextBox2.GetFirstCharIndexOfCurrentLine();
+            int currentLine = richTextBox2.GetLineFromCharIndex(firstCharIndex);
+            string currentLineText = richTextBox2.Lines[currentLine];
+
+            richTextBox2.Select(firstCharIndex, currentLineText.Length);
+            if (!richTextBox2.SelectionBackColor.Equals(Color.Red))
+            {
+                richTextBox2.SelectionBackColor = Color.AliceBlue;
+            }
+        }
+
+        private void richTextBox2_DoubleClick(object sender, EventArgs e)
+        {
+            int firstCharIndex = richTextBox2.GetFirstCharIndexOfCurrentLine();
+            int currentLine = richTextBox2.GetLineFromCharIndex(firstCharIndex);
+            string currentLineText = richTextBox2.Lines[currentLine];
+
+            richTextBox2.Select(firstCharIndex, currentLineText.Length);
+            if (!richTextBox2.SelectionBackColor.Equals(Color.Red))
+            {
+                richTextBox2.SelectionBackColor = Color.Red;
+            }
+            else
+            {
+                richTextBox2.SelectionBackColor = Color.White;
+            }
+        }
+
 
         //local methods
-       
+
     }
 }
