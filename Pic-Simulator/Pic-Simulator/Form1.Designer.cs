@@ -68,6 +68,7 @@ namespace Pic_Simulator
             this.button3 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button21 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -408,7 +409,7 @@ namespace Pic_Simulator
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 22);
             this.button2.TabIndex = 9;
-            this.button2.Text = "Save File";
+            this.button2.Text = "Save";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -502,11 +503,22 @@ namespace Pic_Simulator
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Debugger Output";
             // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(198, 0);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(82, 22);
+            this.button21.TabIndex = 12;
+            this.button21.Text = "Save as..";
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 632);
+            this.Controls.Add(this.button21);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button2);
@@ -575,6 +587,7 @@ namespace Pic_Simulator
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button21;
     }
 }
 

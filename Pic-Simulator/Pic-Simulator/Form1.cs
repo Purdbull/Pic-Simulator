@@ -154,6 +154,23 @@ namespace Pic_Simulator
             }
         }
 
+        private void button21_Click(object sender, EventArgs eventArgs)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+            try
+            {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
+                }
+            }
+            catch(IOException exception)
+            {
+                MessageBox.Show("Unable to save the new file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         //local methods
 
