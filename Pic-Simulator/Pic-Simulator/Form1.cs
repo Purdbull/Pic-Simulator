@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Pic_Simulator
 {
@@ -117,22 +118,113 @@ namespace Pic_Simulator
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs eventArgs)
         {
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.Filter = "txt files (*.txt)|*.txt";
-            
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                richTextBox2.Text = File.ReadAllText(ofd.FileName);
-            }
 
+            try
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox2.Text = File.ReadAllText(ofd.FileName);
+                    label2.Text = ofd.FileName;
+                }
+            } 
+            catch (IOException exception)
+            {
+                MessageBox.Show("Unable to open requested file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs eventArgs)
+        {
+            try
+            {
+                if (File.Exists(label2.Text))
+                {
+                    File.WriteAllText(label2.Text, richTextBox2.Text);
+                }
+                else
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+                    try
+                    {
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
+                            label2.Text = saveFileDialog.FileName;
+                        }
+                    }
+                    catch (IOException exception)
+                    {
+                        MessageBox.Show("Unable to save the new file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch(IOException exception)
+            {
+                MessageBox.Show("Unable to save changes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button21_Click(object sender, EventArgs eventArgs)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+            try
+            {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
+                    label2.Text = saveFileDialog.FileName;
+                }
+            }
+            catch(IOException exception)
+            {
+                MessageBox.Show("Unable to save the new file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void richTextBox2_Click(object sender, EventArgs e)
+        {
+            int firstCharIndex = richTextBox2.GetFirstCharIndexOfCurrentLine();
+            int currentLine = richTextBox2.GetLineFromCharIndex(firstCharIndex);
+            string currentLineText = richTextBox2.Lines[currentLine];
+
+            richTextBox2.Select(firstCharIndex, currentLineText.Length);
+            if (!richTextBox2.SelectionBackColor.Equals(Color.Red))
+            {
+                richTextBox2.SelectionBackColor = Color.AliceBlue;
+            }
+        }
+
+        private void richTextBox2_DoubleClick(object sender, EventArgs e)
+        {
+            int firstCharIndex = richTextBox2.GetFirstCharIndexOfCurrentLine();
+            int currentLine = richTextBox2.GetLineFromCharIndex(firstCharIndex);
+            string currentLineText = richTextBox2.Lines[currentLine];
+
+            richTextBox2.Select(firstCharIndex, currentLineText.Length);
+            if (!richTextBox2.SelectionBackColor.Equals(Color.Red))
+            {
+                richTextBox2.SelectionBackColor = Color.Red;
+            }
+            else
+            {
+                richTextBox2.SelectionBackColor = Color.White;
+            }
+        }
+
+
+        //local methods
+
     }
 }
