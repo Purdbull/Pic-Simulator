@@ -117,17 +117,24 @@ namespace Pic_Simulator
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs eventArgs)
         {
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.Filter = "txt files (*.txt)|*.txt";
-            
-            if (ofd.ShowDialog() == DialogResult.OK)
+
+            try
             {
-                richTextBox2.Text = File.ReadAllText(ofd.FileName);
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox2.Text = File.ReadAllText(ofd.FileName);
+                }
+                label2.Text = ofd.FileName;
+            } 
+            catch (IOException exception)
+            {
+                MessageBox.Show("Unable to open requested file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            label2.Text = ofd.FileName;
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
@@ -135,9 +142,16 @@ namespace Pic_Simulator
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs eventArgs)
         {
-            File.WriteAllText(label2.Text, richTextBox2.Text);
+            try
+            {
+                File.WriteAllText(label2.Text, richTextBox2.Text);
+            }
+            catch(IOException exception)
+            {
+                MessageBox.Show("Unable to save changes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
