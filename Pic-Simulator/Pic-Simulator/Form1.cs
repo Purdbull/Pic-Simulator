@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Pic_Simulator
 {
@@ -128,8 +129,8 @@ namespace Pic_Simulator
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     richTextBox2.Text = File.ReadAllText(ofd.FileName);
+                    label2.Text = ofd.FileName;
                 }
-                label2.Text = ofd.FileName;
             } 
             catch (IOException exception)
             {
@@ -146,7 +147,27 @@ namespace Pic_Simulator
         {
             try
             {
-                File.WriteAllText(label2.Text, richTextBox2.Text);
+                if (File.Exists(label2.Text))
+                {
+                    File.WriteAllText(label2.Text, richTextBox2.Text);
+                }
+                else
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+                    try
+                    {
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
+                            label2.Text = saveFileDialog.FileName;
+                        }
+                    }
+                    catch (IOException exception)
+                    {
+                        MessageBox.Show("Unable to save the new file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             catch(IOException exception)
             {
@@ -163,6 +184,7 @@ namespace Pic_Simulator
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
+                    label2.Text = saveFileDialog.FileName;
                 }
             }
             catch(IOException exception)
@@ -173,6 +195,6 @@ namespace Pic_Simulator
 
 
         //local methods
-
+       
     }
 }

@@ -95,9 +95,9 @@ namespace Pic_Simulator
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(436, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 15);
+            this.label2.Size = new System.Drawing.Size(85, 15);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Code";
+            this.label2.Text = "C:\\newFile.txt";
             this.label2.Click += new System.EventHandler(this.label1_Click);
             // 
             // richTextBox2
