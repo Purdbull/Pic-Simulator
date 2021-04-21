@@ -118,23 +118,20 @@ namespace Pic_Simulator
 
         }
 
-        private void button1_Click_1(object sender, EventArgs eventArgs)
+        private void btn_OpenFile_Click_1(object sender, EventArgs eventArgs)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            ofd.Filter = "txt files (*.txt)|*.txt";
-
+            OpenFileDialog ofd = new OpenFileDialog{ Filter = "txt files (*.txt)|*.txt" };
             try
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    richTextBox2.Text = File.ReadAllText(ofd.FileName);
-                    label2.Text = ofd.FileName;
+                    rtext_Code.Text = File.ReadAllText(ofd.FileName);
+                    lbl_Code.Text = ofd.FileName;
                 }
             } 
             catch (IOException exception)
             {
-                MessageBox.Show("Unable to open requested file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to open requested file: \n" + exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -147,80 +144,81 @@ namespace Pic_Simulator
         {
             try
             {
-                if (File.Exists(label2.Text))
+                if (File.Exists(lbl_Code.Text))
                 {
-                    File.WriteAllText(label2.Text, richTextBox2.Text);
+                    File.WriteAllText(lbl_Code.Text, rtext_Code.Text);
                 }
                 else
                 {
-                    SaveFileDialog saveFileDialog = new SaveFileDialog();
-                    saveFileDialog.Filter = "txt files (*.txt)|*.txt";
-                    try
+                    SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "txt files (*.txt)|*.txt" };
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
-                            label2.Text = saveFileDialog.FileName;
-                        }
-                    }
-                    catch (IOException exception)
-                    {
-                        MessageBox.Show("Unable to save the new file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        File.WriteAllText(saveFileDialog.FileName, rtext_Code.Text);
+                        lbl_Code.Text = saveFileDialog.FileName;
                     }
                 }
             }
             catch(IOException exception)
             {
-                MessageBox.Show("Unable to save changes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to save changes: \n" + exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void button21_Click(object sender, EventArgs eventArgs)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+            SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "txt files (*.txt)|*.txt" };
             try
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    File.WriteAllText(saveFileDialog.FileName, richTextBox2.Text);
-                    label2.Text = saveFileDialog.FileName;
+                    File.WriteAllText(saveFileDialog.FileName, rtext_Code.Text);
+                    lbl_Code.Text = saveFileDialog.FileName;
                 }
             }
             catch(IOException exception)
             {
-                MessageBox.Show("Unable to save the new file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to save the new file: \n" + exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void richTextBox2_Click(object sender, EventArgs e)
         {
-            int firstCharIndex = richTextBox2.GetFirstCharIndexOfCurrentLine();
-            int currentLine = richTextBox2.GetLineFromCharIndex(firstCharIndex);
-            string currentLineText = richTextBox2.Lines[currentLine];
+            int firstCharIndex = rtext_Code.GetFirstCharIndexOfCurrentLine();
+            int currentLine = rtext_Code.GetLineFromCharIndex(firstCharIndex);
+            string currentLineText = rtext_Code.Lines[currentLine];
 
-            richTextBox2.Select(firstCharIndex, currentLineText.Length);
-            if (!richTextBox2.SelectionBackColor.Equals(Color.Red))
+            rtext_Code.Select(firstCharIndex, currentLineText.Length);
+            if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
             {
-                richTextBox2.SelectionBackColor = Color.AliceBlue;
+                rtext_Code.SelectionBackColor = Color.AliceBlue;
             }
         }
 
         private void richTextBox2_DoubleClick(object sender, EventArgs e)
         {
-            int firstCharIndex = richTextBox2.GetFirstCharIndexOfCurrentLine();
-            int currentLine = richTextBox2.GetLineFromCharIndex(firstCharIndex);
-            string currentLineText = richTextBox2.Lines[currentLine];
+            int firstCharIndex = rtext_Code.GetFirstCharIndexOfCurrentLine();
+            int currentLine = rtext_Code.GetLineFromCharIndex(firstCharIndex);
+            string currentLineText = rtext_Code.Lines[currentLine];
 
-            richTextBox2.Select(firstCharIndex, currentLineText.Length);
-            if (!richTextBox2.SelectionBackColor.Equals(Color.Red))
+            rtext_Code.Select(firstCharIndex, currentLineText.Length);
+            if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
             {
-                richTextBox2.SelectionBackColor = Color.Red;
+                rtext_Code.SelectionBackColor = Color.Red;
             }
             else
             {
-                richTextBox2.SelectionBackColor = Color.White;
+                rtext_Code.SelectionBackColor = Color.White;
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void onScannerCalled(object sender, EventArgs e)
+        {
+            //TODO
         }
 
 

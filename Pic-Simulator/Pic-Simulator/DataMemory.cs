@@ -6,6 +6,6 @@ namespace Pic_Simulator
 {
     class DataMemory : Memory<byte>
     {
-        public DataMemory() : base(Parameters.MAX_DATAMEM_SIZE) {}
+        public DataMemory() : base(PIC.MAX_DATAMEM_SIZE) {}
     }
 }

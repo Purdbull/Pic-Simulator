@@ -30,12 +30,12 @@ namespace Pic_Simulator
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.lbl_Code = new System.Windows.Forms.Label();
+            this.rtext_Code = new System.Windows.Forms.RichTextBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chckBx_TimerActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -58,17 +58,17 @@ namespace Pic_Simulator
             this.button9 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_OpenFile = new System.Windows.Forms.Button();
+            this.btn_Save = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btn_Stop = new System.Windows.Forms.Button();
+            this.btn_Step = new System.Windows.Forms.Button();
+            this.btn_Continue = new System.Windows.Forms.Button();
+            this.btn_Debug = new System.Windows.Forms.Button();
+            this.btn_Run = new System.Windows.Forms.Button();
+            this.rtext_Output = new System.Windows.Forms.RichTextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button21 = new System.Windows.Forms.Button();
+            this.btn_SaveAs = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -82,76 +82,82 @@ namespace Pic_Simulator
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(1072, 5);
+            this.label1.Location = new System.Drawing.Point(1225, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 15);
+            this.label1.Size = new System.Drawing.Size(44, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "RAM";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
+            // lbl_Code
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(436, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 15);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "C:\\newFile.txt";
-            this.label2.Click += new System.EventHandler(this.label1_Click);
+            this.lbl_Code.AutoSize = true;
+            this.lbl_Code.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbl_Code.Location = new System.Drawing.Point(498, 5);
+            this.lbl_Code.Name = "lbl_Code";
+            this.lbl_Code.Size = new System.Drawing.Size(106, 20);
+            this.lbl_Code.TabIndex = 1;
+            this.lbl_Code.Text = "C:\\newFile.txt";
+            this.lbl_Code.Click += new System.EventHandler(this.label1_Click);
             // 
-            // richTextBox2
+            // rtext_Code
             // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox2.Location = new System.Drawing.Point(436, 22);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(551, 606);
-            this.richTextBox2.TabIndex = 4;
-            this.richTextBox2.Text = " ";
-            this.richTextBox2.Click += new System.EventHandler(this.richTextBox2_Click);
-            this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
-            this.richTextBox2.DoubleClick += new System.EventHandler(this.richTextBox2_DoubleClick);
+            this.rtext_Code.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtext_Code.Location = new System.Drawing.Point(498, 29);
+            this.rtext_Code.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rtext_Code.Name = "rtext_Code";
+            this.rtext_Code.Size = new System.Drawing.Size(629, 807);
+            this.rtext_Code.TabIndex = 4;
+            this.rtext_Code.Text = " ";
+            this.rtext_Code.Click += new System.EventHandler(this.richTextBox2_Click);
+            this.rtext_Code.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
+            this.rtext_Code.DoubleClick += new System.EventHandler(this.richTextBox2_DoubleClick);
             // 
             // textBox16
             // 
             this.textBox16.Location = new System.Drawing.Point(103, 147);
             this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(94, 23);
+            this.textBox16.Size = new System.Drawing.Size(94, 27);
             this.textBox16.TabIndex = 0;
             // 
             // textBox17
             // 
             this.textBox17.Location = new System.Drawing.Point(3, 167);
             this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(94, 23);
+            this.textBox17.Size = new System.Drawing.Size(94, 27);
             this.textBox17.TabIndex = 0;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Location = new System.Drawing.Point(230, 422);
+            this.groupBox1.Controls.Add(this.chckBx_TimerActive);
+            this.groupBox1.Location = new System.Drawing.Point(263, 563);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(229, 133);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Timer";
             // 
-            // checkBox1
+            // chckBx_TimerActive
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(39, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(59, 19);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Active";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.chckBx_TimerActive.AutoSize = true;
+            this.chckBx_TimerActive.Location = new System.Drawing.Point(45, 25);
+            this.chckBx_TimerActive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chckBx_TimerActive.Name = "chckBx_TimerActive";
+            this.chckBx_TimerActive.Size = new System.Drawing.Size(72, 24);
+            this.chckBx_TimerActive.TabIndex = 0;
+            this.chckBx_TimerActive.Text = "Active";
+            this.chckBx_TimerActive.UseVisualStyleBackColor = true;
+            this.chckBx_TimerActive.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(12, 422);
+            this.groupBox2.Location = new System.Drawing.Point(14, 563);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 206);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Size = new System.Drawing.Size(229, 275);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Special Function Registers";
@@ -160,19 +166,21 @@ namespace Pic_Simulator
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(993, 22);
+            this.tabControl1.Location = new System.Drawing.Point(1135, 29);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(197, 606);
+            this.tabControl1.Size = new System.Drawing.Size(225, 808);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(189, 578);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage1.Size = new System.Drawing.Size(217, 775);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Bank 1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -181,24 +189,26 @@ namespace Pic_Simulator
             // 
             this.tableLayoutPanel1.AutoScroll = true;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(183, 572);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(211, 767);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(189, 578);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage2.Size = new System.Drawing.Size(217, 775);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bank 2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -207,15 +217,16 @@ namespace Pic_Simulator
             // 
             this.tableLayoutPanel2.AutoScroll = true;
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(183, 572);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(211, 767);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // groupBox3
@@ -235,59 +246,56 @@ namespace Pic_Simulator
             this.groupBox3.Controls.Add(this.button9);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Location = new System.Drawing.Point(12, 294);
+            this.groupBox3.Location = new System.Drawing.Point(14, 392);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(418, 122);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox3.Size = new System.Drawing.Size(478, 163);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "I/O Pins";
             // 
             // button20
             // 
-            this.button20.Location = new System.Drawing.Point(362, 74);
-            this.button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button20.Location = new System.Drawing.Point(414, 99);
             this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(31, 22);
+            this.button20.Size = new System.Drawing.Size(35, 29);
             this.button20.TabIndex = 0;
             this.button20.Text = "button20";
             this.button20.UseVisualStyleBackColor = true;
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(326, 74);
-            this.button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button19.Location = new System.Drawing.Point(373, 99);
             this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(31, 22);
+            this.button19.Size = new System.Drawing.Size(35, 29);
             this.button19.TabIndex = 0;
             this.button19.Text = "button19";
             this.button19.UseVisualStyleBackColor = true;
             // 
             // button18
             // 
-            this.button18.Location = new System.Drawing.Point(290, 74);
-            this.button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button18.Location = new System.Drawing.Point(331, 99);
             this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(31, 22);
+            this.button18.Size = new System.Drawing.Size(35, 29);
             this.button18.TabIndex = 0;
             this.button18.Text = "button18";
             this.button18.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(255, 74);
-            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button8.Location = new System.Drawing.Point(291, 99);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(31, 22);
+            this.button8.Size = new System.Drawing.Size(35, 29);
             this.button8.TabIndex = 0;
             this.button8.Text = "button8";
             this.button8.UseVisualStyleBackColor = true;
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(87, 74);
-            this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button17.Location = new System.Drawing.Point(99, 99);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(31, 22);
+            this.button17.Size = new System.Drawing.Size(35, 29);
             this.button17.TabIndex = 0;
             this.button17.Text = "button17";
             this.button17.UseVisualStyleBackColor = true;
@@ -295,80 +303,72 @@ namespace Pic_Simulator
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(122, 74);
-            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button16.Location = new System.Drawing.Point(139, 99);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(31, 22);
+            this.button16.Size = new System.Drawing.Size(35, 29);
             this.button16.TabIndex = 0;
             this.button16.Text = "button16";
             this.button16.UseVisualStyleBackColor = true;
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(158, 74);
-            this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button15.Location = new System.Drawing.Point(181, 99);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(31, 22);
+            this.button15.Size = new System.Drawing.Size(35, 29);
             this.button15.TabIndex = 0;
             this.button15.Text = "button15";
             this.button15.UseVisualStyleBackColor = true;
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(194, 22);
-            this.button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button14.Location = new System.Drawing.Point(222, 29);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(31, 22);
+            this.button14.Size = new System.Drawing.Size(35, 29);
             this.button14.TabIndex = 0;
             this.button14.Text = "button14";
             this.button14.UseVisualStyleBackColor = true;
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(255, 22);
-            this.button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button13.Location = new System.Drawing.Point(291, 29);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(31, 22);
+            this.button13.Size = new System.Drawing.Size(35, 29);
             this.button13.TabIndex = 0;
             this.button13.Text = "button13";
             this.button13.UseVisualStyleBackColor = true;
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(290, 22);
-            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button12.Location = new System.Drawing.Point(331, 29);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(31, 22);
+            this.button12.Size = new System.Drawing.Size(35, 29);
             this.button12.TabIndex = 0;
             this.button12.Text = "button12";
             this.button12.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(326, 22);
-            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button11.Location = new System.Drawing.Point(373, 29);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(31, 22);
+            this.button11.Size = new System.Drawing.Size(35, 29);
             this.button11.TabIndex = 0;
             this.button11.Text = "button11";
             this.button11.UseVisualStyleBackColor = true;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(362, 22);
-            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button10.Location = new System.Drawing.Point(414, 29);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(31, 22);
+            this.button10.Size = new System.Drawing.Size(35, 29);
             this.button10.TabIndex = 0;
             this.button10.Text = "button10";
             this.button10.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(194, 74);
-            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button9.Location = new System.Drawing.Point(222, 99);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(31, 22);
+            this.button9.Size = new System.Drawing.Size(35, 29);
             this.button9.TabIndex = 0;
             this.button9.Text = "button9";
             this.button9.UseVisualStyleBackColor = true;
@@ -376,9 +376,9 @@ namespace Pic_Simulator
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 77);
+            this.label4.Location = new System.Drawing.Point(15, 103);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 15);
+            this.label4.Size = new System.Drawing.Size(53, 20);
             this.label4.TabIndex = 1;
             this.label4.Text = "PORTB";
             this.label4.Click += new System.EventHandler(this.label3_Click);
@@ -386,152 +386,146 @@ namespace Pic_Simulator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 25);
+            this.label3.Location = new System.Drawing.Point(15, 33);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 15);
+            this.label3.Size = new System.Drawing.Size(53, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "PORTA";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // button1
+            // btn_OpenFile
             // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 22);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Open File";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btn_OpenFile.Location = new System.Drawing.Point(1, 1);
+            this.btn_OpenFile.Name = "btn_OpenFile";
+            this.btn_OpenFile.Size = new System.Drawing.Size(107, 29);
+            this.btn_OpenFile.TabIndex = 8;
+            this.btn_OpenFile.Text = "Open File";
+            this.btn_OpenFile.UseVisualStyleBackColor = true;
+            this.btn_OpenFile.Click += new System.EventHandler(this.btn_OpenFile_Click_1);
             // 
-            // button2
+            // btn_Save
             // 
-            this.button2.Location = new System.Drawing.Point(99, 0);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(93, 22);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_Save.Location = new System.Drawing.Point(125, 1);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.Size = new System.Drawing.Size(106, 29);
+            this.btn_Save.TabIndex = 9;
+            this.btn_Save.Text = "Save";
+            this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.Click += new System.EventHandler(this.button2_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button7);
-            this.groupBox4.Controls.Add(this.button6);
-            this.groupBox4.Controls.Add(this.button5);
-            this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Location = new System.Drawing.Point(0, 26);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox4.Controls.Add(this.btn_Stop);
+            this.groupBox4.Controls.Add(this.btn_Step);
+            this.groupBox4.Controls.Add(this.btn_Continue);
+            this.groupBox4.Controls.Add(this.btn_Debug);
+            this.groupBox4.Controls.Add(this.btn_Run);
+            this.groupBox4.Location = new System.Drawing.Point(0, 35);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox4.Size = new System.Drawing.Size(192, 54);
+            this.groupBox4.Size = new System.Drawing.Size(340, 76);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Execution";
+            this.groupBox4.Text = "Code Execution";
             this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
-            // button7
+            // btn_Stop
             // 
-            this.button7.Location = new System.Drawing.Point(41, 20);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(31, 22);
-            this.button7.TabIndex = 8;
-            this.button7.Text = "Stop";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btn_Stop.Location = new System.Drawing.Point(55, 27);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(52, 29);
+            this.btn_Stop.TabIndex = 8;
+            this.btn_Stop.Text = "Stop";
+            this.btn_Stop.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btn_Step
             // 
-            this.button6.Location = new System.Drawing.Point(149, 20);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(31, 22);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "Step";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btn_Step.Location = new System.Drawing.Point(277, 27);
+            this.btn_Step.Name = "btn_Step";
+            this.btn_Step.Size = new System.Drawing.Size(57, 29);
+            this.btn_Step.TabIndex = 8;
+            this.btn_Step.Text = "Step";
+            this.btn_Step.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn_Continue
             // 
-            this.button5.Location = new System.Drawing.Point(113, 20);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(31, 22);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Continue";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_Continue.Location = new System.Drawing.Point(184, 27);
+            this.btn_Continue.Name = "btn_Continue";
+            this.btn_Continue.Size = new System.Drawing.Size(87, 29);
+            this.btn_Continue.TabIndex = 8;
+            this.btn_Continue.Text = "Continue";
+            this.btn_Continue.UseVisualStyleBackColor = true;
+            this.btn_Continue.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button4
+            // btn_Debug
             // 
-            this.button4.Location = new System.Drawing.Point(77, 20);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(31, 22);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Debug";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_Debug.Location = new System.Drawing.Point(113, 27);
+            this.btn_Debug.Name = "btn_Debug";
+            this.btn_Debug.Size = new System.Drawing.Size(63, 29);
+            this.btn_Debug.TabIndex = 8;
+            this.btn_Debug.Text = "Debug";
+            this.btn_Debug.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_Run
             // 
-            this.button3.Location = new System.Drawing.Point(5, 20);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(31, 22);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Run";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btn_Run.Location = new System.Drawing.Point(6, 27);
+            this.btn_Run.Name = "btn_Run";
+            this.btn_Run.Size = new System.Drawing.Size(43, 29);
+            this.btn_Run.TabIndex = 8;
+            this.btn_Run.Text = "Run";
+            this.btn_Run.UseVisualStyleBackColor = true;
+            this.btn_Run.Click += new System.EventHandler(this.onScannerCalled);
+            this.btn_Run.Click += new System.EventHandler(this.button3_Click);
             // 
-            // richTextBox1
+            // rtext_Output
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 18);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(412, 57);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.rtext_Output.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtext_Output.Location = new System.Drawing.Point(3, 23);
+            this.rtext_Output.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rtext_Output.Name = "rtext_Output";
+            this.rtext_Output.ReadOnly = true;
+            this.rtext_Output.Size = new System.Drawing.Size(472, 77);
+            this.rtext_Output.TabIndex = 4;
+            this.rtext_Output.Text = "";
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.richTextBox1);
-            this.groupBox5.Location = new System.Drawing.Point(12, 212);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox5.Controls.Add(this.rtext_Output);
+            this.groupBox5.Location = new System.Drawing.Point(14, 283);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Size = new System.Drawing.Size(418, 77);
+            this.groupBox5.Size = new System.Drawing.Size(478, 103);
             this.groupBox5.TabIndex = 11;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Debugger Output";
             // 
-            // button21
+            // btn_SaveAs
             // 
-            this.button21.Location = new System.Drawing.Point(198, 0);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(82, 22);
-            this.button21.TabIndex = 12;
-            this.button21.Text = "Save as..";
-            this.button21.UseVisualStyleBackColor = true;
-            this.button21.Click += new System.EventHandler(this.button21_Click);
+            this.btn_SaveAs.Location = new System.Drawing.Point(246, 1);
+            this.btn_SaveAs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_SaveAs.Name = "btn_SaveAs";
+            this.btn_SaveAs.Size = new System.Drawing.Size(94, 29);
+            this.btn_SaveAs.TabIndex = 12;
+            this.btn_SaveAs.Text = "Save as..";
+            this.btn_SaveAs.UseVisualStyleBackColor = true;
+            this.btn_SaveAs.Click += new System.EventHandler(this.button21_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1190, 632);
-            this.Controls.Add(this.button21);
+            this.ClientSize = new System.Drawing.Size(1360, 843);
+            this.Controls.Add(this.btn_SaveAs);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Save);
+            this.Controls.Add(this.btn_OpenFile);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.richTextBox2);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.rtext_Code);
+            this.Controls.Add(this.lbl_Code);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Pic-Simulator";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -551,8 +545,8 @@ namespace Pic_Simulator
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Label lbl_Code;
+        private System.Windows.Forms.RichTextBox rtext_Code;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -562,16 +556,16 @@ namespace Pic_Simulator
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chckBx_TimerActive;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_OpenFile;
+        private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_Continue;
+        private System.Windows.Forms.Button btn_Debug;
+        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.Button btn_Step;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button16;
@@ -587,9 +581,10 @@ namespace Pic_Simulator
         private System.Windows.Forms.Button button19;
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtext_Output;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button btn_SaveAs;
+        private System.Windows.Forms.Button btn_Run;
     }
 }
 
