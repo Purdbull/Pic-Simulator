@@ -6,5 +6,6 @@ namespace Pic_Simulator
 {
     static class CodeExecution
     {
+       //public bool executeInstruction();
     }
 }
