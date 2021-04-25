@@ -1,0 +1,96 @@
+Muss - Befehle:
+
+	MOVLW:
+		schreibe L in das W-Register
+
+	ADDLW:
+		Addiere L zu W-Register und speichere das Ergebnis im W-Register
+
+	SUBLW:
+		Subtrrahiere L vom W-Register und speichere das Ergebnis im W-Register
+
+	CALL:
+		Speichere PC+1 auf Stack und schreibe Adresse (als Parameter (Count)) in PC
+
+	GOTO:
+		Schreibe Adresse (als Parameter (Count)) in PC
+
+	MOVWF:
+		Schreibe den Inhalt des W-Registers in F (Adresse)
+
+	MOVF:
+		Speichere den Inhalt von F an einen Ort abhängig vom d-Bit (0 = W-Register; 1 = F)
+
+	SUBWF:
+		Subtrahiere W-Register von F und speichere das Ergebnis abhängig von d-Bit (0 = W-Register; 1 = F)
+
+	ADDWF:
+		Addiere W-Register zu F und speichere das Ergebnis abhängig von d-Bit (0 = W-Register; 1 = F)
+
+	DECFSZ:
+		Decrementiere den Inhalt von F (Skippe die nächste Anweisung wenn F = 0)
+
+	INCFSZ:
+		Incrementiere den Inhalt von F (Skippe die nächste Anweisung wenn F = 0)
+
+	RLF:
+		Bits vom Byte in F nach links shiften und dabei das Carrybit für überwschuss verwenden
+
+	RRF:
+		Bits vom Byte in F nach rechts shiften und dabei das Carrybit für überwschuss verwenden
+
+	Des Weiteren:
+	BSF, BCF, BTSFC, BTFSS, (direkte und indirekte Adressierung)
+	
+	XORWF, XORLW, ANDLW, ANDWF, IORLW, IORWF (direkte und indirekte Adressierung)
+
+	TMR0 - Register (Timer - Mode: increment every instructioncycle; Counter - Mode: increment on rising/falling edge)
+
+	diverse eventuellen Interrupts (TMR0, INT(RB0), RB0-RB7)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Kann - Befehle
+	SLEEP
+
+	ADDWF PCL mit Berücksichtigung von PCLATH
+
+	Watchdog mit/ohne Vorteiler
+
+	EEPROM ohne oder mit 1ms Programmierzeit
+
+	Lauflicht
+
+	Leuchtband				
+
+	Wirkung TRIS - Register auf IOs
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Muss - GUI - Eigenschaften
+
+
+	Breakpoints
+
+	IO per Maus togglebar
+
+	Markierung des aktuellen (nächsten) Befehls im Code-Fenster
+
+	Fenster für LST, SFR, GPR
+
+	DOKUUUUU		
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Kann - Gui - Eigenschaften 
+
+	Lauftzeitzähler visualisiert
+
+	Quarzfrequenz einstellbar
+
+	SFR und GPR editierbar
+
+	Stackvisualisierung
+
+	kreative eigene Ideen
+
+	vorzeitige Abgabe
