@@ -9,13 +9,17 @@ namespace Pic_Simulator
 
         public enum Instruction
         {
+            NOP    = 00000000_00000000,
             MOVLW  = 00110000_00000000,
-            ADDLW  = ,
-            SUBLW  = ,
-            CALL   = ,
-            GOTO   = ,
+            RETLW  = 00110100_00000000,
+            ADDLW  = 00111110_00000000,
+            SUBLW  = 00111100_00000000,
+            CALL   = 00100000_00000000,
+            GOTO   = 00101000_00000000,
             MOVWF  = ,
             MOVF   = ,
+            CLRF   = ,
+            CLRW   = ,
             SUBWF  = ,
             ADDWF  = ,
             DECFSZ = ,
