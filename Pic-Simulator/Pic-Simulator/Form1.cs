@@ -14,9 +14,11 @@ namespace Pic_Simulator
 {
     public partial class Form1 : Form
     {
+        static public PIC pic;
         public Form1()
         {
             InitializeComponent();
+            pic = new PIC();
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)

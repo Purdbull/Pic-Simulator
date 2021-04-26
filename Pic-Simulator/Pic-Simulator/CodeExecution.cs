@@ -40,7 +40,7 @@ namespace Pic_Simulator
 
         public (byte, byte, byte, byte) Fetch()
         {
-
+            DataField pc = Form1.pic.pc;
         }
 
         public bool Execute(Instruction instruction, byte param1, byte param2)
