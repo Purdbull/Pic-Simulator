@@ -9,7 +9,29 @@ namespace Pic_Simulator
 
         public enum Instruction
         {
-            
+            MOVLW  = 00110000_00000000,
+            ADDLW  = ,
+            SUBLW  = ,
+            CALL   = ,
+            GOTO   = ,
+            MOVWF  = ,
+            MOVF   = ,
+            SUBWF  = ,
+            ADDWF  = ,
+            DECFSZ = ,
+            INCFSZ = ,
+            RLF    = ,
+            RRF    = ,
+            BSF    = ,
+            BCF    = ,
+            BTSFC  = ,
+            BTFSS  = ,
+            XORWF  = ,
+            XORLW  = ,
+            ANDLW  = ,
+            ANDWF  = ,
+            IORLW  = ,
+            IORWF  = 
         }
 
         public (byte, byte, byte, byte) Fetch()
