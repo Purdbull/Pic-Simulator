@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    class DataMemory : Memory<byte>
+    public class DataMemory : Memory<UInt16>
     {
         public DataMemory() : base(PIC.MAX_DATAMEM_SIZE) {}
     }

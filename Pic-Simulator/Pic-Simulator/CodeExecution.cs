@@ -41,6 +41,13 @@ namespace Pic_Simulator
         public (byte, byte, byte, byte) Fetch()
         {
             DataField pc = Form1.pic.pc;
+            ProgramMemory progMem = Form1.pic.progMem;
+            byte programCounter;
+            (_, programCounter) = pc.GetKeyValuePair(0);
+
+            UInt16 data;
+            (_, data) = progMem.GetKeyValuePair(programCounter);
+
         }
 
         public (Instruction, byte, byte) Decode(byte instrByte1, byte instrByte2, byte paramByte1, byte paramByte2)

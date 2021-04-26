@@ -21,6 +21,7 @@ namespace Pic_Simulator
             pic = new PIC();
         }
 
+
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
