@@ -40,6 +40,11 @@ namespace Pic_Simulator
 
         public (byte, byte, byte, byte) Fetch()
         {
+            DataField pc = Form1.pic.pc;
+        }
+
+        public (Instruction, byte, byte) Decode(byte instrByte1, byte instrByte2, byte paramByte1, byte paramByte2)
+        {
 
         }
 

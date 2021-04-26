@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    class PIC
+    public class PIC
     {
         public static int MAX_DATAMEM_SIZE = 512;
         public static int MAX_PROGMEM_SIZE = 512;
@@ -14,6 +14,8 @@ namespace Pic_Simulator
 
         public DataField wReg;
         public DataField timer;
+        public DataField pc;
+
 
         public PIC()
         {
