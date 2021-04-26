@@ -16,6 +16,7 @@ namespace Pic_Simulator
         public DataField timer;
         public DataField pc;
 
+
         public PIC()
         {
             this.progMem = new ProgramMemory();
