@@ -339,3 +339,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+*.v2
+Pic-Simulator/.vs/Pic-Simulator/v16/.suo
+*.cache
