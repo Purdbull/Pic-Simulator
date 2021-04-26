@@ -1,7 +1,10 @@
 Muss - Befehle:
-
+	NOP
+	
 	MOVLW:
 		schreibe L in das W-Register
+
+	RETLW
 
 	ADDLW:
 		Addiere L zu W-Register und speichere das Ergebnis im W-Register
@@ -12,6 +15,8 @@ Muss - Befehle:
 	CALL:
 		Speichere PC+1 auf Stack und schreibe Adresse (als Parameter (Count)) in PC
 
+	RETURN
+
 	GOTO:
 		Schreibe Adresse (als Parameter (Count)) in PC
 
@@ -20,6 +25,10 @@ Muss - Befehle:
 
 	MOVF:
 		Speichere den Inhalt von F an einen Ort abhängig vom d-Bit (0 = W-Register; 1 = F)
+
+	CLRF
+
+	CLRW
 
 	SUBWF:
 		Subtrahiere W-Register von F und speichere das Ergebnis abhängig von d-Bit (0 = W-Register; 1 = F)
@@ -42,7 +51,7 @@ Muss - Befehle:
 	Des Weiteren:
 	BSF, BCF, BTSFC, BTFSS, (direkte und indirekte Adressierung)
 	
-	XORWF, XORLW, ANDLW, ANDWF, IORLW, IORWF (direkte und indirekte Adressierung)
+	XORWF, XORLW, ANDLW, ANDWF, IORLW, IORWF, COMF, SWAPF (direkte und indirekte Adressierung)
 
 	TMR0 - Register (Timer - Mode: increment every instructioncycle; Counter - Mode: increment on rising/falling edge)
 
