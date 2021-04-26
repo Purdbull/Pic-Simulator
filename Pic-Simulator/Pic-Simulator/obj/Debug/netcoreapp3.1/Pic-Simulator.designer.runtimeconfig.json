@@ -7,7 +7,7 @@
     },
     "additionalProbingPaths": [
       "C:\\Users\\mails\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Moritz Knapp\\.nuget\\packages"
+      "C:\\Users\\mails\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
