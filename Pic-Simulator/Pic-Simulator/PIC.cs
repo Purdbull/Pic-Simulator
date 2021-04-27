@@ -13,8 +13,8 @@ namespace Pic_Simulator
         public DataMemory dataMem;
 
         public DataField wReg;
-        public DataField timer;
         public DataField pc;
+        public DataField timer;
 
 
         public PIC()
@@ -24,6 +24,22 @@ namespace Pic_Simulator
 
             this.wReg = new DataField();
             this.timer = new DataField();
+        }
+
+        public void Step()
+        {
+            //TODO: do one FETCH, DECODE, EXECUTE cycle
+            //refresh gui after
+        }
+
+        public void Continue()
+        {
+            //TODO: continuously step and stop at breakpoints
+        }
+
+        public void Run()
+        {
+            //TODO: continuously step without stopping at breakpoints
         }
     }
 }

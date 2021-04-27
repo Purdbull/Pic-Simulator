@@ -96,7 +96,7 @@ namespace Pic_Simulator
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btn_Run_Click(object sender, EventArgs e)
         {
 
         }
@@ -226,6 +226,11 @@ namespace Pic_Simulator
 
 
         //local methods
+
+        public void RefreshMemoryGUI() //TODO: IMPLEMENT AND CALL ON MEMORY VALUE CHANGE
+        {
+
+        }
 
     }
 }

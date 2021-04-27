@@ -6,7 +6,11 @@ namespace Pic_Simulator
 {
     public class DataField : Memory<byte>
     {
-        public DataField() : base(1){}
+        public DataField(byte content = 0) : base(1)
+        {
+            this._keys.Add(0);
+            this._values.Add(content);
+        }
 
         public byte GetValue()
         {

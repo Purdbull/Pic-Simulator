@@ -474,7 +474,7 @@ namespace Pic_Simulator
             this.btn_Run.Text = "Run";
             this.btn_Run.UseVisualStyleBackColor = true;
             this.btn_Run.Click += new System.EventHandler(this.onScannerCalled);
-            this.btn_Run.Click += new System.EventHandler(this.button3_Click);
+            this.btn_Run.Click += new System.EventHandler(this.btn_Run_Click);
             // 
             // rtext_Output
             // 
