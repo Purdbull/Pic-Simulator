@@ -6,7 +6,6 @@ namespace Pic_Simulator
 {
     static class CodeExecution
     {
-
         public enum Instruction
         {
             NOP    = 0b_00000000_00000000,     //0000 0000 0xx0 0000
@@ -58,18 +57,18 @@ namespace Pic_Simulator
             CLRF   = 0b_11111111_10000000,  //0000 0001 1fff ffff
             CLRW   = 0b_11111111_10000000,  //0000 0001 0xxx xxxx
 
-            NOP    = 0b_11111111_10011111,  //0000 0000 0xx0 0000  
+            NOP    = 0b_11111111_10011111,  //0000 0000 0xx0 0000
 
             ADDLW  = 0b_11111110_00000000,  //0011 111x kkkk kkkk
-            MOVLW  = 0b_11111100_00000000,  //0011 00xx kkkk kkkk  
-            RETLW  = 0b_11111100_00000000,  //0011 01xx kkkk kkkk  
-            SUBLW  = 0b_11111100_00000000,  //0011 110x kkkk kkkk 
+            MOVLW  = 0b_11111100_00000000,  //0011 00xx kkkk kkkk
+            RETLW  = 0b_11111100_00000000,  //0011 01xx kkkk kkkk
+            SUBLW  = 0b_11111100_00000000,  //0011 110x kkkk kkkk
             BSF    = 0b_11111100_00000000,  //0001 01bb bfff ffff
             BCF    = 0b_11111100_00000000,  //0001 00bb bfff ffff
             BTFSC  = 0b_11111100_00000000,  //0001 10bb bfff ffff
-            BTFSS  = 0b_11111100_00000000,  //0001 11bb bfff ffff 
-            CALL   = 0b_11111000_00000000,  //0010 0kkk kkkk kkkk  
-            GOTO   = 0b_11111000_00000000,  //0010 1kkk kkkk kkkk
+            BTFSS  = 0b_11111100_00000000,  //0001 11bb bfff ffff
+            CALL   = 0b_11111000_00000000,  //0010 0kkk kkkk kkkk
+            GOTO   = 0b_11111000_00000000   //0010 1kkk kkkk kkkk
             
             
         }
@@ -86,9 +85,29 @@ namespace Pic_Simulator
             return data;
         }
 
-        public (Instruction, UInt16) Decode(UInt16 data)
+        public static (Instruction, UInt16) Decode(UInt16 data)
         {
+            foreach(Instruction instruction in Enum.GetValues(typeof(Instruction)))
+            {
+                //extract code and name from the Instruction enum
+                UInt16 instrCode = (UInt16)instruction;
+                string instrName = Enum.GetName(typeof(Instruction), instruction);
+                UInt16 instrMask = (UInt16)Enum.Parse(typeof(InstructionMask), instrName);
 
+                //apply mask to data
+                UInt16 maskedData = (UInt16)(data & instrMask);
+
+                if(maskedData == instrCode)
+                {
+                    return(instruction, data);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            //TODO: maybe catch unknown instruction
+            return (Instruction.NOP, (UInt16)Instruction.NOP);
         }
 
         public bool Execute(Instruction instruction, UInt16 param)
