@@ -114,7 +114,59 @@ namespace Pic_Simulator
         {
             switch (instruction)
             {
+                case Instruction.ADDLW:
+                    break;
+                case Instruction.ADDWF:
+                    break;
+                case Instruction.ANDLW:
+                    break;
+                case Instruction.ANDWF:
+                    break;
+                case Instruction.BCF:
+                    break;
+                case Instruction.BSF:
+                    break;
+                case Instruction.BTFSC:
+                    break;
+                case Instruction.BTFSS:
+                    break;
+                case Instruction.CALL:
+                    break;
+                case Instruction.CLRF:
+                    break;
+                case Instruction.CLRW:
+                    break;
+                case Instruction.DECFSZ:
+                    break;
+                case Instruction.GOTO:
+                    break;
+                case Instruction.INCFSZ:
+                    break;
+                case Instruction.IORLW:
+                    break;
+                case Instruction.IORWF:
+                    break;
+                case Instruction.MOVF:
+                    break;
                 case Instruction.MOVLW:
+                    break;
+                case Instruction.MOVWF:
+                    break;
+                case Instruction.NOP:
+                    break;
+                case Instruction.RETLW:
+                    break;
+                case Instruction.RLF:
+                    break;
+                case Instruction.RRF:
+                    break;
+                case Instruction.SUBLW:
+                    break;
+                case Instruction.SUBWF:
+                    break;
+                case Instruction.XORLW:
+                    break;
+                case Instruction.XORWF:
                     break;
                 default:
                     return false;
