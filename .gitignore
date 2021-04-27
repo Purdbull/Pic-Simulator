@@ -348,3 +348,5 @@ Pic-Simulator/.vs/Pic-Simulator/v16/.suo
 Pic-Simulator/.vs/Pic-Simulator/v16/.suo
 Pic-Simulator/.vs/Pic-Simulator/DesignTimeBuild/.dtbcache.v2
 *.v2
+v16/
+obj/
