@@ -58,20 +58,20 @@ namespace Pic_Simulator
             CLRF   = 0b_11111111_10000000,  //0000 0001 1fff ffff
             CLRW   = 0b_11111111_10000000,  //0000 0001 0xxx xxxx
 
-            NOP    = 0b_11111111_10011111,  //0000 0000 0xx0 0000  
+            NOP    = 0b_11111111_10011111,  //0000 0000 0xx0 0000
 
             ADDLW  = 0b_11111110_00000000,  //0011 111x kkkk kkkk
-            MOVLW  = 0b_11111100_00000000,  //0011 00xx kkkk kkkk  
-            RETLW  = 0b_11111100_00000000,  //0011 01xx kkkk kkkk  
-            SUBLW  = 0b_11111100_00000000,  //0011 110x kkkk kkkk 
+
+            MOVLW  = 0b_11111100_00000000,  //0011 00xx kkkk kkkk
+            RETLW  = 0b_11111100_00000000,  //0011 01xx kkkk kkkk
+            SUBLW  = 0b_11111100_00000000,  //0011 110x kkkk kkkk
             BSF    = 0b_11111100_00000000,  //0001 01bb bfff ffff
             BCF    = 0b_11111100_00000000,  //0001 00bb bfff ffff
             BTFSC  = 0b_11111100_00000000,  //0001 10bb bfff ffff
-            BTFSS  = 0b_11111100_00000000,  //0001 11bb bfff ffff 
-            CALL   = 0b_11111000_00000000,  //0010 0kkk kkkk kkkk  
+            BTFSS  = 0b_11111100_00000000,  //0001 11bb bfff ffff
+
+            CALL   = 0b_11111000_00000000,  //0010 0kkk kkkk kkkk
             GOTO   = 0b_11111000_00000000,  //0010 1kkk kkkk kkkk
-            
-            
         }
 
         public (byte, byte, byte, byte) Fetch()
@@ -96,7 +96,59 @@ namespace Pic_Simulator
         {
             switch (instruction)
             {
+                case Instruction.ADDLW:
+                    break;
+                case Instruction.ADDWF:
+                    break;
+                case Instruction.ANDLW:
+                    break;
+                case Instruction.ANDWF:
+                    break;
+                case Instruction.BCF:
+                    break;
+                case Instruction.BSF:
+                    break;
+                case Instruction.BTFSC:
+                    break;
+                case Instruction.BTFSS:
+                    break;
+                case Instruction.CALL:
+                    break;
+                case Instruction.CLRF:
+                    break;
+                case Instruction.CLRW:
+                    break;
+                case Instruction.DECFSZ:
+                    break;
+                case Instruction.GOTO:
+                    break;
+                case Instruction.INCFSZ:
+                    break;
+                case Instruction.IORLW:
+                    break;
+                case Instruction.IORWF:
+                    break;
+                case Instruction.MOVF:
+                    break;
                 case Instruction.MOVLW:
+                    break;
+                case Instruction.MOVWF:
+                    break;
+                case Instruction.NOP:
+                    break;
+                case Instruction.RETLW:
+                    break;
+                case Instruction.RLF:
+                    break;
+                case Instruction.RRF:
+                    break;
+                case Instruction.SUBLW:
+                    break;
+                case Instruction.SUBWF:
+                    break;
+                case Instruction.XORLW:
+                    break;
+                case Instruction.XORWF:
                     break;
                 default:
                     return false;
