@@ -115,7 +115,11 @@ namespace Pic_Simulator
             switch (instruction)
             {
                 case Instruction.ADDLW:
+                    //calculating wreg + param. result is being stored in wreg
+                    byte result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(param));
+                    Form1.pic.wReg.SetValue(result);
                     break;
+
                 case Instruction.ADDWF:
                     break;
                 case Instruction.ANDLW:
