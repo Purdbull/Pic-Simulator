@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    static class CodeExecution
+    public static class CodeExecution
     {
         public enum Instruction
         {
@@ -92,7 +92,7 @@ namespace Pic_Simulator
                 //extract code and name from the Instruction enum
                 UInt16 instrCode = (UInt16)instruction;
                 string instrName = Enum.GetName(typeof(Instruction), instruction);
-                UInt16 instrMask = (UInt16)Enum.Parse(typeof(InstructionMask), instrName);
+                UInt16 instrMask = Convert.ToUInt16(Enum.Parse(typeof(InstructionMask), instrName));
 
                 //apply mask to data
                 UInt16 maskedData = (UInt16)(data & instrMask);
@@ -110,63 +110,91 @@ namespace Pic_Simulator
             return (Instruction.NOP, (UInt16)Instruction.NOP);
         }
 
-        public bool Execute(Instruction instruction, UInt16 param)
+        public static bool Execute(Instruction instruction, UInt16 param)
         {
             switch (instruction)
             {
                 case Instruction.ADDLW:
+                    return true;
                     break;
                 case Instruction.ADDWF:
+                    return true;
                     break;
                 case Instruction.ANDLW:
+                    return true;
                     break;
                 case Instruction.ANDWF:
+                    return true;
                     break;
                 case Instruction.BCF:
+                    return true;
                     break;
                 case Instruction.BSF:
+                    return true;
                     break;
                 case Instruction.BTFSC:
+                    return true;
                     break;
                 case Instruction.BTFSS:
+                    return true;
                     break;
                 case Instruction.CALL:
+                    return true;
                     break;
                 case Instruction.CLRF:
+                    return true;
                     break;
                 case Instruction.CLRW:
+                    return true;
                     break;
                 case Instruction.DECFSZ:
+                    return true;
                     break;
                 case Instruction.GOTO:
+                    return true;
                     break;
                 case Instruction.INCFSZ:
+                    return true;
                     break;
                 case Instruction.IORLW:
+                    return true;
+                    return true;
                     break;
                 case Instruction.IORWF:
+                    return true;
                     break;
                 case Instruction.MOVF:
+                    return true;
                     break;
                 case Instruction.MOVLW:
+                    return true;
                     break;
                 case Instruction.MOVWF:
+                    return true;
                     break;
                 case Instruction.NOP:
+                    return true;
                     break;
                 case Instruction.RETLW:
+                    return true;
                     break;
                 case Instruction.RLF:
+                    return true;
                     break;
                 case Instruction.RRF:
+                    return true;
                     break;
                 case Instruction.SUBLW:
+                    return true;
                     break;
                 case Instruction.SUBWF:
+                    return true;
                     break;
                 case Instruction.XORLW:
+                    return true;
                     break;
                 case Instruction.XORWF:
+                    return true;
                     break;
                 default:
                     return false;
