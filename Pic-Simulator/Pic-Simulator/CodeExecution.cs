@@ -69,8 +69,7 @@ namespace Pic_Simulator
             IORWF  = 0b_11111111_00000000   //0000 0100 dfff ffff
         }
 
-        public (byte, byte, byte, byte) Fetch()
-        public (UInt16, UInt16) Fetch()
+        public static UInt16 Fetch()
         {
             DataField pc = Form1.pic.pc;
             ProgramMemory progMem = Form1.pic.progMem;
@@ -79,10 +78,10 @@ namespace Pic_Simulator
 
             UInt16 data;
             (_, data) = progMem.GetKeyValuePair(programCounter);
-
+            return data;
         }
 
-        public (Instruction, UInt16) Decode(UInt16 instrByte, UInt16 paramByte)
+        public (Instruction, UInt16) Decode(UInt16 data)
         {
 
         }

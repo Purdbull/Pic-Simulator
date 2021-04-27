@@ -19,15 +19,15 @@ namespace Pic_Simulator
                 //remove all characters after the 9th, leaving only the instructions
                 line.Remove(9);
                 string[] substr = line.Split(" ");
-                byte instruction = parseInstruction(substr[1]);
-                byte byteIndex = Convert.ToByte(codeIndex);
+                UInt16 instruction = parseInstruction(substr[1]);
+                UInt16 byteIndex = Convert.ToUInt16(codeIndex);
                 pMemory.SetLine(codeIndex, byteIndex, instruction);
             }
         }
 
-        public static byte parseInstruction(string strInstruction)
+        public static UInt16 parseInstruction(string strInstruction)
         {
-            return byte.Parse(strInstruction, System.Globalization.NumberStyles.HexNumber);
+            return Convert.ToUInt16(strInstruction, 16);
         }
     }
 }
