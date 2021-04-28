@@ -11,23 +11,27 @@ namespace Pic_Simulator
         {
             StringReader reader = new StringReader(code);
             string line;
-            int codeIndex = 0;
+            UInt16 codeIndex = 0;
             while ((line = reader.ReadLine()) != null)
             {
                 codeIndex++;
-                if (line.Equals("\n")) continue;
                 //remove all characters after the 9th, leaving only the instructions
-                line.Remove(9);
-                string[] substr = line.Split(" ");
-                UInt16 instruction = ParseInstruction(substr[1]);
-                UInt16 byteIndex = Convert.ToUInt16(codeIndex);
-                pMemory.SetLine(codeIndex, byteIndex, instruction);
-            }
-        }
+                line = line.Remove(9);
 
-        public static UInt16 ParseInstruction(string strInstruction)
-        {
-            return Convert.ToUInt16(strInstruction, 16);
+                if (line.Equals("         ")) continue; //line did not contain an instruction in the first 9 chars
+
+                //split up instruction index and code
+                string[] substr = line.Split(" ");
+
+                //convert hex intruction code string to decimal byte
+                UInt16 instruction = Convert.ToUInt16(substr[1], 16);
+
+                //convert instruction index string to byte
+                UInt16 instructionIndex = Convert.ToUInt16(substr[0]);
+
+                //set the line of progMem at index instructionIndex to key codeIndex and value instruction
+                pMemory.SetLine(instructionIndex, codeIndex, instruction);
+            }
         }
     }
 }
