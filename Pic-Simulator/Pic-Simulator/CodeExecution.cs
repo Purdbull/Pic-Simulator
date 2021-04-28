@@ -106,21 +106,21 @@ namespace Pic_Simulator
             return (Instruction.NOP, (UInt16)Instruction.NOP);
         }
 
-        public static bool Execute(Instruction instruction, UInt16 param)
+        public static bool Execute(Instruction instruction, UInt16 data)
         {
             byte result;
             switch (instruction)
             {
                 case Instruction.ADDLW:
                     //calculating wreg + param. result is being stored in wreg
-                    result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(param)); //TODO: FIX WRONG CALCULATION
+                    result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
                 case Instruction.ADDWF:
                     return true;
                 case Instruction.ANDLW:
                     //calculating wreg & param. result is being stored in wreg
-                    result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(param)); //TODO: FIX WRONG CALCULATION
+                    result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
                 case Instruction.ANDWF:
