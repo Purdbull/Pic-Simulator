@@ -85,7 +85,7 @@ namespace Pic_Simulator
             return data;
         }
 
-        public static (Instruction, UInt16) Decode(UInt16 data)
+        public static Instruction Decode(UInt16 data)
         {
             foreach(Instruction instruction in Enum.GetValues(typeof(Instruction)))
             {
@@ -99,11 +99,11 @@ namespace Pic_Simulator
 
                 if(maskedData == instrCode)
                 {
-                    return(instruction, data);
+                    return(instruction);
                 }
             }
             //TODO: maybe catch unknown instruction
-            return (Instruction.NOP, (UInt16)Instruction.NOP);
+            return (Instruction.NOP);
         }
 
         public static bool Execute(Instruction instruction, UInt16 data)
