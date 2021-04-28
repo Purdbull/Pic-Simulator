@@ -98,7 +98,8 @@ namespace Pic_Simulator
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
-
+            string code = rtext_Code.Text;
+            Scanning.Scan(code, pic.progMem);
         }
 
         private void tableLayoutPanel3_Paint_1(object sender, PaintEventArgs e)

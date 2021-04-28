@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Pic_Simulator
 {
-    static class Scanning
+    public static class Scanning
     {
         public static void Scan(string code, ProgramMemory pMemory)
         {
