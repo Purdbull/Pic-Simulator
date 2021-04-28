@@ -473,7 +473,6 @@ namespace Pic_Simulator
             this.btn_Run.TabIndex = 8;
             this.btn_Run.Text = "Run";
             this.btn_Run.UseVisualStyleBackColor = true;
-            this.btn_Run.Click += new System.EventHandler(this.onScannerCalled);
             this.btn_Run.Click += new System.EventHandler(this.btn_Run_Click);
             // 
             // rtext_Output
@@ -525,6 +524,7 @@ namespace Pic_Simulator
             this.Controls.Add(this.rtext_Code);
             this.Controls.Add(this.lbl_Code);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Pic-Simulator";
@@ -563,7 +563,6 @@ namespace Pic_Simulator
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btn_Continue;
         private System.Windows.Forms.Button btn_Debug;
-        private System.Windows.Forms.Button btn;
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Button btn_Step;
         private System.Windows.Forms.Label label3;

@@ -10,8 +10,8 @@ namespace Pic_Simulator
         protected List<T> _values;
 
         protected Memory(int size){
-            this._keys = new List<T>(size);
-            this._values = new List<T>(size);
+            this._keys = new List<T>(new T[size]);
+            this._values = new List<T>(new T[size]);
         }
 
         public T GetValue(T key_value)

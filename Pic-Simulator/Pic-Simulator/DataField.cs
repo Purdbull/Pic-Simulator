@@ -8,8 +8,7 @@ namespace Pic_Simulator
     {
         public DataField(byte content = 0) : base(1)
         {
-            this._keys.Add(0);
-            this._values.Add(content);
+            this.SetValue(content);
         }
 
         public byte GetValue()
@@ -20,6 +19,16 @@ namespace Pic_Simulator
         public void SetValue(byte value)
         {
             this._values[0] = value;
+        }
+
+        public void Increment()
+        {
+            this._values[0]++;
+        }
+
+        public void Decrement()
+        {
+            this._values[0]--;
         }
     }
 }

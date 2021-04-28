@@ -123,7 +123,7 @@ namespace Pic_Simulator
 
         private void btn_OpenFile_Click_1(object sender, EventArgs eventArgs)
         {
-            OpenFileDialog ofd = new OpenFileDialog{ Filter = "txt files (*.txt)|*.txt" };
+            OpenFileDialog ofd = new OpenFileDialog{ Filter = "LST files (*.LST)|*.LST" };
             try
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
@@ -153,7 +153,7 @@ namespace Pic_Simulator
                 }
                 else
                 {
-                    SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "txt files (*.txt)|*.txt" };
+                    SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "LST files (*.LST)|*.LST" };
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         File.WriteAllText(saveFileDialog.FileName, rtext_Code.Text);
@@ -169,7 +169,7 @@ namespace Pic_Simulator
 
         private void button21_Click(object sender, EventArgs eventArgs)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "txt files (*.txt)|*.txt" };
+            SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "LST files (*.LST)|*.LST" };
             try
             {
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -186,31 +186,37 @@ namespace Pic_Simulator
 
         private void richTextBox2_Click(object sender, EventArgs e)
         {
-            int firstCharIndex = rtext_Code.GetFirstCharIndexOfCurrentLine();
-            int currentLine = rtext_Code.GetLineFromCharIndex(firstCharIndex);
-            string currentLineText = rtext_Code.Lines[currentLine];
-
-            rtext_Code.Select(firstCharIndex, currentLineText.Length);
-            if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
-            {
-                rtext_Code.SelectionBackColor = Color.AliceBlue;
-            }
+        //    int firstCharIndex = rtext_Code.GetFirstCharIndexOfCurrentLine();
+        //    int currentLine = rtext_Code.GetLineFromCharIndex(firstCharIndex);
+        //    string currentLineText = rtext_Code.Lines[currentLine];
+        //
+        //    rtext_Code.Select(firstCharIndex, currentLineText.Length);
+        //    if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
+        //    {
+        //        rtext_Code.SelectionBackColor = Color.AliceBlue;
+        //    }
         }
 
         private void richTextBox2_DoubleClick(object sender, EventArgs e)
         {
-            int firstCharIndex = rtext_Code.GetFirstCharIndexOfCurrentLine();
-            int currentLine = rtext_Code.GetLineFromCharIndex(firstCharIndex);
-            string currentLineText = rtext_Code.Lines[currentLine];
+            if (!(rtext_Code.TextLength == 0))
+            {
+                int firstCharIndex = rtext_Code.GetFirstCharIndexOfCurrentLine();
+                int clickedLineIndex = rtext_Code.GetLineFromCharIndex(firstCharIndex);
+                string clickedLineText = rtext_Code.Lines[clickedLineIndex];
 
-            rtext_Code.Select(firstCharIndex, currentLineText.Length);
-            if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
-            {
-                rtext_Code.SelectionBackColor = Color.Red;
-            }
-            else
-            {
-                rtext_Code.SelectionBackColor = Color.White;
+                if (!clickedLineText.StartsWith(' '))
+                {
+                    rtext_Code.Select(firstCharIndex, clickedLineText.Length);
+                    if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
+                    {
+                        rtext_Code.SelectionBackColor = Color.Red;
+                    }
+                    else
+                    {
+                        rtext_Code.SelectionBackColor = Color.White;
+                    }
+                }
             }
         }
 
