@@ -122,6 +122,7 @@ namespace Pic_Simulator
                     result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
+
                 case Instruction.ADDWF:
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
@@ -136,13 +137,28 @@ namespace Pic_Simulator
                         Form1.pic.wReg.SetValue(result);
                     }
                     return true;
+
                 case Instruction.ANDLW:
                     //calculating wreg & param. result is being stored in wreg
                     result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
+
                 case Instruction.ANDWF:
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.wReg.GetValue() & Form1.pic.dataMem.GetValue(dataMemAddress));
+                    if (destinationBit > 0)
+                    {
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
                     return true;
+
                 case Instruction.BCF:
                     return true;
                 case Instruction.BSF:
@@ -168,16 +184,35 @@ namespace Pic_Simulator
                     result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
+
                 case Instruction.IORWF:
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.wReg.GetValue() | Form1.pic.dataMem.GetValue(dataMemAddress));
+                    if (destinationBit > 0)
+                    {
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
                     return true;
+
                 case Instruction.MOVF:
                     return true;
                 case Instruction.MOVLW:
                     //moving literal (second byte of param) to wReg
                     Form1.pic.wReg.SetValue(Convert.ToByte(data));
                     return true;
+
                 case Instruction.MOVWF:
+                    param = Convert.ToByte(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    Form1.pic.dataMem.SetValue(dataMemAddress, Form1.pic.wReg.GetValue);
                     return true;
+
                 case Instruction.NOP:
                     return true;
                 case Instruction.RETLW:
@@ -195,8 +230,22 @@ namespace Pic_Simulator
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
+
                 case Instruction.XORWF:
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.wReg.GetValue() ^ Form1.pic.dataMem.GetValue(dataMemAddress));
+                    if (destinationBit > 0)
+                    {
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
                     return true;
+
                 default:
                     return false;
                     
