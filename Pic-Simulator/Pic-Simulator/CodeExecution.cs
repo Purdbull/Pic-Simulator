@@ -146,6 +146,9 @@ namespace Pic_Simulator
                 case Instruction.INCFSZ:
                     return true;
                 case Instruction.IORLW:
+                    //calculating wreg | param. result is being stored in wreg
+                    result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
+                    Form1.pic.wReg.SetValue(result);
                     return true;
                 case Instruction.IORWF:
                     return true;
