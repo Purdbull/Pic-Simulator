@@ -146,7 +146,7 @@ namespace Pic_Simulator
                 case Instruction.INCFSZ:
                     return true;
                 case Instruction.IORLW:
-                    //calculating wreg | param. result is being stored in wreg
+                    //calculating wreg | (inclusive or) param. result is being stored in wreg
                     result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
@@ -155,6 +155,8 @@ namespace Pic_Simulator
                 case Instruction.MOVF:
                     return true;
                 case Instruction.MOVLW:
+                    //moving literal (second byte of param) to wReg
+                    Form1.pic.wReg.SetValue(Convert.ToByte(data));
                     return true;
                 case Instruction.MOVWF:
                     return true;
@@ -171,6 +173,9 @@ namespace Pic_Simulator
                 case Instruction.SUBWF:
                     return true;
                 case Instruction.XORLW:
+                    //calculating wreg ^ (exclusive or) param. result is being stored in wReg
+                    result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
+                    Form1.pic.wReg.SetValue(result);
                     return true;
                 case Instruction.XORWF:
                     return true;
