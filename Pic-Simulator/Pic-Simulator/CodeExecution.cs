@@ -210,7 +210,7 @@ namespace Pic_Simulator
                 case Instruction.MOVWF:
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    Form1.pic.dataMem.SetValue(dataMemAddress, Form1.pic.wReg.GetValue);
+                    Form1.pic.dataMem.SetValue(dataMemAddress, Form1.pic.wReg.GetValue());
                     return true;
 
                 case Instruction.NOP:
