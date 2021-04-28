@@ -118,12 +118,13 @@ namespace Pic_Simulator
             switch (instruction)
             {
                 case Instruction.ADDLW:
-                    //calculating wreg + param. result is being stored in wreg
+                    //TODO: affects on C, DC, Z
                     result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.ADDWF:
+                    //TODO: affects on C, DC, Z
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
@@ -139,12 +140,13 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.ANDLW:
-                    //calculating wreg & param. result is being stored in wreg
+                    //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.ANDWF:
+                    //TODO: affects on C, DC, Z
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
@@ -170,22 +172,32 @@ namespace Pic_Simulator
                 case Instruction.CALL:
                     return true;
                 case Instruction.CLRF:
+                    //TODO: affects on Z
+                    param = Convert.ToByte(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    Form1.pic.dataMem.SetValue(dataMemAddress, 0);
                     return true;
+
                 case Instruction.CLRW:
+                    //TODO: affects on Z
+                    Form1.pic.wReg.SetValue(0);
                     return true;
+
                 case Instruction.DECFSZ:
                     return true;
                 case Instruction.GOTO:
                     return true;
                 case Instruction.INCFSZ:
                     return true;
+
                 case Instruction.IORLW:
-                    //calculating wreg | (inclusive or) param. result is being stored in wreg
+                    //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.IORWF:
+                    //TODO: affects on Z
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
@@ -201,9 +213,21 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.MOVF:
+                    //TODO: affects on Z
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    if(destinationBit > 0)
+                    {
+                        //its moved back to where it was removed so nothing really happens
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(Convert.ToByte(Form1.pic.dataMem.GetValue(dataMemAddress)));
+                    }
                     return true;
+
                 case Instruction.MOVLW:
-                    //moving literal (second byte of param) to wReg
                     Form1.pic.wReg.SetValue(Convert.ToByte(data));
                     return true;
 
@@ -226,12 +250,13 @@ namespace Pic_Simulator
                 case Instruction.SUBWF:
                     return true;
                 case Instruction.XORLW:
-                    //calculating wreg ^ (exclusive or) param. result is being stored in wReg
+                    //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.XORWF:
+                    //TODO: affects on Z
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
