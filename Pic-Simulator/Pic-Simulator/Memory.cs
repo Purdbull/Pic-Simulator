@@ -19,6 +19,7 @@ namespace Pic_Simulator
             int index = _keys.BinarySearch(key_value);
             return _values[index];
         }
+
         public (T, T) GetKeyValuePair(int index)
         {
             T key = _keys[index];

@@ -110,8 +110,10 @@ namespace Pic_Simulator
         {
             byte result;
             byte param;
-            byte registerF;
+            byte dataMemAddress;
             byte destinationBit;
+
+            const byte dBitMask = 0b_10000000;
 
             switch (instruction)
             {
@@ -122,12 +124,12 @@ namespace Pic_Simulator
                     return true;
                 case Instruction.ADDWF:
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & 0b_10000000);
-                    registerF = (byte)(param & 0b_01111111);
-                    result = (byte)(Form1.pic.wReg.GetValue() + Form1.pic.dataMem.GetValue(registerF));
-                    if (destinationBit == 1)
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.wReg.GetValue() + Form1.pic.dataMem.GetValue(dataMemAddress));
+                    if (destinationBit > 0)
                     {
-                        Form1.pic.dataMem.SetValue(registerF, result);
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
                     else
                     {
