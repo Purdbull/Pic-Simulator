@@ -109,6 +109,10 @@ namespace Pic_Simulator
         public static bool Execute(Instruction instruction, UInt16 data)
         {
             byte result;
+            byte param;
+            byte registerF;
+            byte destinationBit;
+
             switch (instruction)
             {
                 case Instruction.ADDLW:
@@ -117,6 +121,18 @@ namespace Pic_Simulator
                     Form1.pic.wReg.SetValue(result);
                     return true;
                 case Instruction.ADDWF:
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & 0b_10000000);
+                    registerF = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.wReg.GetValue() + Form1.pic.dataMem.GetValue(registerF));
+                    if (destinationBit == 1)
+                    {
+                        Form1.pic.dataMem.SetValue(registerF, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
                     return true;
                 case Instruction.ANDLW:
                     //calculating wreg & param. result is being stored in wreg
