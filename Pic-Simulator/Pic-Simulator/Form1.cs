@@ -96,12 +96,6 @@ namespace Pic_Simulator
 
         }
 
-        private void btn_Run_Click(object sender, EventArgs e)
-        {
-            string code = rtext_Code.Text;
-            Scanning.Scan(code, pic.progMem);
-        }
-
         private void tableLayoutPanel3_Paint_1(object sender, PaintEventArgs e)
         {
             
@@ -221,16 +215,31 @@ namespace Pic_Simulator
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btn_Debug_Click(object sender, EventArgs e)
         {
-
+            RunCode(true);
         }
 
-        private void onScannerCalled(object sender, EventArgs e)
+        private void btn_Continue_Click(object sender, EventArgs e)
+        {
+            RunCode(false);
+        }
+
+        private void btn_Step_Click(object sender, EventArgs e)
+        {
+            pic.Step();
+        }
+
+        private void btn_Run_Click(object sender, EventArgs e)
+        {
+            string code = rtext_Code.Text;
+            Scanning.Scan(code, pic.progMem);
+        }
+
+        private void RunCode(bool enableBreakpoints)
         {
             //TODO
         }
-
 
         //local methods
 

@@ -445,6 +445,7 @@ namespace Pic_Simulator
             this.btn_Step.TabIndex = 8;
             this.btn_Step.Text = "Step";
             this.btn_Step.UseVisualStyleBackColor = true;
+            this.btn_Step.Click += new System.EventHandler(this.btn_Step_Click);
             // 
             // btn_Continue
             // 
@@ -454,7 +455,7 @@ namespace Pic_Simulator
             this.btn_Continue.TabIndex = 8;
             this.btn_Continue.Text = "Continue";
             this.btn_Continue.UseVisualStyleBackColor = true;
-            this.btn_Continue.Click += new System.EventHandler(this.button5_Click);
+            this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
             // 
             // btn_Debug
             // 
@@ -464,6 +465,7 @@ namespace Pic_Simulator
             this.btn_Debug.TabIndex = 8;
             this.btn_Debug.Text = "Debug";
             this.btn_Debug.UseVisualStyleBackColor = true;
+            this.btn_Continue.Click += new System.EventHandler(this.btn_Debug_Click);
             // 
             // btn_Run
             // 

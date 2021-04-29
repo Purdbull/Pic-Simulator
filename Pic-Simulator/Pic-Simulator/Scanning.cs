@@ -14,10 +14,10 @@ namespace Pic_Simulator
             UInt16 codeIndex = 0;
             while ((line = reader.ReadLine()) != null)
             {
+                if (line.Equals("\n") || line.Equals(" ") || line.Equals("")) continue;
                 codeIndex++;
                 //remove all characters after the 9th, leaving only the instructions
                 line = line.Remove(9);
-
                 if (line.Equals("         ")) continue; //line did not contain an instruction in the first 9 chars
 
                 //split up instruction index and code
