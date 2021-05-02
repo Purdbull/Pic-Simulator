@@ -34,7 +34,9 @@ namespace Pic_Simulator
             ANDLW  = 0b_00111001_00000000,  //0011 1001 kkkk kkkk
             ANDWF  = 0b_00000101_00000000,  //0000 0101 dfff ffff
             IORLW  = 0b_00111000_00000000,  //0011 1000 kkkk kkkk
-            IORWF  = 0b_00000100_00000000   //0000 0100 dfff ffff
+            IORWF  = 0b_00000100_00000000,  //0000 0100 dfff ffff
+            INCF   = 0b_00001010_00000000,  //0000 1010 dfff ffff
+            DECF   = 0b_00000011_00000000   //0000 0011 dfff ffff
         }
 
         public enum InstructionMask
@@ -52,6 +54,8 @@ namespace Pic_Simulator
             RLF    = 0b_11111111_00000000,  //0000 1100 dfff ffff
             RRF    = 0b_11111111_00000000,  //0000 1100 dfff ffff
             MOVF   = 0b_11111111_00000000,  //0000 1000 dfff ffff
+            INCF   = 0b_11111111_00000000,  //0000 1010 dfff ffff
+            DECF   = 0b_11111111_00000000,  //0000 0011 dfff ffff
 
             MOVWF  = 0b_11111111_10000000,  //0000 0000 1fff ffff
             CLRF   = 0b_11111111_10000000,  //0000 0001 1fff ffff
@@ -69,8 +73,7 @@ namespace Pic_Simulator
             BTFSS  = 0b_11111100_00000000,  //0001 11bb bfff ffff
             CALL   = 0b_11111000_00000000,  //0010 0kkk kkkk kkkk
             GOTO   = 0b_11111000_00000000   //0010 1kkk kkkk kkkk
-            
-            
+
         }
 
         public static UInt16 Fetch()
@@ -185,9 +188,42 @@ namespace Pic_Simulator
 
                 case Instruction.DECFSZ:
                     return true;
-                case Instruction.GOTO:
-                    return true;
                 case Instruction.INCFSZ:
+                    return true;
+
+                case Instruction.INCF:
+                    //TODO: Affects on z
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) + 1);
+                    if (destinationBit > 0)
+                    {
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
+                    return true;
+
+                case Instruction.DECF:
+                    //TODO: Affects on z
+                    param = Convert.ToByte(data);
+                    destinationBit = (byte)(param & dBitMask);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) - 1);
+                    if (destinationBit > 0)
+                    {
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
+                    return true;
+
+                case Instruction.GOTO:
                     return true;
 
                 case Instruction.IORLW:
