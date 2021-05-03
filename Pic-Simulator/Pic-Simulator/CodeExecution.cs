@@ -115,9 +115,12 @@ namespace Pic_Simulator
             byte result;
             byte param;
             byte dataMemAddress;
-            int destinationBitIndex = 8;
+            byte mask;
+            int  index;
+            int  destinationBitIndex = 8;
 
-            const byte dBitMask = 0b_10000000;
+            const byte BSFMask = 0b_00000001;
+            const byte BCFMask = 0b_11111110;
 
             switch (instruction)
             {
@@ -164,7 +167,24 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.BCF:
+                    //bits 4, 5 and 6 are used to define the index of the bit that is to be cleared
+                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(4), data.GetBit(5), data.GetBit(6)));
+
+                    param = Convert.ToByte(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress));
+                    mask = BCFMask;
+
+                    for (int i = 7; i>index; i--)  //shifting the BCFMask and incrementing it so that just the right bit is 0 
+                    {
+                        mask = (byte)(mask << 1);
+                        mask++;
+                    }
+
+                    result = (byte)(result & mask);
+                    Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     return true;
+
                 case Instruction.BSF:
                     return true;
                 case Instruction.BTFSC:

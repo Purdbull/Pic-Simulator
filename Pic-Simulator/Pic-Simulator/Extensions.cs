@@ -17,5 +17,14 @@ namespace ExtensionMethods
 
             return data > 0;
         }
+
+        public static int ConvertThreeBitsToInt(bool firstBit, bool secondBit, bool thirdBit)
+        {
+            int result = 0;
+            if (firstBit)  {result += 4;}
+            if (secondBit) {result += 2;}
+            if (thirdBit)  {result++;}
+            return result;
+        }
     }
 }
