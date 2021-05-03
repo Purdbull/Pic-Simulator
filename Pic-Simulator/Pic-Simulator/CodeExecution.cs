@@ -115,7 +115,7 @@ namespace Pic_Simulator
             byte result;
             byte param;
             byte dataMemAddress;
-            byte destinationBit;
+            int destinationBitIndex = 8;
 
             const byte dBitMask = 0b_10000000;
 
@@ -130,10 +130,9 @@ namespace Pic_Simulator
                 case Instruction.ADDWF:
                     //TODO: affects on C, DC, Z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() + Form1.pic.dataMem.GetValue(dataMemAddress));
-                    if (destinationBit > 0)
+                    if (data.GetBit(destinationBitIndex))
                     {
                         Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
@@ -152,10 +151,9 @@ namespace Pic_Simulator
                 case Instruction.ANDWF:
                     //TODO: affects on C, DC, Z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() & Form1.pic.dataMem.GetValue(dataMemAddress));
-                    if (destinationBit > 0)
+                    if (data.GetBit(destinationBitIndex))
                     {
                         Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
@@ -195,10 +193,9 @@ namespace Pic_Simulator
                 case Instruction.INCF:
                     //TODO: Affects on z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) + 1);
-                    if (destinationBit > 0)
+                    if (data.GetBit(destinationBitIndex))
                     {
                         Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
@@ -211,10 +208,9 @@ namespace Pic_Simulator
                 case Instruction.DECF:
                     //TODO: Affects on z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) - 1);
-                    if (destinationBit > 0)
+                    if (data.GetBit(destinationBitIndex))
                     {
                         Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
@@ -236,10 +232,9 @@ namespace Pic_Simulator
                 case Instruction.IORWF:
                     //TODO: affects on Z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() | Form1.pic.dataMem.GetValue(dataMemAddress));
-                    if (destinationBit > 0)
+                    if (data.GetBit(destinationBitIndex))
                     {
                         Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
@@ -252,9 +247,8 @@ namespace Pic_Simulator
                 case Instruction.MOVF:
                     //TODO: affects on Z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    if(destinationBit > 0)
+                    if(data.GetBit(destinationBitIndex))
                     {
                         //its moved back to where it was removed so nothing really happens
                     }
@@ -295,10 +289,9 @@ namespace Pic_Simulator
                 case Instruction.XORWF:
                     //TODO: affects on Z
                     param = Convert.ToByte(data);
-                    destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Form1.pic.dataMem.GetValue(dataMemAddress));
-                    if (destinationBit > 0)
+                    if (data.GetBit(destinationBitIndex))
                     {
                         Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     }
