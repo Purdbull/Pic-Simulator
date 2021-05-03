@@ -121,6 +121,7 @@ namespace Pic_Simulator
 
             const byte BSFMask = 0b_00000001;
             const byte BCFMask = 0b_11111110;
+            const int  statusAdress = 3;
 
             switch (instruction)
             {

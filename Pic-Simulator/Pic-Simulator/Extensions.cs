@@ -31,7 +31,7 @@ namespace ExtensionMethods
         {
             byte mask = 0b_00000001;
             byte result;
-            for (int i = 7; i > index; i--)  //shifting the Mask so that just the right bit is 1
+            for (int i = 0; i < index; i++)  //shifting the Mask so that just the right bit is 1
             {
                 mask = (byte)(mask << 1);
             }
@@ -43,7 +43,7 @@ namespace ExtensionMethods
         {
             byte mask = 0b_11111110;
             byte result;
-            for (int i = 7; i > index; i--)  //shifting the Mask and incrementing it so that just the right bit is 0 
+            for (int i = 0; i < index; i++)  //shifting the Mask and incrementing it so that just the right bit is 0 
             {
                 mask = (byte)(mask << 1);
                 mask++;
