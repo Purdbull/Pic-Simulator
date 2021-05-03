@@ -306,6 +306,7 @@ namespace Pic_Simulator
 
                 case Instruction.NOP:
                     return true;
+
                 case Instruction.RETLW:
                     return true;
                 case Instruction.RLF:
@@ -313,9 +314,27 @@ namespace Pic_Simulator
                 case Instruction.RRF:
                     return true;
                 case Instruction.SUBLW:
+                    //TODO: affects on C, DC, Z
+                    result = (byte)(Convert.ToByte(data) - Form1.pic.wReg.GetValue());
+                    Form1.pic.wReg.SetValue(result);
                     return true;
+
                 case Instruction.SUBWF:
+                    //TODO: affects on C, DC, Z
+                    param = Convert.ToByte(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) - Form1.pic.wReg.GetValue());
+
+                    if (data.GetBit(destinationBitIndex))
+                    {
+                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Form1.pic.wReg.SetValue(result);
+                    }
                     return true;
+
                 case Instruction.XORLW:
                     //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
