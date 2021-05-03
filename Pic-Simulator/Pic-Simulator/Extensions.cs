@@ -6,10 +6,10 @@ namespace ExtensionMethods
 {
     public static class Extensions
     {
-        private static ushort bitMask = 0b_00000000_00000001;
         public static bool GetBit(this UInt16 data, int index)
         {
-            for (int i = 15; i > index; i--)
+            ushort bitMask = 0b_00000000_00000001;
+            for (int i = 0; i < index; i++)
             {
                 bitMask = (ushort)(bitMask << 1);
             }
@@ -18,12 +18,12 @@ namespace ExtensionMethods
             return data > 0;
         }
 
-        public static int ConvertThreeBitsToInt(bool firstBit, bool secondBit, bool thirdBit)
+        public static int ConvertThreeBitsToInt(bool thirdBit, bool secondBit, bool firstBit)
         {
             int result = 0;
-            if (firstBit)  {result += 4;}
+            if (thirdBit)  {result += 4;}
             if (secondBit) {result += 2;}
-            if (thirdBit)  {result++;}
+            if (firstBit)  {result++;}
             return result;
         }
 

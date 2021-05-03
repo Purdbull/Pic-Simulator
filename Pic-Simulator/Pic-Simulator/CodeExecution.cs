@@ -117,7 +117,7 @@ namespace Pic_Simulator
             byte dataMemAddress;
             byte mask;
             int  index;
-            int  destinationBitIndex = 8;
+            int  destinationBitIndex = 7;
 
             const byte BSFMask = 0b_00000001;
             const byte BCFMask = 0b_11111110;
@@ -147,9 +147,16 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.ANDLW:
-                    //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else 
+                    {
+                        //TODO: set z
+                    }
                     return true;
 
                 case Instruction.ANDWF:
@@ -168,8 +175,8 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.BCF:
-                    //bits 4, 5 and 6 are used to define the index of the bit that is to be cleared
-                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(4), data.GetBit(5), data.GetBit(6)));
+                    //bits 9, 8 and 7 are used to define the index of the bit that is to be cleared
+                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(9), data.GetBit(8), data.GetBit(7)));
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress));
@@ -179,8 +186,8 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.BSF:
-                    //bits 4, 5 and 6 are used to define the index of the bit that is to be set
-                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(4), data.GetBit(5), data.GetBit(6)));
+                    //bits 9, 8 and 7 are used to define the index of the bit that is to be set
+                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(9), data.GetBit(8), data.GetBit(7)));
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress));
@@ -213,7 +220,6 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.INCF:
-                    //TODO: Affects on z
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) + 1);
@@ -225,10 +231,18 @@ namespace Pic_Simulator
                     {
                         Form1.pic.wReg.SetValue(result);
                     }
+
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else
+                    {
+                        //TODO: set z
+                    }
                     return true;
 
                 case Instruction.DECF:
-                    //TODO: Affects on z
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) - 1);
@@ -240,19 +254,35 @@ namespace Pic_Simulator
                     {
                         Form1.pic.wReg.SetValue(result);
                     }
+
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else
+                    {
+                        //TODO: set z
+                    }
                     return true;
 
                 case Instruction.GOTO:
                     return true;
 
                 case Instruction.IORLW:
-                    //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
+
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else
+                    {
+                        //TODO: set z
+                    }
                     return true;
 
                 case Instruction.IORWF:
-                    //TODO: affects on Z
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() | Form1.pic.dataMem.GetValue(dataMemAddress));
@@ -263,6 +293,15 @@ namespace Pic_Simulator
                     else
                     {
                         Form1.pic.wReg.SetValue(result);
+                    }
+
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else
+                    {
+                        //TODO: set z
                     }
                     return true;
 
@@ -322,13 +361,20 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.XORLW:
-                    //TODO: affects on Z
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
                     Form1.pic.wReg.SetValue(result);
+
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else
+                    {
+                        //TODO: set z
+                    }
                     return true;
 
                 case Instruction.XORWF:
-                    //TODO: affects on Z
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Form1.pic.dataMem.GetValue(dataMemAddress));
@@ -339,6 +385,15 @@ namespace Pic_Simulator
                     else
                     {
                         Form1.pic.wReg.SetValue(result);
+                    }
+
+                    if (result > 0)
+                    {
+                        // TODO: clear z
+                    }
+                    else
+                    {
+                        //TODO: set z
                     }
                     return true;
 
