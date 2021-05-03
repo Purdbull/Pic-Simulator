@@ -75,13 +75,10 @@ namespace Pic_Simulator
 
         public static UInt16 Fetch()
         {
-            DataField pc = Form1.pic.pc;
-            ProgramMemory progMem = Form1.pic.progMem;
-            byte programCounter;
-            (_, programCounter) = pc.GetKeyValuePair(0);
+            byte programCounter = Program.pic.pc.GetValue();
 
             UInt16 data;
-            (_, data) = progMem.GetKeyValuePair(programCounter);
+            (_, data) = Program.pic.progMem.GetKeyValuePair(programCounter);
             return data;
         }
 
@@ -119,8 +116,8 @@ namespace Pic_Simulator
             {
                 case Instruction.ADDLW:
                     //TODO: affects on C, DC, Z
-                    result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(data));
-                    Form1.pic.wReg.SetValue(result);
+                    result = (byte)(Program.pic.wReg.GetValue() + Convert.ToByte(data));
+                    Program.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.ADDWF:
@@ -128,21 +125,21 @@ namespace Pic_Simulator
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    result = (byte)(Form1.pic.wReg.GetValue() + Form1.pic.dataMem.GetValue(dataMemAddress));
+                    result = (byte)(Program.pic.wReg.GetValue() + Program.pic.dataMem.GetValue(dataMemAddress));
                     if (destinationBit > 0)
                     {
-                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetValue(dataMemAddress, result);
                     }
                     else
                     {
-                        Form1.pic.wReg.SetValue(result);
+                        Program.pic.wReg.SetValue(result);
                     }
                     return true;
 
                 case Instruction.ANDLW:
                     //TODO: affects on Z
-                    result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(data));
-                    Form1.pic.wReg.SetValue(result);
+                    result = (byte)(Program.pic.wReg.GetValue() & (byte)(data));
+                    Program.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.ANDWF:
@@ -150,14 +147,14 @@ namespace Pic_Simulator
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    result = (byte)(Form1.pic.wReg.GetValue() & Form1.pic.dataMem.GetValue(dataMemAddress));
+                    result = (byte)(Program.pic.wReg.GetValue() & Program.pic.dataMem.GetValue(dataMemAddress));
                     if (destinationBit > 0)
                     {
-                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetValue(dataMemAddress, result);
                     }
                     else
                     {
-                        Form1.pic.wReg.SetValue(result);
+                        Program.pic.wReg.SetValue(result);
                     }
                     return true;
 
@@ -175,12 +172,12 @@ namespace Pic_Simulator
                     //TODO: affects on Z
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    Form1.pic.dataMem.SetValue(dataMemAddress, 0);
+                    Program.pic.dataMem.SetValue(dataMemAddress, 0);
                     return true;
 
                 case Instruction.CLRW:
                     //TODO: affects on Z
-                    Form1.pic.wReg.SetValue(0);
+                    Program.pic.wReg.SetValue(0);
                     return true;
 
                 case Instruction.DECFSZ:
@@ -192,8 +189,8 @@ namespace Pic_Simulator
 
                 case Instruction.IORLW:
                     //TODO: affects on Z
-                    result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
-                    Form1.pic.wReg.SetValue(result);
+                    result = (byte)(Program.pic.wReg.GetValue() | Convert.ToByte(data));
+                    Program.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.IORWF:
@@ -201,14 +198,14 @@ namespace Pic_Simulator
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    result = (byte)(Form1.pic.wReg.GetValue() | Form1.pic.dataMem.GetValue(dataMemAddress));
+                    result = (byte)(Program.pic.wReg.GetValue() | Program.pic.dataMem.GetValue(dataMemAddress));
                     if (destinationBit > 0)
                     {
-                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetValue(dataMemAddress, result);
                     }
                     else
                     {
-                        Form1.pic.wReg.SetValue(result);
+                        Program.pic.wReg.SetValue(result);
                     }
                     return true;
 
@@ -223,18 +220,18 @@ namespace Pic_Simulator
                     }
                     else
                     {
-                        Form1.pic.wReg.SetValue(Convert.ToByte(Form1.pic.dataMem.GetValue(dataMemAddress)));
+                        Program.pic.wReg.SetValue(Convert.ToByte(Program.pic.dataMem.GetValue(dataMemAddress)));
                     }
                     return true;
 
                 case Instruction.MOVLW:
-                    Form1.pic.wReg.SetValue(Convert.ToByte(data));
+                    Program.pic.wReg.SetValue((byte)(data));
                     return true;
 
                 case Instruction.MOVWF:
                     param = Convert.ToByte(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    Form1.pic.dataMem.SetValue(dataMemAddress, Form1.pic.wReg.GetValue());
+                    Program.pic.dataMem.SetValue(dataMemAddress, Program.pic.wReg.GetValue());
                     return true;
 
                 case Instruction.NOP:
@@ -251,8 +248,8 @@ namespace Pic_Simulator
                     return true;
                 case Instruction.XORLW:
                     //TODO: affects on Z
-                    result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
-                    Form1.pic.wReg.SetValue(result);
+                    result = (byte)(Program.pic.wReg.GetValue() ^ Convert.ToByte(data));
+                    Program.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.XORWF:
@@ -260,14 +257,14 @@ namespace Pic_Simulator
                     param = Convert.ToByte(data);
                     destinationBit = (byte)(param & dBitMask);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    result = (byte)(Form1.pic.wReg.GetValue() ^ Form1.pic.dataMem.GetValue(dataMemAddress));
+                    result = (byte)(Program.pic.wReg.GetValue() ^ Program.pic.dataMem.GetValue(dataMemAddress));
                     if (destinationBit > 0)
                     {
-                        Form1.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetValue(dataMemAddress, result);
                     }
                     else
                     {
-                        Form1.pic.wReg.SetValue(result);
+                        Program.pic.wReg.SetValue(result);
                     }
                     return true;
 

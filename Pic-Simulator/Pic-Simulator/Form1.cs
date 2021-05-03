@@ -14,11 +14,9 @@ namespace Pic_Simulator
 {
     public partial class Form1 : Form
     {
-        static public PIC pic;
         public Form1()
         {
             InitializeComponent();
-            pic = new PIC();
         }
 
 
@@ -217,28 +215,41 @@ namespace Pic_Simulator
 
         private void btn_Debug_Click(object sender, EventArgs e)
         {
-            RunCode(true);
+            ExecuteCode(true);
         }
 
         private void btn_Continue_Click(object sender, EventArgs e)
         {
-            RunCode(false);
+            ExecuteCode(true);
         }
 
         private void btn_Step_Click(object sender, EventArgs e)
         {
-            pic.Step();
+            Program.pic.Step();
         }
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
             string code = rtext_Code.Text;
-            Scanning.Scan(code, pic.progMem);
+            int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
+            Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
+            ExecuteCode(false);
         }
 
-        private void RunCode(bool enableBreakpoints)
+        private void ExecuteCode(bool enableBreakpoints)
         {
-            //TODO
+            //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
+            //else, continue
+            while (!(IsBreakpoint(Program.pic.pc.GetValue()) && enableBreakpoints))
+            {
+                //Step() returns false when end of code has been reached or an error has been encountered
+                if (!Program.pic.Step()) return;
+            }
+        }
+
+        private bool IsBreakpoint(int lineNr)
+        {
+            return Program.pic.breakpoints?.Contains(lineNr) ?? false;
         }
 
         //local methods

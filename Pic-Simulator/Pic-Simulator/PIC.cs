@@ -27,14 +27,17 @@ namespace Pic_Simulator
             this.dataMem = new DataMemory();
 
             this.wReg = new DataField();
+            this.pc = new DataField();
             this.timer = new DataField();
 
             this.quarzCycles = 0;
         }
 
-        public void Step()
+        public bool Step()
         {
             UInt16 data = CodeExecution.Fetch();
+
+            if (data == UInt16.MaxValue) return false; //end of code has been reached
 
             this.pc.Increment(); //increment pc after fetch
 
@@ -43,6 +46,8 @@ namespace Pic_Simulator
             bool success = CodeExecution.Execute(instruction, data);
 
             //refresh gui after
+
+            return success;
         }
 
         public void Continue()

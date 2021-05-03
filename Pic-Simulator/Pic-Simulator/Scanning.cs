@@ -7,11 +7,13 @@ namespace Pic_Simulator
 {
     public static class Scanning
     {
-        public static void Scan(string code, ProgramMemory pMemory)
+        public static int Scan(string code, ProgramMemory pMemory)
         {
             StringReader reader = new StringReader(code);
             string line;
             UInt16 codeIndex = 0;
+            UInt16 instructionIndex = 0;
+            UInt16 instruction;
             while ((line = reader.ReadLine()) != null)
             {
                 if (line.Equals("\n") || line.Equals(" ") || line.Equals("")) continue;
@@ -24,14 +26,16 @@ namespace Pic_Simulator
                 string[] substr = line.Split(" ");
 
                 //convert hex intruction code string to decimal byte
-                UInt16 instruction = Convert.ToUInt16(substr[1], 16);
+                instruction = Convert.ToUInt16(substr[1], 16);
 
                 //convert instruction index string to byte
-                UInt16 instructionIndex = Convert.ToUInt16(substr[0]);
+                instructionIndex = Convert.ToUInt16(substr[0]);
 
                 //set the line of progMem at index instructionIndex to key codeIndex and value instruction
                 pMemory.SetLine(instructionIndex, codeIndex, instruction);
             }
+
+            return instructionIndex;
         }
     }
 }

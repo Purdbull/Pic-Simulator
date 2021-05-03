@@ -11,14 +11,17 @@ namespace Pic_Simulator
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+
+        public static PIC pic;
+
         [STAThread]
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            pic = new PIC();
             Application.Run(new Form1());
-            //TODO: create PIC here
         }
     }
 }
