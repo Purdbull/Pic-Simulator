@@ -186,7 +186,23 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.BSF:
+                    //bits 4, 5 and 6 are used to define the index of the bit that is to be set
+                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(4), data.GetBit(5), data.GetBit(6)));
+
+                    param = Convert.ToByte(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress));
+                    mask = BSFMask;
+
+                    for (int i = 7; i > index; i--)  //shifting the BSFMask so that just the right bit is 0 
+                    {
+                        mask = (byte)(mask << 1);
+                    }
+
+                    result = (byte)(result | mask);
+                    Form1.pic.dataMem.SetValue(dataMemAddress, result);
                     return true;
+
                 case Instruction.BTFSC:
                     return true;
                 case Instruction.BTFSS:
