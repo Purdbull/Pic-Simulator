@@ -127,13 +127,13 @@ namespace Pic_Simulator
             {
                 case Instruction.ADDLW:
                     //TODO: affects on C, DC, Z
-                    result = (byte)(Form1.pic.wReg.GetValue() + Convert.ToByte(data));
+                    result = (byte)(Form1.pic.wReg.GetValue() + (byte)(data));
                     Form1.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.ADDWF:
                     //TODO: affects on C, DC, Z
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() + Form1.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
@@ -147,7 +147,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.ANDLW:
-                    result = (byte)(Form1.pic.wReg.GetValue() & Convert.ToByte(data));
+                    result = (byte)(Form1.pic.wReg.GetValue() & (byte)(data));
                     Form1.pic.wReg.SetValue(result);
                     if (result > 0)
                     {
@@ -161,7 +161,7 @@ namespace Pic_Simulator
 
                 case Instruction.ANDWF:
                     //TODO: affects on C, DC, Z
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() & Form1.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
@@ -177,7 +177,7 @@ namespace Pic_Simulator
                 case Instruction.BCF:
                     //bits 9, 8 and 7 are used to define the index of the bit that is to be cleared
                     index = (Extensions.ConvertThreeBitsToInt(data.GetBit(9), data.GetBit(8), data.GetBit(7)));
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress));
 
@@ -188,7 +188,7 @@ namespace Pic_Simulator
                 case Instruction.BSF:
                     //bits 9, 8 and 7 are used to define the index of the bit that is to be set
                     index = (Extensions.ConvertThreeBitsToInt(data.GetBit(9), data.GetBit(8), data.GetBit(7)));
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress));
 
@@ -204,7 +204,7 @@ namespace Pic_Simulator
                     return true;
                 case Instruction.CLRF:
                     //TODO: affects on Z
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     Form1.pic.dataMem.SetValue(dataMemAddress, 0);
                     return true;
@@ -220,7 +220,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.INCF:
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) + 1);
                     if (data.GetBit(destinationBitIndex))
@@ -243,7 +243,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.DECF:
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) - 1);
                     if (data.GetBit(destinationBitIndex))
@@ -269,7 +269,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.IORLW:
-                    result = (byte)(Form1.pic.wReg.GetValue() | Convert.ToByte(data));
+                    result = (byte)(Form1.pic.wReg.GetValue() | (byte)(data));
                     Form1.pic.wReg.SetValue(result);
 
                     if (result > 0)
@@ -283,7 +283,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.IORWF:
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() | Form1.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
@@ -307,7 +307,7 @@ namespace Pic_Simulator
 
                 case Instruction.MOVF:
                     //TODO: affects on Z
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     if(data.GetBit(destinationBitIndex))
                     {
@@ -320,11 +320,11 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.MOVLW:
-                    Form1.pic.wReg.SetValue(Convert.ToByte(data));
+                    Form1.pic.wReg.SetValue((byte)(data));
                     return true;
 
                 case Instruction.MOVWF:
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     Form1.pic.dataMem.SetValue(dataMemAddress, Form1.pic.wReg.GetValue());
                     return true;
@@ -340,13 +340,13 @@ namespace Pic_Simulator
                     return true;
                 case Instruction.SUBLW:
                     //TODO: affects on C, DC, Z
-                    result = (byte)(Convert.ToByte(data) - Form1.pic.wReg.GetValue());
+                    result = (byte)((byte)(data) - Form1.pic.wReg.GetValue());
                     Form1.pic.wReg.SetValue(result);
                     return true;
 
                 case Instruction.SUBWF:
                     //TODO: affects on C, DC, Z
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.dataMem.GetValue(dataMemAddress) - Form1.pic.wReg.GetValue());
 
@@ -361,7 +361,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.XORLW:
-                    result = (byte)(Form1.pic.wReg.GetValue() ^ Convert.ToByte(data));
+                    result = (byte)(Form1.pic.wReg.GetValue() ^ (byte)(data));
                     Form1.pic.wReg.SetValue(result);
 
                     if (result > 0)
@@ -375,7 +375,7 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.XORWF:
-                    param = Convert.ToByte(data);
+                    param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = (byte)(Form1.pic.wReg.GetValue() ^ Form1.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
