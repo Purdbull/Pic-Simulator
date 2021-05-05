@@ -9,47 +9,47 @@ namespace ExtensionMethods
         public static bool GetBit(this UInt16 data, int index)
         {
             ushort bitMask = 0b_00000000_00000001;
-            for (int i = 0; i < index; i++)
-            {
-                bitMask = (ushort)(bitMask << 1);
-            }
+            bitMask = (ushort)(bitMask << index);
             data = (ushort)(data & bitMask);
+
+            return data > 0;
+        }
+
+        public static bool GetBit(this byte data, int index)
+        {
+            ushort bitMask = 0b_00000001;
+            bitMask = (byte)(bitMask << index);
+            data = (byte)(data & bitMask);
 
             return data > 0;
         }
 
         public static int ConvertThreeBitsToInt(bool thirdBit, bool secondBit, bool firstBit)
         {
-            int result = 0;
-            if (thirdBit)  {result += 4;}
-            if (secondBit) {result += 2;}
-            if (firstBit)  {result++;}
-            return result;
+            return Convert.ToInt32(thirdBit) * 4 + Convert.ToInt32(secondBit) * 2 + Convert.ToInt32(firstBit);
         }
 
         public static byte SetBitInByte(byte b, int index)
         {
-            byte mask = 0b_00000001;
-            byte result;
-            for (int i = 0; i < index; i++)  //shifting the Mask so that just the right bit is 1
-            {
-                mask = (byte)(mask << 1);
-            }
-            result = (byte)(b | mask);
-            return result;
+            byte mask = (byte)(0b_00000001 << index);
+            return (byte)(b | mask);
         }
 
         public static byte ClearBitInByte(byte b, int index)
         {
-            byte mask = 0b_11111110;
-            byte result;
-            for (int i = 0; i < index; i++)  //shifting the Mask and incrementing it so that just the right bit is 0 
-            {
-                mask = (byte)(mask << 1);
-                mask++;
-            }
-            result = (byte)(b & mask);
-            return result;
+            byte mask = 0b_00000001;
+            mask = (byte)(mask << index);
+            return (byte)(b & ~mask);
+        }
+
+        public static UInt16 ClearUInt16LeftByte(UInt16 fullValue)
+        {
+            return (UInt16)((fullValue << 8) >> 8);
+        }
+
+        public static UInt16 ClearUInt16RightByte(UInt16 fullValue)
+        {
+            return (UInt16)((fullValue >> 8) << 8);
         }
     }
 }
