@@ -60,6 +60,7 @@ namespace Pic_Simulator
             byte resultByte = SetBitInByte(targetByte, bitIndex);
 
             this.SetByte(bank, address, resultByte);
+            //TODO: UPDATE GUI ON VALUE CHANGE
         }
         public void SetFlag(byte address, int bitIndex)
         {
@@ -67,6 +68,7 @@ namespace Pic_Simulator
             UInt16 targetValue = this.GetValue(address);
             UInt16 resultValue = (UInt16)(targetValue | mask);
             this.SetValue(address, resultValue);
+            //TODO: UPDATE GUI ON VALUE CHANGE
         }
         public void ClearFlag(bool bank, byte address, int bitIndex)
         {
@@ -74,6 +76,7 @@ namespace Pic_Simulator
             byte resultByte = ClearBitInByte(targetByte, bitIndex);
 
             this.SetByte(bank, address, resultByte);
+            //TODO: UPDATE GUI ON VALUE CHANGE
         }
         public void ClearFlag(byte address, int bitIndex)
         {
@@ -81,6 +84,7 @@ namespace Pic_Simulator
             UInt16 targetValue = this.GetValue(address);
             UInt16 resultValue = (UInt16)(targetValue & ~mask);
             this.SetValue(address, resultValue);
+            //TODO: UPDATE GUI ON VALUE CHANGE
         }
     }
 }
