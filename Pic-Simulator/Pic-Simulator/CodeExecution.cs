@@ -37,7 +37,8 @@ namespace Pic_Simulator
             IORLW  = 0b_00111000_00000000,  //0011 1000 kkkk kkkk
             IORWF  = 0b_00000100_00000000,  //0000 0100 dfff ffff
             INCF   = 0b_00001010_00000000,  //0000 1010 dfff ffff
-            DECF   = 0b_00000011_00000000   //0000 0011 dfff ffff
+            DECF   = 0b_00000011_00000000,  //0000 0011 dfff ffff
+            RETURN = 0b_00000000_00001000   //0000 0000 0000 1000
         }
 
         public enum InstructionMask
@@ -73,8 +74,8 @@ namespace Pic_Simulator
             BTFSC  = 0b_11111100_00000000,  //0001 10bb bfff ffff
             BTFSS  = 0b_11111100_00000000,  //0001 11bb bfff ffff
             CALL   = 0b_11111000_00000000,  //0010 0kkk kkkk kkkk
-            GOTO   = 0b_11111000_00000000   //0010 1kkk kkkk kkkk
-
+            GOTO   = 0b_11111000_00000000,  //0010 1kkk kkkk kkkk
+            RETURN = 0b_11111111_11111111   //0000 0000 0000 1000
         }
 
         public static UInt16 Fetch()
@@ -112,8 +113,6 @@ namespace Pic_Simulator
             byte result;
             byte param;
             byte dataMemAddress;
-            byte mask;
-            byte statusByte; //used to set/clear status bits
             byte operand1;
             byte operand2;
 
@@ -121,21 +120,16 @@ namespace Pic_Simulator
 
             int  index;
             int  destinationBitIndex = 7;
-            int  overflowCheck = 0;
+            int  overflowCheck;
 
-            const byte BSFMask       = 0b_00000001;
-            const byte BCFMask       = 0b_11111110;
             const byte DCMask        = 0b_00001111;
-            const byte statusAdress = 3;
-            const bool BANK0         = false;
+            const byte statusAdress  = 3;
             const bool BANK1         = true;
 
             bool bank = Program.pic.dataMem.GetFlag(BANK1, statusAdress, 5);
 
 
             switch (instruction)
-                //rp0 im status an 5
-                //TODO: all setBankValue according to rp0
             {
                 
                 case Instruction.ADDLW:
@@ -164,7 +158,7 @@ namespace Pic_Simulator
                         Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 0); //clearing c-flag
                     }
 
-                    if (result > 0)
+                    if (result > 0) 
                     {
                         Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 2); //clearing z-flag
                     }
@@ -176,7 +170,6 @@ namespace Pic_Simulator
                     if (operand2 == 0)
                     {
                         Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 1); //clearing dc-flag
-
                         Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 0); //clearing c-flag
                     }
 
@@ -231,7 +224,6 @@ namespace Pic_Simulator
                     if (operand2 == 0)
                     {
                         Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 1); //clearing dc-flag
-
                         Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 0); //clearing c-flag
                     }
 
@@ -296,11 +288,40 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.BTFSC:
+                    //bits 9, 8 and 7 are used to define the index of the bit that is to be evaluated
+                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(9), data.GetBit(8), data.GetBit(7)));
+                    param = (byte)(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    if (Program.pic.dataMem.GetFlag(bank, dataMemAddress, index))
+                    {
+                        //nothing really happens
+                    }
+                    else
+                    {
+                        Program.pic.pc.Increment();
+                        //skip and perform nop
+                    }
                     return true;
+                     
                 case Instruction.BTFSS:
+                    //bits 9, 8 and 7 are used to define the index of the bit that is to be evaluated
+                    index = (Extensions.ConvertThreeBitsToInt(data.GetBit(9), data.GetBit(8), data.GetBit(7)));
+                    param = (byte)(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    if (!Program.pic.dataMem.GetFlag(bank, dataMemAddress, index))
+                    {
+                        //nothing really happens
+                    }
+                    else
+                    {
+                        Program.pic.pc.Increment();
+                        //skip and perform nop
+                    }
                     return true;
+
                 case Instruction.CALL:
                     return true;
+
                 case Instruction.CLRF:
                     param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
@@ -314,8 +335,38 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.DECFSZ:
+                    param = (byte)(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress) - 1);
+                    if (data.GetBit(destinationBitIndex))
+                    {
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Program.pic.wReg.SetValue(result);
+                    }
+                    if (result == 0)
+                    {
+                        Program.pic.pc.Increment();
+                    }
                     return true;
                 case Instruction.INCFSZ:
+                    param = (byte)(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress) + 1);
+                    if (data.GetBit(destinationBitIndex))
+                    {
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Program.pic.wReg.SetValue(result);
+                    }
+                    if (result == 0)
+                    {
+                        Program.pic.pc.Increment();
+                    }
                     return true;
 
                 case Instruction.INCF:
@@ -433,6 +484,9 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.RETLW:
+                    return true;
+
+                case Instruction.RETURN:
                     return true;
 
                 case Instruction.RLF:
