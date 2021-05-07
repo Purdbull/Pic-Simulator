@@ -116,6 +116,9 @@ namespace Pic_Simulator
             byte statusByte; //used to set/clear status bits
             byte operand1;
             byte operand2;
+
+            bool carryBit;
+
             int  index;
             int  destinationBitIndex = 7;
             int  overflowCheck = 0;
@@ -491,10 +494,73 @@ namespace Pic_Simulator
 
                 case Instruction.RETLW:
                     return true;
+
                 case Instruction.RLF:
+                    param = (byte)(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress));
+                    carryBit = Program.pic.dataMem.GetFlag(BANK1, statusAdress, 2);
+                    if (result.GetBit(7))
+                    {
+                        Program.pic.dataMem.SetFlag(BANK1, statusAdress, 2);
+                    }
+                    else
+                    {
+                        Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 2);
+                    }
+                    result = (byte)(result << 1);
+                    if (carryBit)
+                    {
+                        Extensions.SetBitInByte(result, 0);
+                    }
+                    else
+                    {
+                        Extensions.ClearBitInByte(result, 0);
+                    }
+
+                    if (data.GetBit(destinationBitIndex))
+                    {
+                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Program.pic.wReg.SetValue(result);
+                    }
                     return true;
+
                 case Instruction.RRF:
+                    param = (byte)(data);
+                    dataMemAddress = (byte)(param & 0b_01111111);
+                    result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress));
+                    carryBit = Program.pic.dataMem.GetFlag(BANK1, statusAdress, 2);
+                    if (result.GetBit(0))
+                    {
+                        Program.pic.dataMem.SetFlag(BANK1, statusAdress, 2);
+                    }
+                    else
+                    {
+                        Program.pic.dataMem.ClearFlag(BANK1, statusAdress, 2);
+                    }
+                    result = (byte)(result >> 1);
+                    if (carryBit)
+                    {
+                        Extensions.SetBitInByte(result, 7);
+                    }
+                    else
+                    {
+                        Extensions.ClearBitInByte(result, 7);
+                    }
+
+                    if (data.GetBit(destinationBitIndex))
+                    {
+                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                    }
+                    else
+                    {
+                        Program.pic.wReg.SetValue(result);
+                    }
                     return true;
+
                 case Instruction.SUBLW:
                     operand1 = (byte)(data);
                     operand2 = Program.pic.wReg.GetValue();
