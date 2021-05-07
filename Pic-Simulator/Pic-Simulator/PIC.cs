@@ -24,6 +24,7 @@ namespace Pic_Simulator
         public PIC()
         {
             this.progMem = new ProgramMemory();
+            //TODO: FILL KEYS OF DATAMEM
             this.dataMem = new DataMemory();
 
             this.wReg = new DataField();
@@ -31,7 +32,9 @@ namespace Pic_Simulator
             this.timer = new DataField();
 
             this.quarzCycles = 0;
-        }
+
+            this.breakpoints = new List<int>();
+    }
 
         public bool Step()
         {

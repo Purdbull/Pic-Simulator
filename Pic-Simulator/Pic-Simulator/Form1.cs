@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using static ExtensionMethods.Extensions;
 
 namespace Pic_Simulator
 {
@@ -114,7 +115,7 @@ namespace Pic_Simulator
 
         }
 
-        private void btn_OpenFile_Click_1(object sender, EventArgs eventArgs)
+        private void btn_OpenFile_Click(object sender, EventArgs eventArgs)
         {
             OpenFileDialog ofd = new OpenFileDialog{ Filter = "LST files (*.LST)|*.LST" };
             try
@@ -203,10 +204,12 @@ namespace Pic_Simulator
                     rtext_Code.Select(firstCharIndex, clickedLineText.Length);
                     if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
                     {
+                        Program.pic.breakpoints.Add(clickedLineIndex);
                         rtext_Code.SelectionBackColor = Color.Red;
                     }
                     else
                     {
+                        Program.pic.breakpoints.Remove(clickedLineIndex);
                         rtext_Code.SelectionBackColor = Color.White;
                     }
                 }
@@ -240,7 +243,8 @@ namespace Pic_Simulator
         {
             //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
             //else, continue
-            while (!(IsBreakpoint(Program.pic.pc.GetValue()) && enableBreakpoints))
+            //ERROR HERE
+            while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue())) && enableBreakpoints))
             {
                 //Step() returns false when end of code has been reached or an error has been encountered
                 if (!Program.pic.Step()) return;

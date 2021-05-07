@@ -32,7 +32,7 @@ namespace Pic_Simulator
                 instructionIndex = Convert.ToUInt16(substr[0]);
 
                 //set the line of progMem at index instructionIndex to key codeIndex and value instruction
-                pMemory.SetLine(instructionIndex, codeIndex, instruction);
+                pMemory.SetLine(instructionIndex, codeIndex, instruction); //TODO!!!: KEY VALUES EMPTY AFTER SCANNER... WHY???
             }
 
             return instructionIndex;
