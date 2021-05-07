@@ -126,14 +126,18 @@ namespace Pic_Simulator
             const byte BSFMask       = 0b_00000001;
             const byte BCFMask       = 0b_11111110;
             const byte DCMask        = 0b_00001111;
-            const byte statusAdress  = 3;
+            const byte statusAdress = 3;
             const bool BANK0         = false;
             const bool BANK1         = true;
+
+            bool bank = Program.pic.dataMem.GetFlag(BANK1, statusAdress, 5);
+
 
             switch (instruction)
                 //rp0 im status an 5
                 //TODO: all setBankValue according to rp0
             {
+                
                 case Instruction.ADDLW:
                     operand1 = (byte)(Program.pic.wReg.GetValue());
                     operand2 = (byte)(data);
@@ -206,7 +210,7 @@ namespace Pic_Simulator
 
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -272,13 +276,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else 
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -288,7 +292,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.wReg.GetValue() & Program.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -299,13 +303,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -317,7 +321,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress));
 
                     result = Extensions.ClearBitInByte(result, index);
-                    Program.pic.dataMem.SetValue(dataMemAddress, result);
+                    Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     return true;
 
                 case Instruction.BSF:
@@ -328,7 +332,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress));
 
                     result = Extensions.SetBitInByte(result, index);
-                    Program.pic.dataMem.SetValue(dataMemAddress, result);
+                    Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     return true;
 
                 case Instruction.BTFSC:
@@ -344,7 +348,7 @@ namespace Pic_Simulator
 
                     statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                     statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                    Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                    Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     return true;
 
                 case Instruction.CLRW:
@@ -352,7 +356,7 @@ namespace Pic_Simulator
 
                     statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                     statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                    Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                    Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     return true;
 
                 case Instruction.DECFSZ:
@@ -366,7 +370,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress) + 1);
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -377,13 +381,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -393,7 +397,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.dataMem.GetValue(dataMemAddress) - 1);
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -404,13 +408,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -425,13 +429,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -441,7 +445,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.wReg.GetValue() | Program.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -452,13 +456,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -476,7 +480,7 @@ namespace Pic_Simulator
 
                     statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                     statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                    Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                    Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     return true;
 
                 case Instruction.MOVLW:
@@ -520,7 +524,7 @@ namespace Pic_Simulator
 
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -553,7 +557,7 @@ namespace Pic_Simulator
 
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -573,13 +577,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
 
                     if (overflowCheck >= 0)
@@ -619,7 +623,7 @@ namespace Pic_Simulator
 
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -630,13 +634,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
 
                     if (overflowCheck >= 0)
@@ -673,13 +677,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
@@ -689,7 +693,7 @@ namespace Pic_Simulator
                     result = (byte)(Program.pic.wReg.GetValue() ^ Program.pic.dataMem.GetValue(dataMemAddress));
                     if (data.GetBit(destinationBitIndex))
                     {
-                        Program.pic.dataMem.SetValue(dataMemAddress, result);
+                        Program.pic.dataMem.SetByte(bank, dataMemAddress, result);
                     }
                     else
                     {
@@ -700,13 +704,13 @@ namespace Pic_Simulator
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.ClearBitInByte(statusByte, 2); //clearing z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     else
                     {
                         statusByte = Program.pic.dataMem.GetByte(BANK1, statusAdress);
                         statusByte = Extensions.SetBitInByte(statusByte, 2); //setting z-flag
-                        Program.pic.dataMem.SetValue(statusAdress, statusByte);
+                        Program.pic.dataMem.SetByte(BANK1, statusAdress, statusByte);;
                     }
                     return true;
 
