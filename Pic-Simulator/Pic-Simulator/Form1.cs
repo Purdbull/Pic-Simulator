@@ -191,7 +191,7 @@ namespace Pic_Simulator
         //    }
         }
 
-        private void richTextBox2_DoubleClick(object sender, EventArgs e)
+        private void rtext_Code_DoubleClick(object sender, EventArgs e)
         {
             if (!(rtext_Code.TextLength == 0))
             {
@@ -218,11 +218,16 @@ namespace Pic_Simulator
 
         private void btn_Debug_Click(object sender, EventArgs e)
         {
+            string code = rtext_Code.Text;
+            int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
+            Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
             ExecuteCode(true);
         }
 
         private void btn_Continue_Click(object sender, EventArgs e)
         {
+            //TODO: CURRENTLY STOPS AT SAME BREAKPOINT
+            Program.pic.Step();
             ExecuteCode(true);
         }
 
@@ -243,9 +248,15 @@ namespace Pic_Simulator
         {
             //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
             //else, continue
-            //ERROR HERE
+            //TODO: DO WHILE LOOP
             while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue())) && enableBreakpoints))
             {
+                //int currentLine = Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue());
+                //int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(currentLine);
+                //string lineText = rtext_Code.Lines[currentLine];
+                //rtext_Code.Select(firstCharIndex, lineText.Length);
+                //rtext_Code.SelectionBackColor = Color.LightGreen;
+
                 //Step() returns false when end of code has been reached or an error has been encountered
                 if (!Program.pic.Step()) return;
             }

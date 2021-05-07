@@ -111,7 +111,7 @@ namespace Pic_Simulator
             this.rtext_Code.Text = " ";
             this.rtext_Code.Click += new System.EventHandler(this.richTextBox2_Click);
             this.rtext_Code.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
-            this.rtext_Code.DoubleClick += new System.EventHandler(this.richTextBox2_DoubleClick);
+            this.rtext_Code.DoubleClick += new System.EventHandler(this.rtext_Code_DoubleClick);
             // 
             // textBox16
             // 
