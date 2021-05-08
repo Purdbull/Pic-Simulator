@@ -16,7 +16,7 @@ namespace Pic_Simulator
         public DataField pc;
         public DataField timer;
 
-        public Stack stack;
+        public Stack<UInt16> stack;
 
         public int quarzCycles;
 
@@ -33,7 +33,7 @@ namespace Pic_Simulator
             this.pc = new DataField();
             this.timer = new DataField();
 
-            this.stack = new Stack(8);
+            this.stack = new Stack<UInt16>(8);
 
             this.quarzCycles = 0;
 

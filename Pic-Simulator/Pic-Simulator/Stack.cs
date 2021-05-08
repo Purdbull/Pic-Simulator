@@ -4,19 +4,19 @@ using System.Text;
 
 namespace Pic_Simulator
 {
-    public class Stack
+    public class Stack<T>
     {
         private int stacksize;
-        private int[] stack = new int[8];
+        private T[] stack;
         private int index = -1;
 
         public Stack(int stacksize)
         {
             this.stacksize = stacksize;
-            this.stack = new int[this.stacksize];
+            this.stack = new T [this.stacksize];
         }
 
-        public void push(int value)
+        public void Push(T value)
         {
             index++;
             if (index == this.stacksize)
@@ -26,9 +26,10 @@ namespace Pic_Simulator
             this.stack[index] = value;
         }
 
-        public int pull()
+        public T Pop()
         {
-            int value = stack[index];
+            T value = this.stack[index];
+            this.stack[index] = default(T);
             index--;
             if(index < 0)
             {
