@@ -111,7 +111,7 @@ namespace Pic_Simulator
             this.rtext_Code.Text = " ";
             this.rtext_Code.Click += new System.EventHandler(this.richTextBox2_Click);
             this.rtext_Code.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
-            this.rtext_Code.DoubleClick += new System.EventHandler(this.richTextBox2_DoubleClick);
+            this.rtext_Code.DoubleClick += new System.EventHandler(this.rtext_Code_DoubleClick);
             // 
             // textBox16
             // 
@@ -401,7 +401,7 @@ namespace Pic_Simulator
             this.btn_OpenFile.TabIndex = 8;
             this.btn_OpenFile.Text = "Open File";
             this.btn_OpenFile.UseVisualStyleBackColor = true;
-            this.btn_OpenFile.Click += new System.EventHandler(this.btn_OpenFile_Click_1);
+            this.btn_OpenFile.Click += new System.EventHandler(this.btn_OpenFile_Click);
             // 
             // btn_Save
             // 
@@ -465,7 +465,7 @@ namespace Pic_Simulator
             this.btn_Debug.TabIndex = 8;
             this.btn_Debug.Text = "Debug";
             this.btn_Debug.UseVisualStyleBackColor = true;
-            this.btn_Continue.Click += new System.EventHandler(this.btn_Debug_Click);
+            this.btn_Debug.Click += new System.EventHandler(this.btn_Debug_Click);
             // 
             // btn_Run
             // 

@@ -7,7 +7,13 @@ namespace Pic_Simulator
 {
     public class DataMemory : Memory<UInt16>
     {
-        public DataMemory() : base(PIC.MAX_DATAMEM_SIZE) {}
+        public DataMemory() : base(PIC.MAX_DATAMEM_SIZE) 
+        {
+            for(int i = 0; i < this._keys.Count; i++) if (i <= UInt16.MaxValue)
+            {
+                _keys[i] = (UInt16)i;
+            }
+        }
         public byte GetByte(bool bank, byte address)
         {
             UInt16 valueAtAddress = this.GetValue(address);
