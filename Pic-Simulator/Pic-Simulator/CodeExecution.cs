@@ -119,12 +119,13 @@ namespace Pic_Simulator
             bool carryBit;
 
             int  index;
-            int  destinationBitIndex = 7;
+            int  destinationBitIndex    = 7;
             int  overflowCheck;
 
-            const byte DCMask        = 0b_00001111;
-            const byte statusAdress  = 3;
-            const bool BANK1         = true;
+            const byte DCMask           = 0b_00001111;
+            const byte statusAdress     = 3;
+            const UInt16 addressMask    = 0b_00000111_11111111;
+            const bool BANK1            = true;
 
             bool bank = Program.pic.dataMem.GetFlag(BANK1, statusAdress, 5);
 

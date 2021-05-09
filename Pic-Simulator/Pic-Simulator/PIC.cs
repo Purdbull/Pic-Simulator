@@ -16,6 +16,8 @@ namespace Pic_Simulator
         public DataField pc { get; private set; }
         public DataField timer;
 
+        public Stack<UInt16> stack;
+
         public int quarzCycles;
 
         public List<int> breakpoints;
@@ -29,6 +31,8 @@ namespace Pic_Simulator
             this.wReg = new DataField();
             this.pc = new DataField(onValueChanged: delegate() { });
             this.timer = new DataField();
+
+            this.stack = new Stack<UInt16>(8);
 
             this.quarzCycles = 0;
 
