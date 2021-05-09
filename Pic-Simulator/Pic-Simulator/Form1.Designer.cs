@@ -103,12 +103,14 @@ namespace Pic_Simulator
             // rtext_Code
             // 
             this.rtext_Code.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtext_Code.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rtext_Code.Location = new System.Drawing.Point(498, 29);
             this.rtext_Code.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rtext_Code.Name = "rtext_Code";
             this.rtext_Code.Size = new System.Drawing.Size(629, 807);
             this.rtext_Code.TabIndex = 4;
             this.rtext_Code.Text = " ";
+            this.rtext_Code.WordWrap = false;
             this.rtext_Code.Click += new System.EventHandler(this.richTextBox2_Click);
             this.rtext_Code.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             this.rtext_Code.DoubleClick += new System.EventHandler(this.rtext_Code_DoubleClick);
