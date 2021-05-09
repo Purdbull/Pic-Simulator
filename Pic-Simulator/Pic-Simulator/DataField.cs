@@ -6,9 +6,11 @@ namespace Pic_Simulator
 {
     public class DataField : Memory<byte>
     {
-        public DataField(byte content = 0) : base(1)
+        private Action onValueChanged;
+        public DataField(Action onValueChanged = null, byte content = 0) : base(1)
         {
             this.SetValue(content);
+            this.onValueChanged = onValueChanged;
         }
 
         public byte GetValue()
@@ -19,16 +21,17 @@ namespace Pic_Simulator
         public void SetValue(byte value)
         {
             this._values[0] = value;
+            if (!(this.onValueChanged is null)) onValueChanged();
         }
 
         public void Increment()
         {
-            this._values[0]++;
+            this.SetValue((byte)(GetValue() + 1));
         }
 
         public void Decrement()
         {
-            this._values[0]--;
+            this.SetValue((byte)(GetValue() - 1));
         }
     }
 }

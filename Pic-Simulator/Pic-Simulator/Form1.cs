@@ -13,13 +13,14 @@ using static ExtensionMethods.Extensions;
 
 namespace Pic_Simulator
 {
+    public delegate void Trigger();
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+            this.NextLine += MarkNextLine;
         }
-
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -201,7 +202,7 @@ namespace Pic_Simulator
 
                 if (!clickedLineText.StartsWith(' '))
                 {
-                    rtext_Code.Select(firstCharIndex, clickedLineText.Length);
+                    rtext_Code.Select(firstCharIndex, 9); //mark the first 9 chars as breakpoint e.g "0001 3011"
                     if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
                     {
                         Program.pic.breakpoints.Add(clickedLineIndex);
@@ -227,7 +228,7 @@ namespace Pic_Simulator
         private void btn_Continue_Click(object sender, EventArgs e)
         {
             //TODO: CURRENTLY STOPS AT SAME BREAKPOINT
-            Program.pic.Step();
+            if (!Program.pic.Step()) return;
             ExecuteCode(true);
         }
 
@@ -251,11 +252,6 @@ namespace Pic_Simulator
             //TODO: DO WHILE LOOP
             while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue())) && enableBreakpoints))
             {
-                //int currentLine = Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue());
-                //int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(currentLine);
-                //string lineText = rtext_Code.Lines[currentLine];
-                //rtext_Code.Select(firstCharIndex, lineText.Length);
-                //rtext_Code.SelectionBackColor = Color.LightGreen;
 
                 //Step() returns false when end of code has been reached or an error has been encountered
                 if (!Program.pic.Step()) return;
@@ -274,5 +270,20 @@ namespace Pic_Simulator
 
         }
 
+        public event Trigger NextLine;
+
+        public void RequestLineMark()
+        {
+            NextLine?.Invoke();
+        }
+
+        public void MarkNextLine()
+        {
+            int currentLine = Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue());
+            int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(currentLine);
+            string lineText = rtext_Code.Lines[currentLine];
+            rtext_Code.Select(firstCharIndex, lineText.Length);
+            rtext_Code.SelectionBackColor = Color.LightGreen;
+        }
     }
 }

@@ -11,16 +11,22 @@ namespace Pic_Simulator
         {
             StringReader reader = new StringReader(code);
             string line;
-            UInt16 codeIndex = 0;
+            int codeIndex = -1;
             UInt16 instructionIndex = 0;
             UInt16 instruction;
             while ((line = reader.ReadLine()) != null)
             {
-                if (line.Equals("\n") || line.Equals(" ") || line.Equals("")) continue;
                 codeIndex++;
                 //remove all characters after the 9th, leaving only the instructions
-                line = line.Remove(9);
-                if (line.Equals("         ")) continue; //line did not contain an instruction in the first 9 chars
+                try
+                {
+                    line = line.Remove(9);
+                    if (line.Equals("         ")) continue; //line did not contain an instruction in the first 9 chars
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
 
                 //split up instruction index and code
                 string[] substr = line.Split(" ");
@@ -32,7 +38,7 @@ namespace Pic_Simulator
                 instructionIndex = Convert.ToUInt16(substr[0]);
 
                 //set the line of progMem at index instructionIndex to key codeIndex and value instruction
-                pMemory.SetLine(instructionIndex, codeIndex, instruction);
+                pMemory.SetLine(instructionIndex, (UInt16)codeIndex, instruction);
             }
 
             return instructionIndex;

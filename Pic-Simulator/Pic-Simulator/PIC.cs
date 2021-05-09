@@ -12,8 +12,8 @@ namespace Pic_Simulator
         public ProgramMemory progMem;
         public DataMemory dataMem;
 
-        public DataField wReg;
-        public DataField pc;
+        public DataField wReg{ get; private set; }
+        public DataField pc { get; private set; }
         public DataField timer;
 
         public int quarzCycles;
@@ -26,9 +26,8 @@ namespace Pic_Simulator
             this.progMem = new ProgramMemory();
             //TODO: FILL KEYS OF DATAMEM
             this.dataMem = new DataMemory();
-
             this.wReg = new DataField();
-            this.pc = new DataField();
+            this.pc = new DataField(onValueChanged: delegate() { });
             this.timer = new DataField();
 
             this.quarzCycles = 0;
