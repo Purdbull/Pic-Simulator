@@ -14,12 +14,14 @@ using static ExtensionMethods.Extensions;
 namespace Pic_Simulator
 {
     public delegate void Trigger();
+
     public partial class Form1 : Form
     {
+        readonly int RELEVANT_CHAR_NUMBER = 9;
         public Form1()
         {
             InitializeComponent();
-            this.NextLine += MarkNextLine;
+            Program.pic.pc.ValueChanged += MarkNextLine;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -202,7 +204,7 @@ namespace Pic_Simulator
 
                 if (!clickedLineText.StartsWith(' '))
                 {
-                    rtext_Code.Select(firstCharIndex, 9); //mark the first 9 chars as breakpoint e.g "0001 3011"
+                    rtext_Code.Select(firstCharIndex, RELEVANT_CHAR_NUMBER); //mark the first 9 chars as breakpoint e.g "0001 3011"
                     if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
                     {
                         Program.pic.breakpoints.Add(clickedLineIndex);
@@ -277,12 +279,13 @@ namespace Pic_Simulator
             NextLine?.Invoke();
         }
 
-        public void MarkNextLine()
+        public void MarkNextLine(object sender, DataFieldValueChangedEventArgs e)
         {
-            int currentLine = Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue());
+            int currentLine = Program.pic.progMem.GetKeyAtIndex(e.NewValue);
+            if (currentLine == UInt16.MaxValue) return;
             int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(currentLine);
             string lineText = rtext_Code.Lines[currentLine];
-            rtext_Code.Select(firstCharIndex, lineText.Length);
+            rtext_Code.Select(firstCharIndex + RELEVANT_CHAR_NUMBER, lineText.Length - RELEVANT_CHAR_NUMBER);
             rtext_Code.SelectionBackColor = Color.LightGreen;
         }
     }

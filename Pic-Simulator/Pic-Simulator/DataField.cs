@@ -6,11 +6,17 @@ namespace Pic_Simulator
 {
     public class DataField : Memory<byte>
     {
-        private Action onValueChanged;
-        public DataField(Action onValueChanged = null, byte content = 0) : base(1)
+        public delegate void DataFieldEventHandler(object sender, DataFieldValueChangedEventArgs e);
+
+        public event DataFieldEventHandler ValueChanged;
+        protected virtual void OnValueChanged(DataFieldValueChangedEventArgs e)
+        {
+            DataFieldEventHandler handler = ValueChanged;
+            handler?.Invoke(this, e);
+        }
+        public DataField(byte content = 0) : base(1)
         {
             this.SetValue(content);
-            this.onValueChanged = onValueChanged;
         }
 
         public byte GetValue()
@@ -21,7 +27,7 @@ namespace Pic_Simulator
         public void SetValue(byte value)
         {
             this._values[0] = value;
-            if (!(this.onValueChanged is null)) onValueChanged();
+            OnValueChanged(new DataFieldValueChangedEventArgs(value));
         }
 
         public void Increment()

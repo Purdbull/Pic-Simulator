@@ -26,10 +26,9 @@ namespace Pic_Simulator
         public PIC()
         {
             this.progMem = new ProgramMemory();
-            //TODO: FILL KEYS OF DATAMEM
             this.dataMem = new DataMemory();
             this.wReg = new DataField();
-            this.pc = new DataField(onValueChanged: delegate() { });
+            this.pc = new DataField();
             this.timer = new DataField();
 
             this.stack = new Stack<UInt16>(8);
