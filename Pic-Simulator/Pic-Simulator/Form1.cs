@@ -229,7 +229,6 @@ namespace Pic_Simulator
 
         private void btn_Continue_Click(object sender, EventArgs e)
         {
-            //TODO: CURRENTLY STOPS AT SAME BREAKPOINT
             if (!Program.pic.Step()) return;
             ExecuteCode(true);
         }
