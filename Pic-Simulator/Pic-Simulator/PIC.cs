@@ -6,15 +6,13 @@ namespace Pic_Simulator
 {
     public class PIC
     {
-        public static int MAX_DATAMEM_SIZE = 512;
-        public static int MAX_PROGMEM_SIZE = 512;
+        public static int MAX_DATAMEM_SIZE = byte.MaxValue;
+        public static int MAX_PROGMEM_SIZE = byte.MaxValue;
 
         public ProgramMemory progMem;
         public DataMemory dataMem;
 
         public DataField wReg{ get; private set; }
-        public DataField pc { get; private set; }
-        public DataField timer;
 
         public Stack<UInt16> stack;
 
@@ -28,8 +26,6 @@ namespace Pic_Simulator
             this.progMem = new ProgramMemory();
             this.dataMem = new DataMemory();
             this.wReg = new DataField();
-            this.pc = new DataField();
-            this.timer = new DataField();
 
             this.stack = new Stack<UInt16>(8);
 

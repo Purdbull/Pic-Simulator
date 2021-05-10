@@ -5,92 +5,90 @@ using static ExtensionMethods.Extensions;
 
 namespace Pic_Simulator
 {
-    public class DataMemory : Memory<UInt16>
+    public class DataMemory : Memory<byte>
     {
         public DataMemory() : base(PIC.MAX_DATAMEM_SIZE) 
         {
-            for(int i = 0; i < this._keys.Count; i++) if (i <= UInt16.MaxValue)
+            for(int i = 0; i < this._keys.Count; i++) if (i <= byte.MaxValue)
             {
-                _keys[i] = (UInt16)i;
+                _keys[i] = (byte)i;
             }
         }
-        public byte GetByte(bool bank, byte address)
+        public void Set(byte address, byte value)
         {
-            UInt16 valueAtAddress = this.GetValue(address);
+            byte STATUS = this._values[(byte)(InstructionAddress.STATUS)];
+            bool RP0 = STATUS.GetBit(5);
 
-            if(bank) 
-            {
-                return (byte)(valueAtAddress);
-            }
-            else
-            {
-                return (byte)(valueAtAddress >> 8);
-            }
+            this.Set(address, RP0, value);
         }
 
-        public void SetByte(bool bank, byte address, byte value)
+        public void Set(byte address, bool bank, byte value)
         {
-            UInt16 valueAtAddress = this.GetValue(address);
-            if(bank)
-            {
-                //clear the right byte of the UInt16 value at the address and add the new value onto it
-                UInt16 newFullValue = (UInt16)(ClearUInt16RightByte(valueAtAddress) + value);
+            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 8));
 
-                this.SetValue(address, newFullValue);
-            }
-            else
-            {
-                //clear the left byte of the UInt16 value at the address and add the new value onto it
-                UInt16 newFullValue = (UInt16)(ClearUInt16LeftByte(valueAtAddress) + (value << 8));
-
-                this.SetValue(address, newFullValue);
-            }
-               
-            //TODO: UPDATE GUI ON VALUE CHANGE
+            this.SetValue(fullAddress, value);
+            //TODO: UPDATE GUI
         }
 
-        public bool GetFlag(bool bank, byte address, int bitIndex)
+        public byte Get(byte address)
         {
-            byte targetByte = this.GetByte(bank, address);
-            return targetByte.GetBit(bitIndex);
+            byte STATUS = this._values[(byte)(InstructionAddress.STATUS)];
+            bool RP0 = STATUS.GetBit(5);
+
+            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(RP0) << 8));
+
+            return this.Get(fullAddress);
         }
+
+        public byte Get(byte address, bool bank)
+        {
+            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 8));
+
+            return this.GetValue(fullAddress);
+        }
+
         public bool GetFlag(byte address, int bitIndex)
         {
-            UInt16 targetValue = this.GetValue(address);
-            return targetValue.GetBit(bitIndex);
+            byte targetByte = this.Get(address);
+            return targetByte.GetBit(bitIndex);
         }
 
-        public void SetFlag(bool bank, byte address, int bitIndex)
+        public bool GetFlag(byte address, bool bank, int bitIndex)
         {
-            byte targetByte = this.GetByte(bank, address);
-            byte resultByte = SetBitInByte(targetByte, bitIndex);
-
-            this.SetByte(bank, address, resultByte);
-            //TODO: UPDATE GUI ON VALUE CHANGE
+            byte targetByte = this.Get(address, bank);
+            return targetByte.GetBit(bitIndex);
         }
+
         public void SetFlag(byte address, int bitIndex)
         {
-            UInt16 mask = (UInt16)(1 << bitIndex);
-            UInt16 targetValue = this.GetValue(address);
-            UInt16 resultValue = (UInt16)(targetValue | mask);
-            this.SetValue(address, resultValue);
-            //TODO: UPDATE GUI ON VALUE CHANGE
-        }
-        public void ClearFlag(bool bank, byte address, int bitIndex)
-        {
-            byte targetByte = this.GetByte(bank, address);
-            byte resultByte = ClearBitInByte(targetByte, bitIndex);
+            byte targetByte = this.Get(address);
+            byte resultByte = SetBitInByte(targetByte, bitIndex);
 
-            this.SetByte(bank, address, resultByte);
-            //TODO: UPDATE GUI ON VALUE CHANGE
+            this.Set(address, resultByte);
         }
+
+        public void SetFlag(byte address, bool bank, int bitIndex)
+        {
+            byte targetByte = this.Get(address, bank);
+            byte resultByte = SetBitInByte(targetByte, bitIndex);
+
+            this.Set(address, bank, resultByte);
+        }
+
         public void ClearFlag(byte address, int bitIndex)
         {
-            UInt16 mask = (UInt16)(1 << bitIndex);
-            UInt16 targetValue = this.GetValue(address);
-            UInt16 resultValue = (UInt16)(targetValue & ~mask);
-            this.SetValue(address, resultValue);
-            //TODO: UPDATE GUI ON VALUE CHANGE
+            byte targetByte = this.Get(address);
+            byte resultByte = ClearBitInByte(targetByte, bitIndex);
+
+            this.Set(address, resultByte);
+        }
+
+        public void ClearFlag(byte address, bool bank, int bitIndex)
+        {
+            byte targetByte = this.Get(address, bank);
+            byte resultByte = ClearBitInByte(targetByte, bitIndex);
+
+            this.Set(address, bank, resultByte);
         }
     }
 }

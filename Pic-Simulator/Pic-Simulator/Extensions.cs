@@ -6,6 +6,26 @@ namespace ExtensionMethods
 {
     public static class Extensions
     {
+        public enum InstructionAddress
+        {
+            INDIRECT    =   0,
+            TMR0        =   1,
+            OPTION      =   1,
+            PCL         =   2,
+            STATUS      =   3,
+            FSR         =   4,
+            PORTA       =   5,
+            TRISA       =   5,
+            PORTB       =   6,
+            TRISB       =   6,
+            EEDATA      =   8,
+            EECON1      =   8,
+            EEADR       =   9,
+            EECON2      =   9,
+            PCLATH      =   10,
+            INTCON      =   11,
+
+        }
         public static bool GetBit(this UInt16 data, int index)
         {
             ushort bitMask = 0b_00000000_00000001;

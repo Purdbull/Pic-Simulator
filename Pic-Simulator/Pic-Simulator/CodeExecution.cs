@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ExtensionMethods;
+using static ExtensionMethods.Extensions;
 
 namespace Pic_Simulator
 {
@@ -80,7 +80,7 @@ namespace Pic_Simulator
 
         public static UInt16 Fetch()
         {
-            byte programCounter = Program.pic.pc.GetValue();
+            byte programCounter = Program.pic.dataMem.GetByte((byte)(InstructionAddress.PCL));
 
             UInt16 data;
             (_, data) = Program.pic.progMem.GetKeyValuePair(programCounter);
@@ -299,7 +299,7 @@ namespace Pic_Simulator
                     }
                     else
                     {
-                        Program.pic.pc.Increment();
+                        Program.pic.dataMem.
                         //skip and perform nop
                     }
                     return true;
