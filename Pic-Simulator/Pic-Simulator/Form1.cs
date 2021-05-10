@@ -21,7 +21,7 @@ namespace Pic_Simulator
         public Form1()
         {
             InitializeComponent();
-            Program.pic.pc.ValueChanged += MarkNextLine;
+            Program.pic.wReg.MemoryUpdate += UpdateGUI;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -251,7 +251,7 @@ namespace Pic_Simulator
             //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
             //else, continue
             //TODO: DO WHILE LOOP
-            while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue())) && enableBreakpoints))
+            while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.dataMem.GetPC())) && enableBreakpoints))
             {
 
                 //Step() returns false when end of code has been reached or an error has been encountered
@@ -266,11 +266,6 @@ namespace Pic_Simulator
 
         //local methods
 
-        public void RefreshMemoryGUI() //TODO: IMPLEMENT AND CALL ON MEMORY VALUE CHANGE
-        {
-
-        }
-
         public event Trigger NextLine;
 
         public void RequestLineMark()
@@ -278,9 +273,9 @@ namespace Pic_Simulator
             NextLine?.Invoke();
         }
 
-        public void MarkNextLine(object sender, DataFieldValueChangedEventArgs e)
+        public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
         {
-            int currentLine = Program.pic.progMem.GetKeyAtIndex(e.NewValue);
+            int currentLine = Program.pic.progMem.GetKeyAtIndex(e.Arg);
             if (currentLine == UInt16.MaxValue) return;
             int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(currentLine);
             string lineText = rtext_Code.Lines[currentLine];

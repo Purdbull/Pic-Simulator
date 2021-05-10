@@ -80,10 +80,12 @@ namespace Pic_Simulator
 
         public static UInt16 Fetch()
         {
-            byte programCounter = Program.pic.dataMem.GetByte((byte)(InstructionAddress.PCL));
+            UInt16 PCL = Program.pic.dataMem.Get((byte)(InstructionAddress.PCL));
+            UInt16 PCLATH = Program.pic.dataMem.Get((byte)(InstructionAddress.PCLATH));
 
-            UInt16 data;
-            (_, data) = Program.pic.progMem.GetKeyValuePair(programCounter);
+            UInt16 pc = (UInt16)(PCL + (PCLATH << 8));
+
+            (_, UInt16 data) = Program.pic.progMem.GetKeyValuePair(pc);
             return data;
         }
 
@@ -299,7 +301,7 @@ namespace Pic_Simulator
                     }
                     else
                     {
-                        Program.pic.dataMem.Increment();
+                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
                         //skip and perform nop
                     }
                     return true;
@@ -315,7 +317,7 @@ namespace Pic_Simulator
                     }
                     else
                     {
-                        Program.pic.dataMem.Increment();
+                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
                         //skip and perform nop
                     }
                     return true;
@@ -349,7 +351,7 @@ namespace Pic_Simulator
                     }
                     if (result == 0)
                     {
-                        Program.pic.dataMem.Increment();
+                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
                     }
                     return true;
                 case Instruction.INCFSZ:
@@ -366,7 +368,7 @@ namespace Pic_Simulator
                     }
                     if (result == 0)
                     {
-                        Program.pic.dataMem.Increment();
+                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
                     }
                     return true;
 

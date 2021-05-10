@@ -40,7 +40,7 @@ namespace Pic_Simulator
 
             if (data == UInt16.MaxValue) return false; //end of code has been reached
 
-            this.pc.Increment(); //increment pc after fetch
+            this.dataMem.SetPC((UInt16)(this.dataMem.GetPC() + 1)); //increment pc after fetch
 
             CodeExecution.Instruction instruction = CodeExecution.Decode(data);
 
