@@ -6,6 +6,16 @@ namespace Pic_Simulator
 {
     abstract public class Memory<T>
     {
+        public delegate void MemoryUpdateEventHandler(object sender, MemoryUpdateEventArgs<T> e);
+        
+        public event MemoryUpdateEventHandler MemoryUpdate;
+
+        protected virtual void OnMemoryUpdated(MemoryUpdateEventArgs<T> e)
+        {
+            MemoryUpdateEventHandler handler = MemoryUpdate;
+            handler?.Invoke(this, e);
+        }
+
         protected List<T> _keys;
         protected List<T> _values;
 

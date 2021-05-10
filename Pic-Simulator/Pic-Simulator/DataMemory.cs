@@ -90,5 +90,22 @@ namespace Pic_Simulator
 
             this.Set(address, bank, resultByte);
         }
+
+        public UInt16 GetPC()
+        {
+            UInt16 PC       = this.Get((byte)InstructionAddress.PCL);
+            UInt16 PCLATH   = this.Get((byte)InstructionAddress.PCLATH);
+
+            return (UInt16)(PC + (PCLATH << 8));
+        }
+
+        public void SetPC(UInt16 value)
+        {
+            byte PCL = (byte)value;
+            byte PCLATH = (byte)(value >> 8);
+
+            this.Set((byte)InstructionAddress.PCL, PCL);
+            this.Set((byte)InstructionAddress.PCLATH, PCLATH);
+        }
     }
 }
