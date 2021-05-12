@@ -27,7 +27,7 @@ namespace Pic_Simulator
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 8));
 
             this.SetValue(fullAddress, value);
-            //TODO: UPDATE GUI
+            OnMemoryUpdated(new MemoryUpdateEventArgs<byte>(fullAddress, value));
         }
 
         public byte Get(byte address)
@@ -37,7 +37,7 @@ namespace Pic_Simulator
 
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(RP0) << 8));
 
-            return this.Get(fullAddress);
+            return this.GetValue(fullAddress);
         }
 
         public byte Get(byte address, bool bank)

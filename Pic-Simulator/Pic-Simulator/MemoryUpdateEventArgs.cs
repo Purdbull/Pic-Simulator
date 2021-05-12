@@ -6,10 +6,12 @@ namespace Pic_Simulator
 {
     public class MemoryUpdateEventArgs<T>
     {
-        public T Arg;
-        public MemoryUpdateEventArgs(T arg)
+        public T Address;
+        public T Value;
+        public MemoryUpdateEventArgs(T address = default(T), T value = default(T))
         {
-            this.Arg = arg;
+            this.Address = address;
+            this.Value = value;
         }
     }
 }

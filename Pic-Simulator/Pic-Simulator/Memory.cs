@@ -10,9 +10,17 @@ namespace Pic_Simulator
         
         public event MemoryUpdateEventHandler MemoryUpdate;
 
+        public event MemoryUpdateEventHandler RegisterUpdate;
+
         protected virtual void OnMemoryUpdated(MemoryUpdateEventArgs<T> e)
         {
             MemoryUpdateEventHandler handler = MemoryUpdate;
+            handler?.Invoke(this, e);
+        }
+
+        protected virtual void OnRegisterUpdated(MemoryUpdateEventArgs<T> e)
+        {
+            MemoryUpdateEventHandler handler = RegisterUpdate;
             handler?.Invoke(this, e);
         }
 

@@ -21,7 +21,9 @@ namespace Pic_Simulator
         public Form1()
         {
             InitializeComponent();
-            Program.pic.wReg.MemoryUpdate += UpdateGUI;
+            Program.pic.wReg.RegisterUpdate += UpdateWReg;
+            Program.pic.dataMem.MemoryUpdate += UpdateGUI;
+
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -273,14 +275,30 @@ namespace Pic_Simulator
             NextLine?.Invoke();
         }
 
-        public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
+        public void MarkLine(UInt16 pc)
         {
-            int currentLine = Program.pic.progMem.GetKeyAtIndex(e.Arg);
-            if (currentLine == UInt16.MaxValue) return;
-            int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(currentLine);
-            string lineText = rtext_Code.Lines[currentLine];
+            UInt16 codeLine = Program.pic.progMem.GetKeyAtIndex(pc);
+            if (codeLine == UInt16.MaxValue) return;
+            int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(codeLine);
+            string lineText = rtext_Code.Lines[codeLine];
             rtext_Code.Select(firstCharIndex + RELEVANT_CHAR_NUMBER, lineText.Length - RELEVANT_CHAR_NUMBER);
             rtext_Code.SelectionBackColor = Color.LightGreen;
+        }
+
+        public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
+        {
+            byte address = e.Address;
+            if(address == (byte)InstructionAddress.PCL || address == (byte)InstructionAddress.PCLATH)
+            {
+                UInt16 line = Program.pic.dataMem.GetPC();
+                MarkLine(line);
+            }
+            //TODO
+        }
+
+        public void UpdateWReg(object sender, MemoryUpdateEventArgs<byte> e)
+        {
+
         }
     }
 }

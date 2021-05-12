@@ -19,7 +19,7 @@ namespace Pic_Simulator
         public void SetValue(byte value)
         {
             this._values[0] = value;
-            OnMemoryUpdated(new MemoryUpdateEventArgs<byte>(value));
+            OnRegisterUpdated(new MemoryUpdateEventArgs<byte>(value: value));
         }
 
         public void Increment()
