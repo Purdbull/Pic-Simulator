@@ -118,6 +118,8 @@ namespace Pic_Simulator
             byte operand1;
             byte operand2;
 
+            UInt16 result16;
+
             bool carryBit;
 
             int  index;
@@ -126,11 +128,7 @@ namespace Pic_Simulator
 
             const byte DCMask           = 0b_00001111;
             const byte statusAdress     = 3;
-            const UInt16 addressMask    = 0b_00000111_11111111;
-            const bool BANK1            = true;
-
-            bool bank = Program.pic.dataMem.GetFlag(statusAdress, 5);
-
+            const UInt16 paramAddressMask = 0b_00000111_11111111;
 
             switch (instruction)
             {
@@ -323,6 +321,9 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.CALL:
+                    result16 = (UInt16)(data & paramAddressMask);
+                    Program.pic.stack.Push(Program.pic.dataMem.GetPC());
+                    Program.pic.dataMem.SetPC(result16);
                     return true;
 
                 case Instruction.CLRF:
@@ -419,6 +420,8 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.GOTO:
+                    result16 = (UInt16)(data & paramAddressMask);
+                    Program.pic.dataMem.SetPC(result16);
                     return true;
 
                 case Instruction.IORLW:
@@ -487,9 +490,13 @@ namespace Pic_Simulator
                     return true;
 
                 case Instruction.RETLW:
+                    param = (byte)(data);
+                    Program.pic.wReg.SetValue(param);
+                    Program.pic.dataMem.SetPC(Program.pic.stack.Pop());
                     return true;
 
                 case Instruction.RETURN:
+                    Program.pic.dataMem.SetPC(Program.pic.stack.Pop());
                     return true;
 
                 case Instruction.RLF:
