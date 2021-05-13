@@ -277,6 +277,16 @@ namespace Pic_Simulator
 
         public void MarkLine(UInt16 pc)
         {
+            //clear previous line marking
+            int lineIndex = 0;
+            foreach(string line in rtext_Code.Lines)
+            {
+                int charIndex = rtext_Code.GetFirstCharIndexFromLine(lineIndex);
+                rtext_Code.Select(charIndex + RELEVANT_CHAR_NUMBER, line.Length - RELEVANT_CHAR_NUMBER);
+                rtext_Code.SelectionBackColor = Color.White;
+                lineIndex++;
+            }
+
             UInt16 codeLine = Program.pic.progMem.GetKeyAtIndex(pc);
             if (codeLine == UInt16.MaxValue) return;
             int firstCharIndex = rtext_Code.GetFirstCharIndexFromLine(codeLine);
