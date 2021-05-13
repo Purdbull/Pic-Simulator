@@ -35,7 +35,7 @@ namespace Pic_Simulator
                 instruction = Convert.ToUInt16(substr[1], 16);
 
                 //convert instruction index string to byte
-                instructionIndex = Convert.ToUInt16(substr[0]);
+                instructionIndex = Convert.ToUInt16(substr[0], 16);
 
                 //set the line of progMem at index instructionIndex to key codeIndex and value instruction
                 pMemory.SetLine(instructionIndex, (UInt16)codeIndex, instruction);

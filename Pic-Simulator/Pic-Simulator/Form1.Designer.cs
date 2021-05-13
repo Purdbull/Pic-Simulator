@@ -413,7 +413,7 @@ namespace Pic_Simulator
             this.btn_Save.TabIndex = 9;
             this.btn_Save.Text = "Save";
             this.btn_Save.UseVisualStyleBackColor = true;
-            this.btn_Save.Click += new System.EventHandler(this.button2_Click);
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // groupBox4
             // 
@@ -438,6 +438,7 @@ namespace Pic_Simulator
             this.btn_Stop.TabIndex = 8;
             this.btn_Stop.Text = "Stop";
             this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
             // btn_Step
             // 
@@ -509,7 +510,7 @@ namespace Pic_Simulator
             this.btn_SaveAs.TabIndex = 12;
             this.btn_SaveAs.Text = "Save as..";
             this.btn_SaveAs.UseVisualStyleBackColor = true;
-            this.btn_SaveAs.Click += new System.EventHandler(this.button21_Click);
+            this.btn_SaveAs.Click += new System.EventHandler(this.btn_SaveAs_Click);
             // 
             // Form1
             // 

@@ -13,7 +13,6 @@ using static ExtensionMethods.Extensions;
 
 namespace Pic_Simulator
 {
-    public delegate void Trigger();
 
     public partial class Form1 : Form
     {
@@ -142,7 +141,7 @@ namespace Pic_Simulator
 
         }
 
-        private void button2_Click(object sender, EventArgs eventArgs)
+        private void btn_Save_Click(object sender, EventArgs eventArgs)
         {
             try
             {
@@ -166,7 +165,7 @@ namespace Pic_Simulator
             }
         }
 
-        private void button21_Click(object sender, EventArgs eventArgs)
+        private void btn_SaveAs_Click(object sender, EventArgs eventArgs)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog{ Filter = "LST files (*.LST)|*.LST" };
             try
@@ -226,6 +225,7 @@ namespace Pic_Simulator
             string code = rtext_Code.Text;
             int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
             Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
+            MarkLine(0);
             ExecuteCode(true);
         }
 
@@ -233,6 +233,13 @@ namespace Pic_Simulator
         {
             if (!Program.pic.Step()) return;
             ExecuteCode(true);
+        }
+
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            Unmark();
+            ResetPIC();
+            WriteDebugOutput("Debugging stopped!");
         }
 
         private void btn_Step_Click(object sender, EventArgs e)
@@ -245,6 +252,7 @@ namespace Pic_Simulator
             string code = rtext_Code.Text;
             int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
             Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
+            MarkLine(0);
             ExecuteCode(false);
         }
 
@@ -266,26 +274,12 @@ namespace Pic_Simulator
             return Program.pic.breakpoints?.Contains(lineNr) ?? false;
         }
 
-        //local methods
-
-        public event Trigger NextLine;
-
-        public void RequestLineMark()
-        {
-            NextLine?.Invoke();
-        }
+        //local methodsS
 
         public void MarkLine(UInt16 pc)
         {
-            //clear previous line marking
-            int lineIndex = 0;
-            foreach(string line in rtext_Code.Lines)
-            {
-                int charIndex = rtext_Code.GetFirstCharIndexFromLine(lineIndex);
-                rtext_Code.Select(charIndex + RELEVANT_CHAR_NUMBER, line.Length - RELEVANT_CHAR_NUMBER);
-                rtext_Code.SelectionBackColor = Color.White;
-                lineIndex++;
-            }
+
+            Unmark();
 
             UInt16 codeLine = Program.pic.progMem.GetKeyAtIndex(pc);
             if (codeLine == UInt16.MaxValue) return;
@@ -293,6 +287,19 @@ namespace Pic_Simulator
             string lineText = rtext_Code.Lines[codeLine];
             rtext_Code.Select(firstCharIndex + RELEVANT_CHAR_NUMBER, lineText.Length - RELEVANT_CHAR_NUMBER);
             rtext_Code.SelectionBackColor = Color.LightGreen;
+        }
+
+        public void Unmark()
+        {
+            //clear previous line marking
+            int lineIndex = 0;
+            foreach (string line in rtext_Code.Lines)
+            {
+                int charIndex = rtext_Code.GetFirstCharIndexFromLine(lineIndex);
+                rtext_Code.Select(charIndex + RELEVANT_CHAR_NUMBER, line.Length - RELEVANT_CHAR_NUMBER);
+                rtext_Code.SelectionBackColor = Color.White;
+                lineIndex++;
+            }
         }
 
         public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
@@ -309,6 +316,16 @@ namespace Pic_Simulator
         public void UpdateWReg(object sender, MemoryUpdateEventArgs<byte> e)
         {
 
+        }
+
+        public void ResetPIC()
+        {
+            Program.pic = new PIC();
+        }
+
+        public void WriteDebugOutput(string message)
+        {
+            rtext_Output.Text = message;
         }
     }
 }
