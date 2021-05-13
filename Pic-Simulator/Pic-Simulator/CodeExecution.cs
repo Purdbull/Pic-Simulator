@@ -68,7 +68,7 @@ namespace Pic_Simulator
             ADDLW  = 0b_11111110_00000000,  //0011 111x kkkk kkkk
             MOVLW  = 0b_11111100_00000000,  //0011 00xx kkkk kkkk
             RETLW  = 0b_11111100_00000000,  //0011 01xx kkkk kkkk
-            SUBLW  = 0b_11111100_00000000,  //0011 110x kkkk kkkk
+            SUBLW  = 0b_11111110_00000000,  //0011 110x kkkk kkkk
             BSF    = 0b_11111100_00000000,  //0001 01bb bfff ffff
             BCF    = 0b_11111100_00000000,  //0001 00bb bfff ffff
             BTFSC  = 0b_11111100_00000000,  //0001 10bb bfff ffff
@@ -585,10 +585,12 @@ namespace Pic_Simulator
                     if (overflowCheck >= 0)
                     {
                         Program.pic.dataMem.SetFlag(statusAdress, 0); //setting c-flag
+                        Program.pic.dataMem.SetFlag(statusAdress, 1); //setting dc-flag
                     }
                     else
                     {
                         Program.pic.dataMem.ClearFlag(statusAdress, 0); //clearing c-flag
+                        Program.pic.dataMem.ClearFlag(statusAdress, 1); //clearing dc-flag
                     }
 
                     if (operand2 == 0)
@@ -629,10 +631,12 @@ namespace Pic_Simulator
                     if (overflowCheck >= 0)
                     {
                         Program.pic.dataMem.SetFlag(statusAdress, 0); //setting c-flag
+                        Program.pic.dataMem.ClearFlag(statusAdress, 1); //clearing dc-flag
                     }
                     else
                     {
                         Program.pic.dataMem.ClearFlag(statusAdress, 0); //clearing c-flag
+                        Program.pic.dataMem.SetFlag(statusAdress, 1); //setting dc-flag
                     }
 
                     if (operand2 == 0)
