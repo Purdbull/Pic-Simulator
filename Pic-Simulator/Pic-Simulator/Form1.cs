@@ -17,11 +17,12 @@ namespace Pic_Simulator
     public partial class Form1 : Form
     {
         readonly int RELEVANT_CHAR_NUMBER = 9;
+
+        public List<int> breakpoints = new List<int>();
+
         public Form1()
         {
             InitializeComponent();
-            Program.pic.wReg.RegisterUpdate += UpdateWReg;
-            Program.pic.dataMem.MemoryUpdate += UpdateGUI;
 
         }
 
@@ -208,12 +209,12 @@ namespace Pic_Simulator
                     rtext_Code.Select(firstCharIndex, RELEVANT_CHAR_NUMBER); //mark the first 9 chars as breakpoint e.g "0001 3011"
                     if (!rtext_Code.SelectionBackColor.Equals(Color.Red))
                     {
-                        Program.pic.breakpoints.Add(clickedLineIndex);
+                        this.breakpoints.Add(clickedLineIndex);
                         rtext_Code.SelectionBackColor = Color.Red;
                     }
                     else
                     {
-                        Program.pic.breakpoints.Remove(clickedLineIndex);
+                        this.breakpoints.Remove(clickedLineIndex);
                         rtext_Code.SelectionBackColor = Color.White;
                     }
                 }
@@ -222,23 +223,19 @@ namespace Pic_Simulator
 
         private void btn_Debug_Click(object sender, EventArgs e)
         {
-            string code = rtext_Code.Text;
-            int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
-            Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
-            MarkLine(0);
-            ExecuteCode(true);
+            Initialize();
+            if (ExecuteCode(true)) Finalize();
         }
 
         private void btn_Continue_Click(object sender, EventArgs e)
         {
             if (!Program.pic.Step()) return;
-            ExecuteCode(true);
+            if (ExecuteCode(true)) Finalize();
         }
 
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            Unmark();
-            ResetPIC();
+            Finalize();
             WriteDebugOutput("Debugging stopped!");
         }
 
@@ -249,14 +246,11 @@ namespace Pic_Simulator
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
-            string code = rtext_Code.Text;
-            int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
-            Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
-            MarkLine(0);
-            ExecuteCode(false);
+            Initialize();
+            if (ExecuteCode(false)) Finalize();
         }
 
-        private void ExecuteCode(bool enableBreakpoints)
+        private bool ExecuteCode(bool enableBreakpoints)
         {
             //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
             //else, continue
@@ -265,13 +259,14 @@ namespace Pic_Simulator
             {
 
                 //Step() returns false when end of code has been reached or an error has been encountered
-                if (!Program.pic.Step()) return;
+                if (!Program.pic.Step()) return true; //return true on end of code reached
             }
+            return false;
         }
 
         private bool IsBreakpoint(int lineNr)
         {
-            return Program.pic.breakpoints?.Contains(lineNr) ?? false;
+            return this.breakpoints?.Contains(lineNr) ?? false;
         }
 
         //local methodsS
@@ -326,6 +321,25 @@ namespace Pic_Simulator
         public void WriteDebugOutput(string message)
         {
             rtext_Output.Text = message;
+        }
+
+        public void Finalize()
+        {
+            //clean up after finishing code execution
+            Unmark();
+            Program.pic = new PIC();
+
+        }
+
+        public void Initialize()
+        {
+            Program.pic.wReg.RegisterUpdate += UpdateWReg;
+            Program.pic.dataMem.MemoryUpdate += UpdateGUI;
+
+            string code = rtext_Code.Text;
+            int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
+            Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
+            MarkLine(0);
         }
     }
 }
