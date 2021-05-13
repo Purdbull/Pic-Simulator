@@ -18,8 +18,6 @@ namespace Pic_Simulator
 
         public int quarzCycles;
 
-        public List<int> breakpoints;
-
 
         public PIC()
         {
@@ -30,8 +28,6 @@ namespace Pic_Simulator
             this.stack = new Stack<UInt16>(8);
 
             this.quarzCycles = 0;
-
-            this.breakpoints = new List<int>();
     }
 
         public bool Step()
