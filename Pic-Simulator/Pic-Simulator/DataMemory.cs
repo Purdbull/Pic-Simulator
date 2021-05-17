@@ -59,6 +59,16 @@ namespace Pic_Simulator
             return targetByte.GetBit(bitIndex);
         }
 
+        public string GetHexKeyAtIndex(int index)
+        {
+            return _keys[index].ToString("X4");
+        }
+
+        public string GetHexValueAtIndex(int index)
+        {
+            return _values[index].ToString("X4");
+        }
+
         public void SetFlag(byte address, int bitIndex)
         {
             byte targetByte = this.Get(address);

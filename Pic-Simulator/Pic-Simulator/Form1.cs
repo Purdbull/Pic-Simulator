@@ -23,7 +23,7 @@ namespace Pic_Simulator
         public Form1()
         {
             InitializeComponent();
-
+            InitializeRamGUI();
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -297,6 +297,36 @@ namespace Pic_Simulator
             }
         }
 
+        private void InitializeRamGUI()
+        {
+            //tlp_Bank1.RowCount = PIC.MAX_DATAMEM_SIZE;
+            //tlp_Bank2.RowCount = PIC.MAX_DATAMEM_SIZE;
+            //WriteDebugOutput(tlp_Bank1.RowCount.ToString());
+
+            tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(0) }, 0, tlp_Bank1.RowCount - 1);
+            tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(0), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount - 1);
+
+            tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(0) }, 0, tlp_Bank2.RowCount - 1);
+            tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(0), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank2.RowCount - 1);
+
+            for (int row = 1; row < PIC.MAX_DATAMEM_SIZE; row++)
+            {
+
+                tlp_Bank1.RowCount++;
+                tlp_Bank2.RowCount++;
+
+                tlp_Bank1.RowStyles.Add(new RowStyle());
+                tlp_Bank2.RowStyles.Add(new RowStyle());
+
+                tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row) }, 0, tlp_Bank1.RowCount);
+                tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount);
+
+                tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row) }, 0, tlp_Bank2.RowCount);
+                tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank2.RowCount);
+
+            }
+        }
+
         public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
         {
             byte address = e.Address;
@@ -340,6 +370,11 @@ namespace Pic_Simulator
             int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
             Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
             MarkLine(0);
+        }
+
+        private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
