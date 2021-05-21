@@ -23,7 +23,7 @@ namespace Pic_Simulator
         public Form1()
         {
             InitializeComponent();
-            InitializeRamGUI();
+            PopulateRamGUI();
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -297,34 +297,34 @@ namespace Pic_Simulator
             }
         }
 
-        private void InitializeRamGUI()
+        private void PopulateRamGUI()
         {
-            //tlp_Bank1.RowCount = PIC.MAX_DATAMEM_SIZE;
-            //tlp_Bank2.RowCount = PIC.MAX_DATAMEM_SIZE;
-            //WriteDebugOutput(tlp_Bank1.RowCount.ToString());
+            //FIX it!!! disable row dynamic sizing
+            
 
-            tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(0) }, 0, tlp_Bank1.RowCount - 1);
-            tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(0), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount - 1);
+    
 
-            tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(0) }, 0, tlp_Bank2.RowCount - 1);
-            tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(0), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank2.RowCount - 1);
-
-            for (int row = 1; row < PIC.MAX_DATAMEM_SIZE; row++)
+            for (int row = 0; row < PIC.MAX_DATAMEM_SIZE/2; row++)
             {
-
-                tlp_Bank1.RowCount++;
-                tlp_Bank2.RowCount++;
-
-                tlp_Bank1.RowStyles.Add(new RowStyle());
-                tlp_Bank2.RowStyles.Add(new RowStyle());
-
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row) }, 0, tlp_Bank1.RowCount);
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount);
 
+                tlp_Bank1.RowStyles.Add(new RowStyle());
+
+                tlp_Bank1.RowCount++;
+            }
+
+
+            for (int row = PIC.MAX_DATAMEM_SIZE / 2; row < PIC.MAX_DATAMEM_SIZE; row++)
+            {
                 tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row) }, 0, tlp_Bank2.RowCount);
                 tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank2.RowCount);
 
+                tlp_Bank2.RowStyles.Add(new RowStyle());
+
+                tlp_Bank2.RowCount++;
             }
+
         }
 
         public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
@@ -335,6 +335,7 @@ namespace Pic_Simulator
                 UInt16 line = Program.pic.dataMem.GetPC();
                 MarkLine(line);
             }
+            PopulateRamGUI();
             //TODO
         }
 
