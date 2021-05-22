@@ -6,6 +6,16 @@ namespace Pic_Simulator
 {
     public class PIC
     {
+        public delegate void GUIUpdateEventHandler(object sender, MemoryUpdateEventArgs<byte> e);
+
+        public event GUIUpdateEventHandler UpdateGUI;
+
+        protected virtual void OnStepGUIUpdate(MemoryUpdateEventArgs<byte> e)
+        {
+            GUIUpdateEventHandler handler = UpdateGUI;
+            handler?.Invoke(this, e);
+        }
+
         public static int MAX_DATAMEM_SIZE = byte.MaxValue;
         public static int MAX_PROGMEM_SIZE = byte.MaxValue;
 
@@ -43,6 +53,7 @@ namespace Pic_Simulator
             bool success = CodeExecution.Execute(instruction, data);
 
             //refresh gui after
+            OnStepGUIUpdate(new MemoryUpdateEventArgs<byte>());
 
             return success;
         }

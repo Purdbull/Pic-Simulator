@@ -184,8 +184,8 @@ namespace Pic_Simulator
             this.tlp_Bank1.AutoScroll = true;
             this.tlp_Bank1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tlp_Bank1.ColumnCount = 2;
-            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tlp_Bank1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Bank1.Location = new System.Drawing.Point(3, 3);
             this.tlp_Bank1.Name = "tlp_Bank1";
@@ -193,7 +193,6 @@ namespace Pic_Simulator
             this.tlp_Bank1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Bank1.Size = new System.Drawing.Size(183, 572);
             this.tlp_Bank1.TabIndex = 7;
-            this.tlp_Bank1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
             // 
             // tabPage2
             // 

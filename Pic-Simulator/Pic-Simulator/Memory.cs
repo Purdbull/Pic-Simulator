@@ -8,15 +8,15 @@ namespace Pic_Simulator
     {
         public delegate void MemoryUpdateEventHandler(object sender, MemoryUpdateEventArgs<T> e);
         
-        public event MemoryUpdateEventHandler MemoryUpdate;
+        //public event MemoryUpdateEventHandler MemoryUpdate;
 
         public event MemoryUpdateEventHandler RegisterUpdate;
 
-        protected virtual void OnMemoryUpdated(MemoryUpdateEventArgs<T> e)
-        {
-            MemoryUpdateEventHandler handler = MemoryUpdate;
-            handler?.Invoke(this, e);
-        }
+        //protected virtual void OnMemoryUpdated(MemoryUpdateEventArgs<T> e)
+        //{
+        //    MemoryUpdateEventHandler handler = MemoryUpdate;
+        //    handler?.Invoke(this, e);
+        //}
 
         protected virtual void OnRegisterUpdated(MemoryUpdateEventArgs<T> e)
         {
