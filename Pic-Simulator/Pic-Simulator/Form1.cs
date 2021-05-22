@@ -302,8 +302,6 @@ namespace Pic_Simulator
             //FIX it!!! disable row dynamic sizing
             
 
-    
-
             for (int row = 0; row < PIC.MAX_DATAMEM_SIZE/2; row++)
             {
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row) }, 0, tlp_Bank1.RowCount);
