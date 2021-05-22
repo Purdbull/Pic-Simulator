@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using static ExtensionMethods.Extensions;
+using System.Threading;
 
 namespace Pic_Simulator
 {
@@ -225,15 +226,13 @@ namespace Pic_Simulator
         private void btn_Debug_Click(object sender, EventArgs e)
         {
             Initialize();
-            if (ExecuteCode(true)) Finalize();
-            DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Debug, btn_Run });
-            EnableButtons(new List<Button>() { btn_Stop, btn_Step, btn_Continue });
+            ExecuteCode(true);
         }
 
         private void btn_Continue_Click(object sender, EventArgs e)
         {
             if (!Program.pic.Step(updateGUI: false)) return;
-            if (ExecuteCode(true)) Finalize();
+            ExecuteCode(true);
         }
 
         private void btn_Stop_Click(object sender, EventArgs e)
@@ -252,28 +251,48 @@ namespace Pic_Simulator
         private void btn_Run_Click(object sender, EventArgs e)
         {
             Initialize();
-            if (ExecuteCode(false)) Finalize();
-            DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug });
-            EnableButtons(new List<Button>() {btn_Stop});
+            ExecuteCode(false);
         }
 
-        private bool ExecuteCode(bool enableBreakpoints)
+        private void ExecuteCode(bool enableBreakpoints)
         {
             WriteDebugOutput("Running...");
             //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
             //else, continue
-
-
-            while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.dataMem.GetPC())) && enableBreakpoints))
+            Thread codeExecutorThread = new Thread(() =>
             {
-
-                //Step() returns false when end of code has been reached or an error has been encountered
-                if (!Program.pic.Step(updateGUI: false)) return true; //return true on end of code reached
-            }
-            //Update memory GUI and line marker after hitting a breakpoint
-            UpdateGUI(this, new UpdateEventArgs<byte>());
-            WriteDebugOutput("Breakpoint Hit");
-            return false;
+                
+                this.Invoke((MethodInvoker)delegate {
+                    EnableButtons(new List<Button>() { btn_Stop });
+                    DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug, btn_Step });
+                });
+                try
+                {
+                    while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.dataMem.GetPC())) && enableBreakpoints))
+                    {
+                        //Step() returns false when end of code has been reached or an error has been encountered
+                        if (!Program.pic.Step(updateGUI: false))
+                        {
+                            btn_Stop.Invoke((MethodInvoker)delegate
+                            {
+                                btn_Stop_Click(this, new EventArgs());
+                            });
+                            return;
+                        } //return on end of code reached
+                    }
+                }
+                catch (Exception)
+                {
+                    return;
+                }
+                this.Invoke((MethodInvoker)delegate {
+                    EnableButtons(new List<Button>() { btn_Step, btn_Continue, btn_Stop });
+                    //Update memory GUI and line marker after hitting a breakpoint
+                    UpdateGUI(this, new UpdateEventArgs<byte>());
+                    WriteDebugOutput("Breakpoint Hit");
+                });
+            });
+            codeExecutorThread.Start();
         }
 
         private bool IsBreakpoint(int lineNr)
