@@ -129,6 +129,7 @@ namespace Pic_Simulator
                 {
                     rtext_Code.Text = File.ReadAllText(ofd.FileName);
                     lbl_Code.Text = ofd.FileName;
+                    Program.pic = new PIC();
                 }
             } 
             catch (IOException exception)
@@ -225,11 +226,13 @@ namespace Pic_Simulator
         {
             Initialize();
             if (ExecuteCode(true)) Finalize();
+            DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Debug, btn_Run });
+            EnableButtons(new List<Button>() { btn_Stop, btn_Step, btn_Continue });
         }
 
         private void btn_Continue_Click(object sender, EventArgs e)
         {
-            if (!Program.pic.Step()) return;
+            if (!Program.pic.Step(updateGUI: false)) return;
             if (ExecuteCode(true)) Finalize();
         }
 
@@ -237,30 +240,39 @@ namespace Pic_Simulator
         {
             Finalize();
             WriteDebugOutput("Debugging stopped!");
+            DisableButtons(new List<Button>() { btn_Step, btn_Continue, btn_Stop });
+            EnableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug });
         }
 
         private void btn_Step_Click(object sender, EventArgs e)
         {
-            Program.pic.Step();
+            Program.pic.Step(updateGUI: true);
         }
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
             Initialize();
             if (ExecuteCode(false)) Finalize();
+            DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug });
+            EnableButtons(new List<Button>() {btn_Stop});
         }
 
         private bool ExecuteCode(bool enableBreakpoints)
         {
+            WriteDebugOutput("Running...");
             //If breakpoints are enabled and the current line has a breakpoint set, stop the code execution
             //else, continue
-            //TODO: DO WHILE LOOP
+
+
             while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.dataMem.GetPC())) && enableBreakpoints))
             {
 
                 //Step() returns false when end of code has been reached or an error has been encountered
-                if (!Program.pic.Step()) return true; //return true on end of code reached
+                if (!Program.pic.Step(updateGUI: false)) return true; //return true on end of code reached
             }
+            //Update memory GUI and line marker after hitting a breakpoint
+            UpdateGUI(this, new UpdateEventArgs<byte>());
+            WriteDebugOutput("Breakpoint Hit");
             return false;
         }
 
@@ -312,10 +324,10 @@ namespace Pic_Simulator
             InitializeTLP(ref tlp_Bank1);
             InitializeTLP(ref tlp_Bank2);
 
-            for (int row = 0; row < PIC.MAX_DATAMEM_SIZE/2; row++)
+            for (int row = 0; row < PIC.MAX_DATAMEM_SIZE / 2; row++)
             {
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row)}, 0, tlp_Bank1.RowCount);
-                tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row)}, 1, tlp_Bank1.RowCount);
+                tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount);
 
                 tlp_Bank1.RowStyles.Add(new RowStyle());
 
@@ -352,35 +364,15 @@ namespace Pic_Simulator
 
         private void InitializeTLP(ref TableLayoutPanel table)
         {
-            //table.AutoScroll = true;
-            //table.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            //table.ColumnCount = 2;
-            //table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            //table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            //table.Dock = System.Windows.Forms.DockStyle.Fill;
-            //table.Location = new System.Drawing.Point(3, 3);
             table.RowCount = 1;
             table.RowStyles.Add(new RowStyle());
-            //table.Size = new System.Drawing.Size(183, 572);
-            //table.TabIndex = 7;
-            //table.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
         }
 
-        public void UpdateGUI(object sender, MemoryUpdateEventArgs<byte> e)
+        public void UpdateGUI(object sender, UpdateEventArgs<byte> e)
         {
-            byte address = e.Address;
-            if(address == (byte)InstructionAddress.PCL || address == (byte)InstructionAddress.PCLATH)
-            {
-                UInt16 line = Program.pic.dataMem.GetPC();
-                MarkLine(line);
-            }
-            //TODO
+            UInt16 line = Program.pic.dataMem.GetPC();
+            MarkLine(line);
             UpdateMemoryGUI();
-        }
-
-        public void UpdateWReg(object sender, MemoryUpdateEventArgs<byte> e)
-        {
-
         }
 
         public void ResetPIC()
@@ -403,13 +395,28 @@ namespace Pic_Simulator
 
         public void Initialize()
         {
-            Program.pic.wReg.RegisterUpdate += UpdateWReg;
             Program.pic.UpdateGUI += this.UpdateGUI;
 
             string code = rtext_Code.Text;
             int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
             Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
             MarkLine(0);
+        }
+
+        public void DisableButtons(List<Button> btns)
+        {
+            foreach(Button btn in btns)
+            {
+                btn.Enabled = false;
+            }
+        }
+
+        public void EnableButtons(List<Button> btns)
+        {
+            foreach (Button btn in btns)
+            {
+                btn.Enabled = true;
+            }
         }
     }
 }

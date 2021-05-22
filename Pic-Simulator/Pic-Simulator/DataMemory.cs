@@ -9,7 +9,7 @@ namespace Pic_Simulator
     {
         public DataMemory() : base(PIC.MAX_DATAMEM_SIZE) 
         {
-            for(int i = 0; i < this._keys.Count; i++) if (i <= byte.MaxValue)
+            for(int i = 0; i < this._keys.Count; i++) if (i <= PIC.MAX_DATAMEM_SIZE)
             {
                 _keys[i] = (byte)i;
             }
@@ -20,13 +20,29 @@ namespace Pic_Simulator
             bool RP0 = STATUS.GetBit(5);
 
             this.Set(address, RP0, value);
+
         }
 
         public void Set(byte address, bool bank, byte value)
         {
-            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 8));
+            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 
             this.SetValue(fullAddress, value);
+
+            //map value to the opposite bank at specific addresses
+            switch (address)
+            {
+                case 2:
+                case 3:
+                case 10:
+                case 11:
+                case byte n when (n > 11 && n < 48):
+                    fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(!bank) << 7));
+                    this.SetValue(fullAddress, value);
+                    break;
+                default:
+                    break;
+            }
             //OnMemoryUpdated(new MemoryUpdateEventArgs<byte>(fullAddress, value));
         }
 
@@ -35,14 +51,14 @@ namespace Pic_Simulator
             byte STATUS = this._values[(byte)(InstructionAddress.STATUS)];
             bool RP0 = STATUS.GetBit(5);
 
-            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(RP0) << 8));
+            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(RP0) << 7));
 
             return this.GetValue(fullAddress);
         }
 
         public byte Get(byte address, bool bank)
         {
-            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 8));
+            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 
             return this.GetValue(fullAddress);
         }

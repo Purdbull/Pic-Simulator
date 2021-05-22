@@ -210,8 +210,8 @@ namespace Pic_Simulator
             this.tlp_Bank2.AutoScroll = true;
             this.tlp_Bank2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tlp_Bank2.ColumnCount = 2;
-            this.tlp_Bank2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlp_Bank2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tlp_Bank2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tlp_Bank2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tlp_Bank2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Bank2.Location = new System.Drawing.Point(3, 3);
             this.tlp_Bank2.Name = "tlp_Bank2";
@@ -444,6 +444,7 @@ namespace Pic_Simulator
             this.btn_Stop.Text = "Stop";
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            this.btn_Stop.Enabled = false;
             // 
             // btn_Step
             // 
@@ -455,6 +456,7 @@ namespace Pic_Simulator
             this.btn_Step.Text = "Step";
             this.btn_Step.UseVisualStyleBackColor = true;
             this.btn_Step.Click += new System.EventHandler(this.btn_Step_Click);
+            this.btn_Step.Enabled = false;
             // 
             // btn_Continue
             // 
@@ -466,6 +468,7 @@ namespace Pic_Simulator
             this.btn_Continue.Text = "Continue";
             this.btn_Continue.UseVisualStyleBackColor = true;
             this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
+            this.btn_Continue.Enabled = false;
             // 
             // btn_Debug
             // 
