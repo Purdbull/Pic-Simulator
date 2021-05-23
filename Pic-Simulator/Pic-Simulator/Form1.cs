@@ -14,10 +14,11 @@ using System.Threading;
 
 namespace Pic_Simulator
 {
-
     public partial class Form1 : Form
     {
         readonly int RELEVANT_CHAR_NUMBER = 9;
+
+        private bool threadKillRequest = false;
 
         public List<int> breakpoints = new List<int>();
 
@@ -233,10 +234,12 @@ namespace Pic_Simulator
         {
             if (!Program.pic.Step(updateGUI: false)) return;
             ExecuteCode(true);
+            DisableButtons(new List<Button>() { btn_Continue });
         }
 
         private void btn_Stop_Click(object sender, EventArgs e)
         {
+            threadKillRequest = true;
             Finalize();
             WriteDebugOutput("Debugging stopped!");
             DisableButtons(new List<Button>() { btn_Step, btn_Continue, btn_Stop });
@@ -263,13 +266,17 @@ namespace Pic_Simulator
             {
                 
                 this.Invoke((MethodInvoker)delegate {
+                    threadKillRequest = false;
                     EnableButtons(new List<Button>() { btn_Stop });
                     DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug, btn_Step });
                 });
-                try
-                {
                     while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.dataMem.GetPC())) && enableBreakpoints))
                     {
+                        if (threadKillRequest)
+                        {
+                            threadKillRequest = false;
+                            return;
+                        }
                         //Step() returns false when end of code has been reached or an error has been encountered
                         if (!Program.pic.Step(updateGUI: false))
                         {
@@ -280,11 +287,6 @@ namespace Pic_Simulator
                             return;
                         } //return on end of code reached
                     }
-                }
-                catch (Exception)
-                {
-                    return;
-                }
                 this.Invoke((MethodInvoker)delegate {
                     EnableButtons(new List<Button>() { btn_Step, btn_Continue, btn_Stop });
                     //Update memory GUI and line marker after hitting a breakpoint
@@ -300,7 +302,7 @@ namespace Pic_Simulator
             return this.breakpoints?.Contains(lineNr) ?? false;
         }
 
-        //local methodsS
+        //local methods
 
         public void MarkLine(UInt16 pc)
         {
@@ -330,12 +332,13 @@ namespace Pic_Simulator
 
         public void UpdateMemoryGUI()
         {
+            //TODO: maybe populate table from the end for performance reasons
             tlp_Bank1.Visible = false;
             tlp_Bank1.SuspendLayout();
 
             tlp_Bank2.Visible = false;
             tlp_Bank2.SuspendLayout();
-            //FIX it!!! disable row dynamic sizing
+
             ClearTLP(ref tlp_Bank1);
             ClearTLP(ref tlp_Bank2);
 
@@ -408,7 +411,7 @@ namespace Pic_Simulator
         {
             //clean up after finishing code execution
             Unmark();
-            Program.pic = new PIC();
+            ResetPIC();
 
         }
 
@@ -419,7 +422,6 @@ namespace Pic_Simulator
             string code = rtext_Code.Text;
             int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
             Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
-            MarkLine(0);
         }
 
         public void DisableButtons(List<Button> btns)
