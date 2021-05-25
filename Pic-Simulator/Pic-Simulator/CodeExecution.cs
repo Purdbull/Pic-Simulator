@@ -542,11 +542,11 @@ namespace Pic_Simulator
                     result = (byte)(result << 1);
                     if (carryBit)
                     {
-                        SetBitInByte(result, 0);
+                        result = SetBitInByte(result, 0);
                     }
                     else
                     {
-                        ClearBitInByte(result, 0);
+                        result = ClearBitInByte(result, 0);
                     }
 
                     if (data.GetBit(destinationBitIndex))
@@ -575,11 +575,11 @@ namespace Pic_Simulator
                     result = (byte)(result >> 1);
                     if (carryBit)
                     {
-                        SetBitInByte(result, 7);
+                        result = SetBitInByte(result, 7);
                     }
                     else
                     {
-                        ClearBitInByte(result, 7);
+                        result = ClearBitInByte(result, 7);
                     }
 
                     if (data.GetBit(destinationBitIndex))
