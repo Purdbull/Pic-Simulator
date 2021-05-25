@@ -50,11 +50,11 @@ namespace Pic_Simulator
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.btn_RA4 = new System.Windows.Forms.Button();
+            this.btn_RA3 = new System.Windows.Forms.Button();
+            this.btn_RA2 = new System.Windows.Forms.Button();
+            this.btn_RA1 = new System.Windows.Forms.Button();
+            this.btn_RA0 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -229,11 +229,11 @@ namespace Pic_Simulator
             this.groupBox3.Controls.Add(this.button17);
             this.groupBox3.Controls.Add(this.button16);
             this.groupBox3.Controls.Add(this.button15);
-            this.groupBox3.Controls.Add(this.button14);
-            this.groupBox3.Controls.Add(this.button13);
-            this.groupBox3.Controls.Add(this.button12);
-            this.groupBox3.Controls.Add(this.button11);
-            this.groupBox3.Controls.Add(this.button10);
+            this.groupBox3.Controls.Add(this.btn_RA4);
+            this.groupBox3.Controls.Add(this.btn_RA3);
+            this.groupBox3.Controls.Add(this.btn_RA2);
+            this.groupBox3.Controls.Add(this.btn_RA1);
+            this.groupBox3.Controls.Add(this.btn_RA0);
             this.groupBox3.Controls.Add(this.button9);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label3);
@@ -315,55 +315,61 @@ namespace Pic_Simulator
             this.button15.Text = "button15";
             this.button15.UseVisualStyleBackColor = true;
             // 
-            // button14
+            // btn_RA4
             // 
-            this.button14.Location = new System.Drawing.Point(194, 22);
-            this.button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(31, 22);
-            this.button14.TabIndex = 0;
-            this.button14.Text = "button14";
-            this.button14.UseVisualStyleBackColor = true;
+            this.btn_RA4.BackColor = System.Drawing.Color.Tomato;
+            this.btn_RA4.Location = new System.Drawing.Point(184, 22);
+            this.btn_RA4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RA4.Name = "btn_RA4";
+            this.btn_RA4.Size = new System.Drawing.Size(41, 22);
+            this.btn_RA4.TabIndex = 0;
+            this.btn_RA4.Text = "RA4";
+            this.btn_RA4.UseVisualStyleBackColor = false;
+            this.btn_RA4.Click += new System.EventHandler(this.RA4_Click);
             // 
-            // button13
+            // btn_RA3
             // 
-            this.button13.Location = new System.Drawing.Point(255, 22);
-            this.button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(31, 22);
-            this.button13.TabIndex = 0;
-            this.button13.Text = "button13";
-            this.button13.UseVisualStyleBackColor = true;
+            this.btn_RA3.Location = new System.Drawing.Point(235, 22);
+            this.btn_RA3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RA3.Name = "btn_RA3";
+            this.btn_RA3.Size = new System.Drawing.Size(38, 22);
+            this.btn_RA3.TabIndex = 0;
+            this.btn_RA3.Text = "RA3";
+            this.btn_RA3.UseVisualStyleBackColor = true;
+            this.btn_RA3.Click += new System.EventHandler(this.btn_RA3_Click);
             // 
-            // button12
+            // btn_RA2
             // 
-            this.button12.Location = new System.Drawing.Point(290, 22);
-            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(31, 22);
-            this.button12.TabIndex = 0;
-            this.button12.Text = "button12";
-            this.button12.UseVisualStyleBackColor = true;
+            this.btn_RA2.Location = new System.Drawing.Point(279, 22);
+            this.btn_RA2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RA2.Name = "btn_RA2";
+            this.btn_RA2.Size = new System.Drawing.Size(42, 22);
+            this.btn_RA2.TabIndex = 0;
+            this.btn_RA2.Text = "RA2";
+            this.btn_RA2.UseVisualStyleBackColor = true;
+            this.btn_RA2.Click += new System.EventHandler(this.btn_RA2_Click);
             // 
-            // button11
+            // btn_RA1
             // 
-            this.button11.Location = new System.Drawing.Point(326, 22);
-            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(31, 22);
-            this.button11.TabIndex = 0;
-            this.button11.Text = "button11";
-            this.button11.UseVisualStyleBackColor = true;
+            this.btn_RA1.Location = new System.Drawing.Point(326, 22);
+            this.btn_RA1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RA1.Name = "btn_RA1";
+            this.btn_RA1.Size = new System.Drawing.Size(39, 22);
+            this.btn_RA1.TabIndex = 0;
+            this.btn_RA1.Text = "RA1";
+            this.btn_RA1.UseVisualStyleBackColor = true;
+            this.btn_RA1.Click += new System.EventHandler(this.btn_RA1_Click);
             // 
-            // button10
+            // btn_RA0
             // 
-            this.button10.Location = new System.Drawing.Point(362, 22);
-            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(31, 22);
-            this.button10.TabIndex = 0;
-            this.button10.Text = "button10";
-            this.button10.UseVisualStyleBackColor = true;
+            this.btn_RA0.Location = new System.Drawing.Point(371, 22);
+            this.btn_RA0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RA0.Name = "btn_RA0";
+            this.btn_RA0.Size = new System.Drawing.Size(40, 22);
+            this.btn_RA0.TabIndex = 0;
+            this.btn_RA0.Text = "RA0";
+            this.btn_RA0.UseVisualStyleBackColor = true;
+            this.btn_RA0.Click += new System.EventHandler(this.btn_RA0_Click);
             // 
             // button9
             // 
@@ -436,6 +442,7 @@ namespace Pic_Simulator
             // 
             // btn_Stop
             // 
+            this.btn_Stop.Enabled = false;
             this.btn_Stop.Location = new System.Drawing.Point(48, 20);
             this.btn_Stop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Stop.Name = "btn_Stop";
@@ -444,10 +451,10 @@ namespace Pic_Simulator
             this.btn_Stop.Text = "Stop";
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
-            this.btn_Stop.Enabled = false;
             // 
             // btn_Step
             // 
+            this.btn_Step.Enabled = false;
             this.btn_Step.Location = new System.Drawing.Point(242, 20);
             this.btn_Step.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Step.Name = "btn_Step";
@@ -456,10 +463,10 @@ namespace Pic_Simulator
             this.btn_Step.Text = "Step";
             this.btn_Step.UseVisualStyleBackColor = true;
             this.btn_Step.Click += new System.EventHandler(this.btn_Step_Click);
-            this.btn_Step.Enabled = false;
             // 
             // btn_Continue
             // 
+            this.btn_Continue.Enabled = false;
             this.btn_Continue.Location = new System.Drawing.Point(161, 20);
             this.btn_Continue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Continue.Name = "btn_Continue";
@@ -468,7 +475,6 @@ namespace Pic_Simulator
             this.btn_Continue.Text = "Continue";
             this.btn_Continue.UseVisualStyleBackColor = true;
             this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
-            this.btn_Continue.Enabled = false;
             // 
             // btn_Debug
             // 
@@ -585,11 +591,11 @@ namespace Pic_Simulator
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btn_RA4;
+        private System.Windows.Forms.Button btn_RA3;
+        private System.Windows.Forms.Button btn_RA2;
+        private System.Windows.Forms.Button btn_RA1;
+        private System.Windows.Forms.Button btn_RA0;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button20;
