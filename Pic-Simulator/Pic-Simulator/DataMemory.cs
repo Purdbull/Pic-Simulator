@@ -130,12 +130,6 @@ namespace Pic_Simulator
             byte PCL = (byte)value;
             byte PCLATH = (byte)(value >> 8);
 
-            if (PCL > 7) System.Diagnostics.Debugger.Break();
-
-            if(PCLATH > 0)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
 
             this.Set((byte)InstructionAddress.PCL, PCL);
             this.Set((byte)InstructionAddress.PCLATH, PCLATH);
