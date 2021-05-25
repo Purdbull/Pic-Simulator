@@ -17,7 +17,7 @@ namespace Pic_Simulator
         }
 
         public static int MAX_DATAMEM_SIZE = 256;
-        public static int MAX_PROGMEM_SIZE = 256;
+        public static int MAX_PROGMEM_SIZE = 8192;
 
         public ProgramMemory progMem;
         public DataMemory dataMem;

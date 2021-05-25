@@ -16,8 +16,7 @@ namespace Pic_Simulator
         }
         public void Set(byte address, byte value)
         {
-            byte STATUS = this._values[(byte)(InstructionAddress.STATUS)];
-            bool RP0 = STATUS.GetBit(5);
+            bool RP0 = GetFlag((byte)InstructionAddress.STATUS, 5);
 
             this.Set(address, RP0, value);
 
@@ -25,6 +24,19 @@ namespace Pic_Simulator
 
         public void Set(byte address, bool bank, byte value)
         {
+            //Indirect addressing
+            if (address << 1 == 0)
+            {
+                //Write to the address in FSR instead
+                address = this.Get((byte)InstructionAddress.FSR);
+                bank = GetFlag((byte)InstructionAddress.STATUS, 7);
+                
+                if(address == 0)
+                {
+                    return; //Indirect write to INDF results in no-op
+                }
+            }
+
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 
             this.SetValue(fullAddress, value);
@@ -43,21 +55,30 @@ namespace Pic_Simulator
                 default:
                     break;
             }
-            //OnMemoryUpdated(new MemoryUpdateEventArgs<byte>(fullAddress, value));
         }
 
         public byte Get(byte address)
         {
-            byte STATUS = this._values[(byte)(InstructionAddress.STATUS)];
+            byte STATUS = this._values[(byte)(InstructionAddress.STATUS)]; //DO NOT USE GETFLAG()
             bool RP0 = STATUS.GetBit(5);
-
-            byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(RP0) << 7));
-
-            return this.GetValue(fullAddress);
+            return this.Get(address, RP0);
         }
 
         public byte Get(byte address, bool bank)
         {
+            //Indirect addressing
+            if (address << 1 == 0)
+            {
+                //Write to the address in FSR instead
+                address = this.Get((byte)InstructionAddress.FSR);
+                bank = GetFlag((byte)InstructionAddress.STATUS, 7);
+
+                if (address == 0)
+                {
+                    return 0; //Indirect read from INDF returns 0
+                }
+            }
+
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 
             return this.GetValue(fullAddress);

@@ -6,7 +6,7 @@ namespace Pic_Simulator
 {
     public class ProgramMemory : Memory<UInt16>
     {
-        public ProgramMemory() : base(PIC.MAX_DATAMEM_SIZE) {}
+        public ProgramMemory() : base(PIC.MAX_PROGMEM_SIZE) {}
 
     }
 }
