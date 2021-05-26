@@ -98,12 +98,12 @@ namespace Pic_Simulator
 
         public string GetHexKeyAtIndex(int index)
         {
-            return _keys[index].ToString("X4");
+            return _keys[index].ToString("X2");
         }
 
         public string GetHexValueAtIndex(int index)
         {
-            return _values[index].ToString("X4");
+            return _values[index].ToString("X2");
         }
 
         public void SetFlag(byte address, int bitIndex)

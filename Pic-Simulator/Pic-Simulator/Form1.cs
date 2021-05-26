@@ -340,7 +340,7 @@ namespace Pic_Simulator
 
             for (int row = 0; row < PIC.MAX_DATAMEM_SIZE / 2; row++)
             {
-                tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row)}, 0, tlp_Bank1.RowCount);
+                tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_Bank1.RowCount);
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount);
 
                 tlp_Bank1.RowStyles.Add(new RowStyle());
@@ -351,7 +351,7 @@ namespace Pic_Simulator
 
             for (int row = PIC.MAX_DATAMEM_SIZE / 2; row < PIC.MAX_DATAMEM_SIZE; row++)
             {
-                tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row) }, 0, tlp_Bank2.RowCount);
+                tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_Bank2.RowCount);
                 tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank2.RowCount);
 
                 tlp_Bank2.RowStyles.Add(new RowStyle());
