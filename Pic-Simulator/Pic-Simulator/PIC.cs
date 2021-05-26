@@ -34,6 +34,11 @@ namespace Pic_Simulator
 
         public PIC()
         {
+            Init();
+        }
+
+        private void Init() 
+        {
             this.progMem = new ProgramMemory();
             this.dataMem = new DataMemory();
             this.wReg = new DataField();
@@ -41,8 +46,11 @@ namespace Pic_Simulator
 
             this.stack = new Stack<UInt16>(8);
 
-            this.Clock = 0;
-    }
+            this.quarzCycles = 0;
+
+            this.dataMem.Set(5, true, 255);
+            this.dataMem.Set(6, true, 255);
+        }
 
         public bool Step(bool updateGUI)
         {
@@ -64,6 +72,11 @@ namespace Pic_Simulator
             if (updateGUI) { OnStepGUIUpdate(new UpdateEventArgs<byte>()); }
 
             return success;
+        }
+
+        public void Reset()
+        {
+            Init();
         }
 
         public void Continue()

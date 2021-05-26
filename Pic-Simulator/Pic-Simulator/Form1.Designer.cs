@@ -43,19 +43,19 @@ namespace Pic_Simulator
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tlp_Bank2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button20 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
+            this.btn_RB0 = new System.Windows.Forms.Button();
+            this.btn_RB1 = new System.Windows.Forms.Button();
+            this.btn_RB2 = new System.Windows.Forms.Button();
+            this.btn_RB3 = new System.Windows.Forms.Button();
+            this.btn_RB7 = new System.Windows.Forms.Button();
+            this.btn_RB6 = new System.Windows.Forms.Button();
+            this.btn_RB5 = new System.Windows.Forms.Button();
             this.btn_RA4 = new System.Windows.Forms.Button();
             this.btn_RA3 = new System.Windows.Forms.Button();
             this.btn_RA2 = new System.Windows.Forms.Button();
             this.btn_RA1 = new System.Windows.Forms.Button();
             this.btn_RA0 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btn_RB4 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_OpenFile = new System.Windows.Forms.Button();
@@ -221,19 +221,19 @@ namespace Pic_Simulator
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button20);
-            this.groupBox3.Controls.Add(this.button19);
-            this.groupBox3.Controls.Add(this.button18);
-            this.groupBox3.Controls.Add(this.button8);
-            this.groupBox3.Controls.Add(this.button17);
-            this.groupBox3.Controls.Add(this.button16);
-            this.groupBox3.Controls.Add(this.button15);
+            this.groupBox3.Controls.Add(this.btn_RB0);
+            this.groupBox3.Controls.Add(this.btn_RB1);
+            this.groupBox3.Controls.Add(this.btn_RB2);
+            this.groupBox3.Controls.Add(this.btn_RB3);
+            this.groupBox3.Controls.Add(this.btn_RB7);
+            this.groupBox3.Controls.Add(this.btn_RB6);
+            this.groupBox3.Controls.Add(this.btn_RB5);
             this.groupBox3.Controls.Add(this.btn_RA4);
             this.groupBox3.Controls.Add(this.btn_RA3);
             this.groupBox3.Controls.Add(this.btn_RA2);
             this.groupBox3.Controls.Add(this.btn_RA1);
             this.groupBox3.Controls.Add(this.btn_RA0);
-            this.groupBox3.Controls.Add(this.button9);
+            this.groupBox3.Controls.Add(this.btn_RB4);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(12, 294);
@@ -243,81 +243,87 @@ namespace Pic_Simulator
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "I/O Pins";
             // 
-            // button20
+            // btn_RB0
             // 
-            this.button20.Location = new System.Drawing.Point(362, 74);
-            this.button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(31, 22);
-            this.button20.TabIndex = 0;
-            this.button20.Text = "button20";
-            this.button20.UseVisualStyleBackColor = true;
+            this.btn_RB0.Location = new System.Drawing.Point(371, 73);
+            this.btn_RB0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB0.Name = "btn_RB0";
+            this.btn_RB0.Size = new System.Drawing.Size(40, 22);
+            this.btn_RB0.TabIndex = 0;
+            this.btn_RB0.Text = "RB0";
+            this.btn_RB0.UseVisualStyleBackColor = true;
+            this.btn_RB0.Click += new System.EventHandler(this.btn_RB0_Click);
             // 
-            // button19
+            // btn_RB1
             // 
-            this.button19.Location = new System.Drawing.Point(326, 74);
-            this.button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(31, 22);
-            this.button19.TabIndex = 0;
-            this.button19.Text = "button19";
-            this.button19.UseVisualStyleBackColor = true;
+            this.btn_RB1.Location = new System.Drawing.Point(326, 73);
+            this.btn_RB1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB1.Name = "btn_RB1";
+            this.btn_RB1.Size = new System.Drawing.Size(39, 22);
+            this.btn_RB1.TabIndex = 0;
+            this.btn_RB1.Text = "RB1";
+            this.btn_RB1.UseVisualStyleBackColor = true;
+            this.btn_RB1.Click += new System.EventHandler(this.btn_RB1_Click);
             // 
-            // button18
+            // btn_RB2
             // 
-            this.button18.Location = new System.Drawing.Point(290, 74);
-            this.button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(31, 22);
-            this.button18.TabIndex = 0;
-            this.button18.Text = "button18";
-            this.button18.UseVisualStyleBackColor = true;
+            this.btn_RB2.Location = new System.Drawing.Point(279, 73);
+            this.btn_RB2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB2.Name = "btn_RB2";
+            this.btn_RB2.Size = new System.Drawing.Size(41, 22);
+            this.btn_RB2.TabIndex = 0;
+            this.btn_RB2.Text = "RB2";
+            this.btn_RB2.UseVisualStyleBackColor = true;
+            this.btn_RB2.Click += new System.EventHandler(this.btn_RB2_Click);
             // 
-            // button8
+            // btn_RB3
             // 
-            this.button8.Location = new System.Drawing.Point(255, 74);
-            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(31, 22);
-            this.button8.TabIndex = 0;
-            this.button8.Text = "button8";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btn_RB3.Location = new System.Drawing.Point(235, 73);
+            this.btn_RB3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB3.Name = "btn_RB3";
+            this.btn_RB3.Size = new System.Drawing.Size(38, 22);
+            this.btn_RB3.TabIndex = 0;
+            this.btn_RB3.Text = "RB3";
+            this.btn_RB3.UseVisualStyleBackColor = true;
+            this.btn_RB3.Click += new System.EventHandler(this.btn_RB3_Click);
             // 
-            // button17
+            // btn_RB7
             // 
-            this.button17.Location = new System.Drawing.Point(87, 74);
-            this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(31, 22);
-            this.button17.TabIndex = 0;
-            this.button17.Text = "button17";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.button17_Click);
+            this.btn_RB7.Location = new System.Drawing.Point(49, 73);
+            this.btn_RB7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB7.Name = "btn_RB7";
+            this.btn_RB7.Size = new System.Drawing.Size(42, 22);
+            this.btn_RB7.TabIndex = 0;
+            this.btn_RB7.Text = "RB7";
+            this.btn_RB7.UseVisualStyleBackColor = true;
+            this.btn_RB7.Click += new System.EventHandler(this.btn_RB7_Click);
             // 
-            // button16
+            // btn_RB6
             // 
-            this.button16.Location = new System.Drawing.Point(122, 74);
-            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(31, 22);
-            this.button16.TabIndex = 0;
-            this.button16.Text = "button16";
-            this.button16.UseVisualStyleBackColor = true;
+            this.btn_RB6.Location = new System.Drawing.Point(97, 73);
+            this.btn_RB6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB6.Name = "btn_RB6";
+            this.btn_RB6.Size = new System.Drawing.Size(39, 22);
+            this.btn_RB6.TabIndex = 0;
+            this.btn_RB6.Text = "RB6";
+            this.btn_RB6.UseVisualStyleBackColor = true;
+            this.btn_RB6.Click += new System.EventHandler(this.btn_RB6_Click);
             // 
-            // button15
+            // btn_RB5
             // 
-            this.button15.Location = new System.Drawing.Point(158, 74);
-            this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(31, 22);
-            this.button15.TabIndex = 0;
-            this.button15.Text = "button15";
-            this.button15.UseVisualStyleBackColor = true;
+            this.btn_RB5.Location = new System.Drawing.Point(142, 73);
+            this.btn_RB5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB5.Name = "btn_RB5";
+            this.btn_RB5.Size = new System.Drawing.Size(40, 22);
+            this.btn_RB5.TabIndex = 0;
+            this.btn_RB5.Text = "RB5";
+            this.btn_RB5.UseVisualStyleBackColor = true;
+            this.btn_RB5.Click += new System.EventHandler(this.btn_RB5_Click);
             // 
             // btn_RA4
             // 
-            this.btn_RA4.BackColor = System.Drawing.Color.Tomato;
-            this.btn_RA4.Location = new System.Drawing.Point(184, 22);
+            this.btn_RA4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btn_RA4.Location = new System.Drawing.Point(188, 22);
             this.btn_RA4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_RA4.Name = "btn_RA4";
             this.btn_RA4.Size = new System.Drawing.Size(41, 22);
@@ -370,20 +376,21 @@ namespace Pic_Simulator
             this.btn_RA0.UseVisualStyleBackColor = true;
             this.btn_RA0.Click += new System.EventHandler(this.btn_RA0_Click);
             // 
-            // button9
+            // btn_RB4
             // 
-            this.button9.Location = new System.Drawing.Point(194, 74);
-            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(31, 22);
-            this.button9.TabIndex = 0;
-            this.button9.Text = "button9";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btn_RB4.Location = new System.Drawing.Point(188, 73);
+            this.btn_RB4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_RB4.Name = "btn_RB4";
+            this.btn_RB4.Size = new System.Drawing.Size(41, 22);
+            this.btn_RB4.TabIndex = 0;
+            this.btn_RB4.Text = "RB4";
+            this.btn_RB4.UseVisualStyleBackColor = true;
+            this.btn_RB4.Click += new System.EventHandler(this.btn_RB4_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 77);
+            this.label4.Location = new System.Drawing.Point(0, 77);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 15);
             this.label4.TabIndex = 1;
@@ -393,7 +400,7 @@ namespace Pic_Simulator
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 25);
+            this.label3.Location = new System.Drawing.Point(0, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 15);
             this.label3.TabIndex = 1;
@@ -587,20 +594,20 @@ namespace Pic_Simulator
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Button btn_Step;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button btn_RB7;
+        private System.Windows.Forms.Button btn_RB6;
+        private System.Windows.Forms.Button btn_RB5;
         private System.Windows.Forms.Button btn_RA4;
         private System.Windows.Forms.Button btn_RA3;
         private System.Windows.Forms.Button btn_RA2;
         private System.Windows.Forms.Button btn_RA1;
         private System.Windows.Forms.Button btn_RA0;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btn_RB4;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btn_RB0;
+        private System.Windows.Forms.Button btn_RB1;
+        private System.Windows.Forms.Button btn_RB2;
+        private System.Windows.Forms.Button btn_RB3;
         private System.Windows.Forms.RichTextBox rtext_Output;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btn_SaveAs;
