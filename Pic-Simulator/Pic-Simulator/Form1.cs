@@ -118,11 +118,6 @@ namespace Pic_Simulator
 
         }
 
-        private void button17_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_OpenFile_Click(object sender, EventArgs eventArgs)
         {
             OpenFileDialog ofd = new OpenFileDialog{ Filter = "LST files (*.LST)|*.LST" };
@@ -399,12 +394,59 @@ namespace Pic_Simulator
             {
                 if(Program.pic.dataMem.GetFlag(5, false, index))
                 {
-                    btn.BackColor = Color.LightGreen;
+                    if (!Program.pic.dataMem.GetFlag(5, true, index) && index != 4)  //RA4 can only produce an active 0
+                    {
+                        btn.BackColor = Color.LightGreen;
+                    }
                 }
                 else
                 {
-                    btn.BackColor = Color.Tomato;
+                    if (!Program.pic.dataMem.GetFlag(5, true, index))
+                    {
+                        btn.BackColor = Color.Tomato;
+                    }
                 }
+
+                if(Program.pic.dataMem.GetFlag(5, true, index))
+                {
+                    btn.Enabled = true;
+                }
+                else
+                {
+                    btn.Enabled = false;
+                }
+
+                index++;
+            }
+
+            List<Button> RBButtons = new List<Button> { btn_RB0, btn_RB1, btn_RB2, btn_RB3, btn_RB4, btn_RB5, btn_RB6, btn_RB7 };
+            index = 0;
+            foreach (Button btn in RBButtons)
+            {
+                if (Program.pic.dataMem.GetFlag(6, false, index))
+                {
+                    if (!Program.pic.dataMem.GetFlag(6, true, index))
+                    {
+                        btn.BackColor = Color.LightGreen;
+                    }
+                }
+                else
+                {
+                    if (!Program.pic.dataMem.GetFlag(6, true, index))
+                    {
+                        btn.BackColor = Color.Tomato;
+                    }
+                }
+
+                if (Program.pic.dataMem.GetFlag(6, true, index))
+                {
+                    btn.Enabled = true;
+                }
+                else
+                {
+                    btn.Enabled = false;
+                }
+
                 index++;
             }
         }
@@ -417,10 +459,7 @@ namespace Pic_Simulator
             UpdatePortButtons();
         }
 
-        public void ResetPIC()
-        {
-            Program.pic = new PIC();
-        }
+        
 
         public void WriteDebugOutput(string message)
         {
@@ -431,8 +470,23 @@ namespace Pic_Simulator
         {
             //clean up after finishing code execution
             Unmark();
-            ResetPIC();
+            Program.pic.Reset();
+        }
 
+        public void ResetPortButtonColors()
+        {
+            List<Button> RAButtons = new List<Button> { btn_RA0, btn_RA1, btn_RA2, btn_RA3, btn_RA4 };
+            foreach (Button btn in RAButtons)
+            {
+                btn.BackColor = Color.LightGray;
+            }
+
+            List<Button> RBButtons = new List<Button> { btn_RB0, btn_RB1, btn_RB2, btn_RB3, btn_RB4, btn_RB5, btn_RB6, btn_RB7 };
+
+            foreach (Button btn in RBButtons)
+            {
+                btn.BackColor = Color.LightGray;
+            }
         }
 
         public void Initialize()
@@ -442,6 +496,8 @@ namespace Pic_Simulator
             string code = rtext_Code.Text;
             int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
             Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
+
+            ResetPortButtonColors();
         }
 
         public void DisableButtons(List<Button> btns)
@@ -480,12 +536,12 @@ namespace Pic_Simulator
             if (btn_RA3.BackColor == Color.LightGreen)
             {
                 btn_RA3.BackColor = Color.Tomato;
-                Program.pic.dataMem.ClearFlag(5, false, 3); //Clearing RA4  
+                Program.pic.dataMem.ClearFlag(5, false, 3); //Clearing RA3  
             }
             else
             {
                 btn_RA3.BackColor = Color.LightGreen;
-                Program.pic.dataMem.SetFlag(5, false, 3); //Setting RA4
+                Program.pic.dataMem.SetFlag(5, false, 3); //Setting RA3
             }
             UpdateMemoryGUI();
         }
@@ -495,12 +551,12 @@ namespace Pic_Simulator
             if (btn_RA2.BackColor == Color.LightGreen)
             {
                 btn_RA2.BackColor = Color.Tomato;
-                Program.pic.dataMem.ClearFlag(5, false, 2); //Clearing RA4  
+                Program.pic.dataMem.ClearFlag(5, false, 2); //Clearing RA2
             }
             else
             {
                 btn_RA2.BackColor = Color.LightGreen;
-                Program.pic.dataMem.SetFlag(5, false, 2); //Setting RA4
+                Program.pic.dataMem.SetFlag(5, false, 2); //Setting RA2
             }
             UpdateMemoryGUI();
         }
@@ -510,12 +566,12 @@ namespace Pic_Simulator
             if (btn_RA1.BackColor == Color.LightGreen)
             {
                 btn_RA1.BackColor = Color.Tomato;
-                Program.pic.dataMem.ClearFlag(5, false, 1); //Clearing RA4  
+                Program.pic.dataMem.ClearFlag(5, false, 1); //Clearing RA1
             }
             else
             {
                 btn_RA1.BackColor = Color.LightGreen;
-                Program.pic.dataMem.SetFlag(5, false, 1); //Setting RA4
+                Program.pic.dataMem.SetFlag(5, false, 1); //Setting RA1
             }
             UpdateMemoryGUI();
         }
@@ -525,12 +581,132 @@ namespace Pic_Simulator
             if (btn_RA0.BackColor == Color.LightGreen)
             {
                 btn_RA0.BackColor = Color.Tomato;
-                Program.pic.dataMem.ClearFlag(5, false, 0); //Clearing RA4  
+                Program.pic.dataMem.ClearFlag(5, false, 0); //Clearing RA0
             }
             else
             {
                 btn_RA0.BackColor = Color.LightGreen;
-                Program.pic.dataMem.SetFlag(5, false, 0); //Setting RA4
+                Program.pic.dataMem.SetFlag(5, false, 0); //Setting RA0
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB0_Click(object sender, EventArgs e)
+        {
+            if (btn_RB0.BackColor == Color.LightGreen)
+            {
+                btn_RB0.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 0); //Clearing RB0  
+            }
+            else
+            {
+                btn_RB0.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 0); //Setting RB0
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB1_Click(object sender, EventArgs e)
+        {
+            if (btn_RB1.BackColor == Color.LightGreen)
+            {
+                btn_RB1.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 1); //Clearing RB1
+            }
+            else
+            {
+                btn_RB1.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 1); //Setting RB1
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB2_Click(object sender, EventArgs e)
+        {
+            if (btn_RB2.BackColor == Color.LightGreen)
+            {
+                btn_RB2.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 2); //Clearing RB2
+            }
+            else
+            {
+                btn_RB2.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 2); //Setting RB2
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB3_Click(object sender, EventArgs e)
+        {
+            if (btn_RB3.BackColor == Color.LightGreen)
+            {
+                btn_RB3.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 3); //Clearing RB3
+            }
+            else
+            {
+                btn_RB3.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 3); //Setting RB3
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB4_Click(object sender, EventArgs e)
+        {
+            if (btn_RB4.BackColor == Color.LightGreen)
+            {
+                btn_RB4.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 4); //Clearing RB4
+            }
+            else
+            {
+                btn_RB4.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 4); //Setting RB4
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB5_Click(object sender, EventArgs e)
+        {
+            if (btn_RB5.BackColor == Color.LightGreen)
+            {
+                btn_RB5.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 5); //Clearing RB5
+            }
+            else
+            {
+                btn_RB5.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 5); //Setting RB5
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB6_Click(object sender, EventArgs e)
+        {
+            if (btn_RB6.BackColor == Color.LightGreen)
+            {
+                btn_RB6.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 6); //Clearing RB6
+            }
+            else
+            {
+                btn_RB6.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 6); //Setting RB6
+            }
+            UpdateMemoryGUI();
+        }
+
+        private void btn_RB7_Click(object sender, EventArgs e)
+        {
+            if (btn_RB7.BackColor == Color.LightGreen)
+            {
+                btn_RB7.BackColor = Color.Tomato;
+                Program.pic.dataMem.ClearFlag(6, false, 7); //Clearing RB7
+            }
+            else
+            {
+                btn_RB7.BackColor = Color.LightGreen;
+                Program.pic.dataMem.SetFlag(6, false, 7); //Setting RB7
             }
             UpdateMemoryGUI();
         }
