@@ -141,10 +141,6 @@ namespace Pic_Simulator
             }
         }
 
-        private void richTextBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btn_Save_Click(object sender, EventArgs eventArgs)
         {

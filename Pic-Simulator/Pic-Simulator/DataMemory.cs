@@ -16,7 +16,7 @@ namespace Pic_Simulator
         }
         public void Set(byte address, byte value)
         {
-            bool RP0 = GetFlag((byte)InstructionAddress.STATUS, 5);
+            bool RP0 = GetFlag((byte)RegisterAddress.STATUS, 5);
 
             this.Set(address, RP0, value);
 
@@ -28,8 +28,8 @@ namespace Pic_Simulator
             if (address << 1 == 0)
             {
                 //Write to the address in FSR instead
-                address = this.Get((byte)InstructionAddress.FSR);
-                bank = GetFlag((byte)InstructionAddress.STATUS, 7);
+                address = this.Get((byte)RegisterAddress.FSR);
+                bank = GetFlag((byte)RegisterAddress.STATUS, 7);
                 
                 if(address == 0)
                 {
@@ -59,7 +59,7 @@ namespace Pic_Simulator
 
         public byte Get(byte address)
         {
-            byte STATUS = this._values[(byte)(InstructionAddress.STATUS)]; //DO NOT USE GETFLAG()
+            byte STATUS = this._values[(byte)(RegisterAddress.STATUS)]; //DO NOT USE GETFLAG()
             bool RP0 = STATUS.GetBit(5);
             return this.Get(address, RP0);
         }
@@ -70,8 +70,8 @@ namespace Pic_Simulator
             if (address << 1 == 0)
             {
                 //Write to the address in FSR instead
-                address = this.Get((byte)InstructionAddress.FSR);
-                bank = GetFlag((byte)InstructionAddress.STATUS, 7);
+                address = this.Get((byte)RegisterAddress.FSR);
+                bank = GetFlag((byte)RegisterAddress.STATUS, 7);
 
                 if (address == 0)
                 {
@@ -140,8 +140,8 @@ namespace Pic_Simulator
 
         public UInt16 GetPC()
         {
-            UInt16 PC       = this.Get((byte)InstructionAddress.PCL);
-            UInt16 PCLATH   = this.Get((byte)InstructionAddress.PCLATH);
+            UInt16 PC       = this.Get((byte)RegisterAddress.PCL);
+            UInt16 PCLATH   = this.Get((byte)RegisterAddress.PCLATH);
 
             return (UInt16)(PC + (PCLATH << 8));
         }
@@ -152,8 +152,23 @@ namespace Pic_Simulator
             byte PCLATH = (byte)(value >> 8);
 
 
-            this.Set((byte)InstructionAddress.PCL, PCL);
-            this.Set((byte)InstructionAddress.PCLATH, PCLATH);
+            this.Set((byte)RegisterAddress.PCL, PCL);
+            this.Set((byte)RegisterAddress.PCLATH, PCLATH);
+        }
+
+        public int GetPrescaler(bool prescalerAssignment)
+        {
+            int value = ConvertThreeBitsToInt(GetFlag((byte)RegisterAddress.OPTION, 2), GetFlag((byte)RegisterAddress.OPTION, 1), GetFlag((byte)RegisterAddress.OPTION, 0));
+
+
+            if (prescalerAssignment)
+            {
+                return (int)Math.Pow(2, value);
+            }
+            else
+            {
+                return (int)Math.Pow(2, (value + 1));
+            }
         }
     }
 }

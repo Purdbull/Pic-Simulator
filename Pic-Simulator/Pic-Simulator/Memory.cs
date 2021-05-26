@@ -65,7 +65,7 @@ namespace Pic_Simulator
             this._keys[index] = key;
         }
 
-        public void SetValue(int index, T value)
+        protected void SetValue(int index, T value)
         {
             this._values[index] = value;
         }

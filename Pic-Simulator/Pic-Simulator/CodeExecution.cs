@@ -84,8 +84,8 @@ namespace Pic_Simulator
 
         public static UInt16 Fetch()
         {
-            UInt16 PCL = Program.pic.dataMem.Get((byte)(InstructionAddress.PCL));
-            UInt16 PCLATH = Program.pic.dataMem.Get((byte)(InstructionAddress.PCLATH));
+            UInt16 PCL = Program.pic.dataMem.Get((byte)(RegisterAddress.PCL));
+            UInt16 PCLATH = Program.pic.dataMem.Get((byte)(RegisterAddress.PCLATH));
 
             UInt16 pc = (UInt16)(PCL + (PCLATH << 8));
 
@@ -510,7 +510,7 @@ namespace Pic_Simulator
                 case Instruction.MOVWF:
                     param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    Program.pic.dataMem.SetValue(dataMemAddress, Program.pic.wReg.GetValue());
+                    Program.pic.dataMem.Set(dataMemAddress, Program.pic.wReg.GetValue());
                     return true;
 
                 case Instruction.NOP:
