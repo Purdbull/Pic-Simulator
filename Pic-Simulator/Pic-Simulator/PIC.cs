@@ -48,7 +48,7 @@ namespace Pic_Simulator
 
             this.Clock = 0;
 
-            this.dataMem.Set(1, false, 255);
+            this.dataMem.Set(1, true, 255);
             this.dataMem.Set(3, 24);
             this.dataMem.Set(5, true, 31);
             this.dataMem.Set(6, true, 255);
@@ -94,7 +94,8 @@ namespace Pic_Simulator
 
         public void UpdateTimer()
         {
-            bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, 3);
+            //TODO: FIX ON TEST PROGRAM 7
+            bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
             if (this.Clock % dataMem.GetPrescaler(prescalerAssignment) == 0)
             {
                 if (prescalerAssignment)

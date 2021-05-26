@@ -158,7 +158,7 @@ namespace Pic_Simulator
 
         public int GetPrescaler(bool prescalerAssignment)
         {
-            int value = ConvertThreeBitsToInt(GetFlag((byte)RegisterAddress.OPTION, 2), GetFlag((byte)RegisterAddress.OPTION, 1), GetFlag((byte)RegisterAddress.OPTION, 0));
+            int value = ConvertThreeBitsToInt(GetFlag((byte)RegisterAddress.OPTION, true, 2), GetFlag((byte)RegisterAddress.OPTION, true, 1), GetFlag((byte)RegisterAddress.OPTION, true, 0));
 
 
             if (prescalerAssignment)
