@@ -46,10 +46,13 @@ namespace Pic_Simulator
 
             this.stack = new Stack<UInt16>(8);
 
-            this.quarzCycles = 0;
+            this.Clock = 0;
 
-            this.dataMem.Set(5, true, 255);
+            this.dataMem.Set(1, false, 255);
+            this.dataMem.Set(3, 24);
+            this.dataMem.Set(5, true, 31);
             this.dataMem.Set(6, true, 255);
+
         }
 
         public bool Step(bool updateGUI)
