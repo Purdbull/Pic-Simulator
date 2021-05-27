@@ -487,11 +487,11 @@ namespace Pic_Simulator
 
         public void Initialize()
         {
+            Program.pic.UpdateGUI -= this.UpdateGUI;
             Program.pic.UpdateGUI += this.UpdateGUI;
 
             string code = rtext_Code.Text;
-            int instructionCount = Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
-            Program.pic.progMem.SetLine(++instructionCount, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
+            Scanning.Scan(code, Program.pic.progMem); //instructionCount is 0-indexed
 
             ResetPortButtonColors();
         }

@@ -29,7 +29,11 @@ namespace Pic_Simulator
 
         public Stack<UInt16> stack;
 
-        public int Clock { get; private set; }
+        public int clock { get; private set; }
+
+        public int tmr0Inhibit;
+
+        public int timerClock;
 
 
         public PIC()
@@ -46,7 +50,9 @@ namespace Pic_Simulator
 
             this.stack = new Stack<UInt16>(8);
 
-            this.Clock = 0;
+            this.clock = 0;
+            this.tmr0Inhibit = 0;
+            this.timerClock = 0;
 
             this.dataMem.Set(1, true, 255);
             this.dataMem.Set(3, 24);
@@ -67,9 +73,6 @@ namespace Pic_Simulator
 
             bool success = CodeExecution.Execute(instruction, data);
 
-            Clock++;
-
-            UpdateTimer();
 
             //refresh gui after
             if (updateGUI) { OnStepGUIUpdate(new UpdateEventArgs<byte>()); }
@@ -82,36 +85,48 @@ namespace Pic_Simulator
             Init();
         }
 
-        public void Continue()
+        public void DoClockTicks()
         {
-            //TODO: continuously step and stop at breakpoints
-        }
-
-        public void Run()
-        {
-            //TODO: continuously step without stopping at breakpoints
+            clock ++;
+            if (tmr0Inhibit > 0)
+            {
+                tmr0Inhibit--;
+                return;
+            }
+            else
+            {
+                timerClock++;
+                UpdateTimer();
+            }
         }
 
         public void UpdateTimer()
         {
             //TODO: FIX ON TEST PROGRAM 7
-            bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
-            if (this.Clock % dataMem.GetPrescaler(prescalerAssignment) == 0)
+            //TODO: CLEAR TMR0 on?
+
+            if (!dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5)) //TMR0 assigned to CLOCK
             {
-                if (prescalerAssignment)
+                bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
+                if (this.timerClock % dataMem.GetPrescaler(prescalerAssignment) == 0)
                 {
-                    this.WDT.Increment();
+                    this.timerClock = 0;
+                    if (!prescalerAssignment)
+                    {
+                        byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
+                        dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+                    }
                 }
-                else
+                else if (prescalerAssignment)
                 {
+                    this.timerClock = 0;
                     byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
                     dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
                 }
             }
-            else if (prescalerAssignment)
+            else //TMR0 assigned to RB4/T0CKI
             {
-                byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
-                dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+                //TODO
             }
         }
     }

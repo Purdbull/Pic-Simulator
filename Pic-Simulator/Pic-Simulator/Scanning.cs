@@ -7,7 +7,7 @@ namespace Pic_Simulator
 {
     public static class Scanning
     {
-        public static int Scan(string code, ProgramMemory pMemory)
+        public static void Scan(string code, ProgramMemory pMemory)
         {
             StringReader reader = new StringReader(code);
             string line;
@@ -41,7 +41,7 @@ namespace Pic_Simulator
                 pMemory.SetLine(instructionIndex, (UInt16)codeIndex, instruction);
             }
 
-            return instructionIndex;
+            pMemory.SetLine(++instructionIndex, UInt16.MaxValue, UInt16.MaxValue); //set line of progMem after the last instruction to special value
         }
     }
 }

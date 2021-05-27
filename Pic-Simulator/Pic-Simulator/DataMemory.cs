@@ -44,6 +44,13 @@ namespace Pic_Simulator
             //map value to the opposite bank at specific addresses
             switch (address)
             {
+                case 1:
+                    if (!bank)
+                    {
+                        Program.pic.tmr0Inhibit = 2;
+                        Program.pic.timerClock = 0;
+                    }
+                    break;
                 case 2:
                 case 3:
                 case 10:
