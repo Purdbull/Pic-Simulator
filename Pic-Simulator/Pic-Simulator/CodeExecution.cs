@@ -84,8 +84,8 @@ namespace Pic_Simulator
 
         public static UInt16 Fetch()
         {
-            UInt16 PCL = Program.pic.dataMem.Get((byte)(InstructionAddress.PCL));
-            UInt16 PCLATH = Program.pic.dataMem.Get((byte)(InstructionAddress.PCLATH));
+            UInt16 PCL = Program.pic.dataMem.Get((byte)(RegisterAddress.PCL));
+            UInt16 PCLATH = Program.pic.dataMem.Get((byte)(RegisterAddress.PCLATH));
 
             UInt16 pc = (UInt16)(PCL + (PCLATH << 8));
 
@@ -491,24 +491,18 @@ namespace Pic_Simulator
                 case Instruction.MOVF:
                     param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    result = Program.pic.dataMem.GetValue(dataMemAddress);
-                    if (data.GetBit(destinationBitIndex))
+                    byte value = Program.pic.dataMem.Get(dataMemAddress);
+                    if(data.GetBit(destinationBitIndex))
                     {
                         //its moved back to where it was removed so nothing really happens
                     }
                     else
                     {
-                        Program.pic.wReg.SetValue(Convert.ToByte(Program.pic.dataMem.GetValue(dataMemAddress)));
+                        Program.pic.wReg.SetValue(value);
                     }
-                    if (result > 0)
-                    {
-                        Program.pic.dataMem.ClearFlag(statusAdress, 2); //clearing z-flag
-                    }
-                    else
-                    {
-                        Program.pic.dataMem.SetFlag(statusAdress, 2); //setting z-flag
-                    }
-                    
+
+                    if (value == 0) Program.pic.dataMem.SetFlag(statusAdress, 2); //setting z-flag
+
                     return true;
 
                 case Instruction.MOVLW:
@@ -518,7 +512,7 @@ namespace Pic_Simulator
                 case Instruction.MOVWF:
                     param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    Program.pic.dataMem.SetValue(dataMemAddress, Program.pic.wReg.GetValue());
+                    Program.pic.dataMem.Set(dataMemAddress, Program.pic.wReg.GetValue());
                     return true;
 
                 case Instruction.NOP:

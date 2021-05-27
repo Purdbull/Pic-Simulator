@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static ExtensionMethods.Extensions;
 
 namespace Pic_Simulator
 {
@@ -24,9 +25,11 @@ namespace Pic_Simulator
 
         public DataField wReg{ get; private set; }
 
+        public DataField WDT { get; private set; }
+
         public Stack<UInt16> stack;
 
-        public int quarzCycles;
+        public int Clock { get; private set; }
 
 
         public PIC()
@@ -39,13 +42,17 @@ namespace Pic_Simulator
             this.progMem = new ProgramMemory();
             this.dataMem = new DataMemory();
             this.wReg = new DataField();
+            this.WDT = new DataField();
 
             this.stack = new Stack<UInt16>(8);
 
-            this.quarzCycles = 0;
+            this.Clock = 0;
 
-            this.dataMem.Set(5, true, 255);
+            this.dataMem.Set(1, true, 255);
+            this.dataMem.Set(3, 24);
+            this.dataMem.Set(5, true, 31);
             this.dataMem.Set(6, true, 255);
+
         }
 
         public bool Step(bool updateGUI)
@@ -59,6 +66,10 @@ namespace Pic_Simulator
             CodeExecution.Instruction instruction = CodeExecution.Decode(data);
 
             bool success = CodeExecution.Execute(instruction, data);
+
+            Clock++;
+
+            UpdateTimer();
 
             //refresh gui after
             if (updateGUI) { OnStepGUIUpdate(new UpdateEventArgs<byte>()); }
@@ -79,6 +90,29 @@ namespace Pic_Simulator
         public void Run()
         {
             //TODO: continuously step without stopping at breakpoints
+        }
+
+        public void UpdateTimer()
+        {
+            //TODO: FIX ON TEST PROGRAM 7
+            bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
+            if (this.Clock % dataMem.GetPrescaler(prescalerAssignment) == 0)
+            {
+                if (prescalerAssignment)
+                {
+                    this.WDT.Increment();
+                }
+                else
+                {
+                    byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
+                    dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+                }
+            }
+            else if (prescalerAssignment)
+            {
+                byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
+                dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+            }
         }
     }
 }
