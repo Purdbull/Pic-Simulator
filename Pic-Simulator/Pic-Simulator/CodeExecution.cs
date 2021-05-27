@@ -491,7 +491,8 @@ namespace Pic_Simulator
                 case Instruction.MOVF:
                     param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
-                    if(data.GetBit(destinationBitIndex))
+                    result = Program.pic.dataMem.GetValue(dataMemAddress);
+                    if (data.GetBit(destinationBitIndex))
                     {
                         //its moved back to where it was removed so nothing really happens
                     }
@@ -499,8 +500,15 @@ namespace Pic_Simulator
                     {
                         Program.pic.wReg.SetValue(Convert.ToByte(Program.pic.dataMem.GetValue(dataMemAddress)));
                     }
-
-                    Program.pic.dataMem.SetFlag(statusAdress, 2); //setting z-flag
+                    if (result > 0)
+                    {
+                        Program.pic.dataMem.ClearFlag(statusAdress, 2); //clearing z-flag
+                    }
+                    else
+                    {
+                        Program.pic.dataMem.SetFlag(statusAdress, 2); //setting z-flag
+                    }
+                    
                     return true;
 
                 case Instruction.MOVLW:
