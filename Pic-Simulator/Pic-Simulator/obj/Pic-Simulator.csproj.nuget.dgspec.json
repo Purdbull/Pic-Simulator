@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mails\\Documents\\GitHub\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj": {}
+    "C:\\Users\\Moritz Knapp\\Desktop\\DH\\Rechnertechnik\\PicSimu\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mails\\Documents\\GitHub\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj": {
+    "C:\\Users\\Moritz Knapp\\Desktop\\DH\\Rechnertechnik\\PicSimu\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mails\\Documents\\GitHub\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj",
+        "projectUniqueName": "C:\\Users\\Moritz Knapp\\Desktop\\DH\\Rechnertechnik\\PicSimu\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj",
         "projectName": "Pic-Simulator",
-        "projectPath": "C:\\Users\\mails\\Documents\\GitHub\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj",
-        "packagesPath": "C:\\Users\\mails\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mails\\Documents\\GitHub\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\obj\\",
+        "projectPath": "C:\\Users\\Moritz Knapp\\Desktop\\DH\\Rechnertechnik\\PicSimu\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator.csproj",
+        "packagesPath": "C:\\Users\\Moritz Knapp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Moritz Knapp\\Desktop\\DH\\Rechnertechnik\\PicSimu\\Pic-Simulator\\Pic-Simulator\\Pic-Simulator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mails\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Moritz Knapp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -55,7 +57,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

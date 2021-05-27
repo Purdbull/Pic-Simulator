@@ -558,8 +558,14 @@ namespace Pic_Simulator
                         Program.pic.wReg.SetValue(value);
                     }
 
-                    if (value == 0) Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 2); //setting z-flag
-
+                    if (value == 0)
+                    {
+                        Program.pic.dataMem.SetFlag(statusAdress, 2); //setting z-flag
+                    }
+                    else
+                    {
+                        Program.pic.dataMem.ClearFlag(statusAdress, 2); //clearing z-flag
+                    }
                     return true;
 
                 case Instruction.MOVLW:
@@ -592,11 +598,11 @@ namespace Pic_Simulator
                     carryBit = Program.pic.dataMem.GetFlag((byte)RegisterAddress.STATUS, 2);
                     if (result.GetBit(7))
                     {
-                        Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 2);
+                        Program.pic.dataMem.SetFlag(statusAdress, 0);
                     }
                     else
                     {
-                        Program.pic.dataMem.ClearFlag((byte)RegisterAddress.STATUS, 2);
+                        Program.pic.dataMem.ClearFlag(statusAdress, 0);
                     }
                     result = (byte)(result << 1);
                     if (carryBit)
@@ -625,11 +631,11 @@ namespace Pic_Simulator
                     carryBit = Program.pic.dataMem.GetFlag((byte)RegisterAddress.STATUS, 2);
                     if (result.GetBit(0))
                     {
-                        Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 2);
+                        Program.pic.dataMem.SetFlag(statusAdress, 0);
                     }
                     else
                     {
-                        Program.pic.dataMem.ClearFlag((byte)RegisterAddress.STATUS, 2);
+                        Program.pic.dataMem.ClearFlag(statusAdress, 0);
                     }
                     result = (byte)(result >> 1);
                     if (carryBit)
