@@ -115,6 +115,7 @@ namespace Pic_Simulator
                     {
                         byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
                         dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+                        tmr0Inhibit = 0;
                     }
                 }
                 else if (prescalerAssignment)
@@ -122,6 +123,7 @@ namespace Pic_Simulator
                     this.timerClock = 0;
                     byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
                     dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+                    tmr0Inhibit = 0;
                 }
             }
             else //TMR0 assigned to RB4/T0CKI
