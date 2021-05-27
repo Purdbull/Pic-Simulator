@@ -32,7 +32,7 @@ namespace Pic_Simulator
             this._values = new List<T>(new T[size]);
         }
 
-        public T GetValue(T key_value)
+        protected T GetValue(T key_value)
         {
             int index = _keys.BinarySearch(key_value);
             if (index <= _values.Count && index >= 0)
