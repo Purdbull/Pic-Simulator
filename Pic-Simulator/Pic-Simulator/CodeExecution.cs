@@ -560,11 +560,11 @@ namespace Pic_Simulator
 
                     if (value == 0)
                     {
-                        Program.pic.dataMem.SetFlag(statusAdress, 2); //setting z-flag
+                        Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 2); //setting z-flag
                     }
                     else
                     {
-                        Program.pic.dataMem.ClearFlag(statusAdress, 2); //clearing z-flag
+                        Program.pic.dataMem.ClearFlag((byte)RegisterAddress.STATUS, 2); //clearing z-flag
                     }
                     return true;
 
@@ -598,11 +598,11 @@ namespace Pic_Simulator
                     carryBit = Program.pic.dataMem.GetFlag((byte)RegisterAddress.STATUS, 2);
                     if (result.GetBit(7))
                     {
-                        Program.pic.dataMem.SetFlag(statusAdress, 0);
+                        Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 0);
                     }
                     else
                     {
-                        Program.pic.dataMem.ClearFlag(statusAdress, 0);
+                        Program.pic.dataMem.ClearFlag((byte)RegisterAddress.STATUS, 0);
                     }
                     result = (byte)(result << 1);
                     if (carryBit)
@@ -631,11 +631,11 @@ namespace Pic_Simulator
                     carryBit = Program.pic.dataMem.GetFlag((byte)RegisterAddress.STATUS, 2);
                     if (result.GetBit(0))
                     {
-                        Program.pic.dataMem.SetFlag(statusAdress, 0);
+                        Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 0);
                     }
                     else
                     {
-                        Program.pic.dataMem.ClearFlag(statusAdress, 0);
+                        Program.pic.dataMem.ClearFlag((byte)RegisterAddress.STATUS, 0);
                     }
                     result = (byte)(result >> 1);
                     if (carryBit)
