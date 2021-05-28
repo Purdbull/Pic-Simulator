@@ -262,7 +262,7 @@ namespace Pic_Simulator
                     EnableButtons(new List<Button>() { btn_Stop });
                     DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug, btn_Step });
                 });
-                    while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.dataMem.GetPC())) && enableBreakpoints))
+                    while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue())) && enableBreakpoints))
                     {
                         if (threadKillRequest)
                         {
@@ -325,20 +325,36 @@ namespace Pic_Simulator
         public void UpdateMemoryGUI()
         {
             //TODO: maybe populate table from the end for performance reasons
+            tlp_Bank0.Visible = false;
+            tlp_Bank0.SuspendLayout();
+
             tlp_Bank1.Visible = false;
             tlp_Bank1.SuspendLayout();
 
-            tlp_Bank2.Visible = false;
-            tlp_Bank2.SuspendLayout();
+            tlp_SpecialRegisters.Visible = false;
+            tlp_SpecialRegisters.SuspendLayout();
 
+            ClearTLP(ref tlp_Bank0);
             ClearTLP(ref tlp_Bank1);
-            ClearTLP(ref tlp_Bank2);
+            ClearTLP(ref tlp_SpecialRegisters);
 
 
+            InitializeTLP(ref tlp_Bank0);
             InitializeTLP(ref tlp_Bank1);
-            InitializeTLP(ref tlp_Bank2);
+            InitializeTLP(ref tlp_SpecialRegisters);
 
             for (int row = 0; row < PIC.MAX_DATAMEM_SIZE / 2; row++)
+            {
+                tlp_Bank0.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_Bank0.RowCount);
+                tlp_Bank0.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank0.RowCount);
+
+                tlp_Bank0.RowStyles.Add(new RowStyle());
+
+                tlp_Bank0.RowCount++;
+            }
+
+
+            for (int row = PIC.MAX_DATAMEM_SIZE / 2; row < PIC.MAX_DATAMEM_SIZE; row++)
             {
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_Bank1.RowCount);
                 tlp_Bank1.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank1.RowCount);
@@ -348,21 +364,49 @@ namespace Pic_Simulator
                 tlp_Bank1.RowCount++;
             }
 
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = "W-Reg", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Program.pic.wReg.GetAsBinaryValue(), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
 
-            for (int row = PIC.MAX_DATAMEM_SIZE / 2; row < PIC.MAX_DATAMEM_SIZE; row++)
-            {
-                tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexKeyAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_Bank2.RowCount);
-                tlp_Bank2.Controls.Add(new Label() { Text = Program.pic.dataMem.GetHexValueAtIndex(row), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_Bank2.RowCount);
+            tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
+            tlp_SpecialRegisters.RowCount++;
 
-                tlp_Bank2.RowStyles.Add(new RowStyle());
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = "FSR", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Program.pic.dataMem.GetBinaryValueAtIndex(4), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
 
-                tlp_Bank2.RowCount++;
-            }
+            tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
+            tlp_SpecialRegisters.RowCount++;
 
+
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = "PC", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Convert.ToString(Program.pic.pc.GetValue()), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
+
+            tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
+            tlp_SpecialRegisters.RowCount++;
+
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = "PCL", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Program.pic.dataMem.GetBinaryValueAtIndex(2), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
+
+            tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
+            tlp_SpecialRegisters.RowCount++;
+
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = "PCLATCH", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Program.pic.dataMem.GetBinaryValueAtIndex(10), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
+
+            tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
+            tlp_SpecialRegisters.RowCount++;
+
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = "STATUS", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Program.pic.dataMem.GetBinaryValueAtIndex(3), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
+
+            tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
+
+
+            tlp_Bank0.ResumeLayout();
+            tlp_Bank0.Visible = true;
             tlp_Bank1.ResumeLayout();
             tlp_Bank1.Visible = true;
-            tlp_Bank2.ResumeLayout();
-            tlp_Bank2.Visible = true;
+            tlp_SpecialRegisters.ResumeLayout();
+            tlp_SpecialRegisters.Visible = true;
         }
 
         private void ClearTLP(ref TableLayoutPanel table)
@@ -449,7 +493,7 @@ namespace Pic_Simulator
 
         public void UpdateGUI(object sender, UpdateEventArgs<byte> e)
         {
-            UInt16 line = Program.pic.dataMem.GetPC();
+            UInt16 line = Program.pic.pc.GetValue();
             MarkLine(line);
             UpdateMemoryGUI();
             UpdatePortButtons();
@@ -705,6 +749,16 @@ namespace Pic_Simulator
                 Program.pic.dataMem.SetFlag(6, false, 7); //Setting RB7
             }
             UpdateMemoryGUI();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

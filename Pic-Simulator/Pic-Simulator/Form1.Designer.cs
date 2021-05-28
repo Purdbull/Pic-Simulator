@@ -35,13 +35,16 @@ namespace Pic_Simulator
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbl_us = new System.Windows.Forms.Label();
+            this.lbl_WDTCountdown = new System.Windows.Forms.Label();
             this.chckBx_TimerActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tlp_SpecialRegisters = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tlp_Bank1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlp_Bank0 = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tlp_Bank2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlp_Bank1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btn_RB0 = new System.Windows.Forms.Button();
             this.btn_RB1 = new System.Windows.Forms.Button();
@@ -69,7 +72,10 @@ namespace Pic_Simulator
             this.rtext_Output = new System.Windows.Forms.RichTextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btn_SaveAs = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -131,6 +137,10 @@ namespace Pic_Simulator
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.lbl_us);
+            this.groupBox1.Controls.Add(this.lbl_WDTCountdown);
             this.groupBox1.Controls.Add(this.chckBx_TimerActive);
             this.groupBox1.Location = new System.Drawing.Point(263, 563);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -140,21 +150,41 @@ namespace Pic_Simulator
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Timer";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // lbl_us
+            // 
+            this.lbl_us.AutoSize = true;
+            this.lbl_us.Location = new System.Drawing.Point(44, 85);
+            this.lbl_us.Name = "lbl_us";
+            this.lbl_us.Size = new System.Drawing.Size(24, 20);
+            this.lbl_us.TabIndex = 2;
+            this.lbl_us.Text = "μs";
+            // 
+            // lbl_WDTCountdown
+            // 
+            this.lbl_WDTCountdown.AutoSize = true;
+            this.lbl_WDTCountdown.Location = new System.Drawing.Point(16, 86);
+            this.lbl_WDTCountdown.Name = "lbl_WDTCountdown";
+            this.lbl_WDTCountdown.Size = new System.Drawing.Size(28, 20);
+            this.lbl_WDTCountdown.TabIndex = 1;
+            this.lbl_WDTCountdown.Text = "0.0";
             // 
             // chckBx_TimerActive
             // 
             this.chckBx_TimerActive.AutoSize = true;
-            this.chckBx_TimerActive.Location = new System.Drawing.Point(45, 25);
+            this.chckBx_TimerActive.Location = new System.Drawing.Point(20, 54);
             this.chckBx_TimerActive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chckBx_TimerActive.Name = "chckBx_TimerActive";
-            this.chckBx_TimerActive.Size = new System.Drawing.Size(72, 24);
+            this.chckBx_TimerActive.Size = new System.Drawing.Size(108, 24);
             this.chckBx_TimerActive.TabIndex = 0;
-            this.chckBx_TimerActive.Text = "Active";
+            this.chckBx_TimerActive.Text = "WDT Active";
             this.chckBx_TimerActive.UseVisualStyleBackColor = true;
             this.chckBx_TimerActive.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tlp_SpecialRegisters);
             this.groupBox2.Location = new System.Drawing.Point(14, 563);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
@@ -163,6 +193,26 @@ namespace Pic_Simulator
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Special Function Registers";
+            // 
+            // tlp_SpecialRegisters
+            // 
+            this.tlp_SpecialRegisters.ColumnCount = 2;
+            this.tlp_SpecialRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_SpecialRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_SpecialRegisters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_SpecialRegisters.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tlp_SpecialRegisters.Location = new System.Drawing.Point(3, 24);
+            this.tlp_SpecialRegisters.Name = "tlp_SpecialRegisters";
+            this.tlp_SpecialRegisters.RowCount = 7;
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_SpecialRegisters.Size = new System.Drawing.Size(223, 247);
+            this.tlp_SpecialRegisters.TabIndex = 13;
             // 
             // tabControl1
             // 
@@ -174,10 +224,11 @@ namespace Pic_Simulator
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(225, 808);
             this.tabControl1.TabIndex = 6;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tlp_Bank1);
+            this.tabPage1.Controls.Add(this.tlp_Bank0);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
@@ -187,25 +238,26 @@ namespace Pic_Simulator
             this.tabPage1.Text = "Bank 0";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tlp_Bank1
+            // tlp_Bank0
             // 
-            this.tlp_Bank1.AutoScroll = true;
-            this.tlp_Bank1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tlp_Bank1.ColumnCount = 2;
-            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tlp_Bank1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlp_Bank1.Location = new System.Drawing.Point(3, 4);
-            this.tlp_Bank1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tlp_Bank1.Name = "tlp_Bank1";
-            this.tlp_Bank1.RowCount = 1;
-            this.tlp_Bank1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Bank1.Size = new System.Drawing.Size(211, 767);
-            this.tlp_Bank1.TabIndex = 7;
+            this.tlp_Bank0.AutoScroll = true;
+            this.tlp_Bank0.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tlp_Bank0.ColumnCount = 2;
+            this.tlp_Bank0.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tlp_Bank0.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tlp_Bank0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_Bank0.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tlp_Bank0.Location = new System.Drawing.Point(3, 4);
+            this.tlp_Bank0.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tlp_Bank0.Name = "tlp_Bank0";
+            this.tlp_Bank0.RowCount = 1;
+            this.tlp_Bank0.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_Bank0.Size = new System.Drawing.Size(211, 767);
+            this.tlp_Bank0.TabIndex = 7;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.tlp_Bank2);
+            this.tabPage2.Controls.Add(this.tlp_Bank1);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
@@ -215,21 +267,22 @@ namespace Pic_Simulator
             this.tabPage2.Text = "Bank 1";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tlp_Bank2
+            // tlp_Bank1
             // 
-            this.tlp_Bank2.AutoScroll = true;
-            this.tlp_Bank2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tlp_Bank2.ColumnCount = 2;
-            this.tlp_Bank2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tlp_Bank2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tlp_Bank2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlp_Bank2.Location = new System.Drawing.Point(3, 4);
-            this.tlp_Bank2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tlp_Bank2.Name = "tlp_Bank2";
-            this.tlp_Bank2.RowCount = 1;
-            this.tlp_Bank2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Bank2.Size = new System.Drawing.Size(211, 767);
-            this.tlp_Bank2.TabIndex = 7;
+            this.tlp_Bank1.AutoScroll = true;
+            this.tlp_Bank1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tlp_Bank1.ColumnCount = 2;
+            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tlp_Bank1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tlp_Bank1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_Bank1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tlp_Bank1.Location = new System.Drawing.Point(3, 4);
+            this.tlp_Bank1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tlp_Bank1.Name = "tlp_Bank1";
+            this.tlp_Bank1.RowCount = 1;
+            this.tlp_Bank1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_Bank1.Size = new System.Drawing.Size(211, 767);
+            this.tlp_Bank1.TabIndex = 7;
             // 
             // groupBox3
             // 
@@ -528,6 +581,24 @@ namespace Pic_Simulator
             this.btn_SaveAs.UseVisualStyleBackColor = true;
             this.btn_SaveAs.Click += new System.EventHandler(this.btn_SaveAs_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Prescaler";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(94, 30);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "00000000";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -552,6 +623,7 @@ namespace Pic_Simulator
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -575,8 +647,8 @@ namespace Pic_Simulator
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TableLayoutPanel tlp_Bank0;
         private System.Windows.Forms.TableLayoutPanel tlp_Bank1;
-        private System.Windows.Forms.TableLayoutPanel tlp_Bank2;
         private System.Windows.Forms.CheckBox chckBx_TimerActive;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btn_OpenFile;
@@ -605,6 +677,11 @@ namespace Pic_Simulator
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btn_SaveAs;
         private System.Windows.Forms.Button btn_Run;
+        private System.Windows.Forms.TableLayoutPanel tlp_SpecialRegisters;
+        private System.Windows.Forms.Label lbl_us;
+        private System.Windows.Forms.Label lbl_WDTCountdown;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label2;
     }
 }
 

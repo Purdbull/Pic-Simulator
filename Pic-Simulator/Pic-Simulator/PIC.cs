@@ -25,6 +25,8 @@ namespace Pic_Simulator
 
         public DataField wReg{ get; private set; }
 
+        public ProgramCounter pc;
+
         public DataField WDT { get; private set; }
 
         public Stack<UInt16> stack;
@@ -47,6 +49,7 @@ namespace Pic_Simulator
             this.dataMem = new DataMemory();
             this.wReg = new DataField();
             this.WDT = new DataField();
+            this.pc = new ProgramCounter();
 
             this.stack = new Stack<UInt16>(8);
 
@@ -67,7 +70,7 @@ namespace Pic_Simulator
 
             if (data == UInt16.MaxValue) return false; //end of code has been reached
 
-            this.dataMem.SetPC((UInt16)(this.dataMem.GetPC() + 1)); //increment pc after fetch
+            this.pc.Increment(); //increment pc after fetch
 
             CodeExecution.Instruction instruction = CodeExecution.Decode(data);
 

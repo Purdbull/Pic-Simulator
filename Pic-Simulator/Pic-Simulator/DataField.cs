@@ -31,5 +31,11 @@ namespace Pic_Simulator
         {
             this.SetValue((byte)(GetValue() - 1));
         }
+
+        public string GetAsBinaryValue()
+        {
+            string binValue = Convert.ToString(GetValue(), 2);
+            return binValue.PadLeft((8), '0');
+        }
     }
 }

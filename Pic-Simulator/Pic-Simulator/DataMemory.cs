@@ -36,6 +36,11 @@ namespace Pic_Simulator
                     return; //Indirect write to INDF results in no-op
                 }
             }
+            //Update PC when PCL is written to
+            else if (((address << 1) >> 1) == 2)
+            {
+                Program.pic?.pc.SetValue(value);
+            }
 
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 
@@ -113,6 +118,12 @@ namespace Pic_Simulator
             return _values[index].ToString("X2");
         }
 
+        public string GetBinaryValueAtIndex(int index)
+        {
+            string binString = Convert.ToString(_values[index], 2);
+            return binString.PadLeft((8), '0');
+        }
+
         public void SetFlag(byte address, int bitIndex)
         {
             byte targetByte = this.Get(address);
@@ -145,7 +156,7 @@ namespace Pic_Simulator
             this.Set(address, bank, resultByte);
         }
 
-        public UInt16 GetPC()
+        public UInt16 EvaluatePC()
         {
             UInt16 PC       = this.Get((byte)RegisterAddress.PCL);
             UInt16 PCLATH   = this.Get((byte)RegisterAddress.PCLATH);
@@ -153,14 +164,12 @@ namespace Pic_Simulator
             return (UInt16)(PC + (PCLATH << 8));
         }
 
-        public void SetPC(UInt16 value)
+        public void UpdatePC()
         {
-            byte PCL = (byte)value;
-            byte PCLATH = (byte)(value >> 8);
+            UInt16 PCL = this.Get((byte)RegisterAddress.PCL);
+            UInt16 PCLATH = (UInt16)(this.Get((byte)RegisterAddress.PCLATH) << 8);
 
-
-            this.Set((byte)RegisterAddress.PCL, PCL);
-            this.Set((byte)RegisterAddress.PCLATH, PCLATH);
+            Program.pic.pc.SetValue((UInt16)(PCL + PCLATH));
         }
 
         public int GetPrescaler(bool prescalerAssignment)

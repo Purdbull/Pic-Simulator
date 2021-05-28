@@ -129,12 +129,8 @@ namespace Pic_Simulator
 
         public static UInt16 Fetch()
         {
-            UInt16 PCL = Program.pic.dataMem.Get((byte)(RegisterAddress.PCL));
-            UInt16 PCLATH = Program.pic.dataMem.Get((byte)(RegisterAddress.PCLATH));
-
-            UInt16 pc = (UInt16)(PCL + (PCLATH << 8));
-
-            (_, UInt16 data) = Program.pic.progMem.GetKeyValuePair(pc);
+            
+            (_, UInt16 data) = Program.pic.progMem.GetKeyValuePair(Program.pic.pc.GetValue());
             return data;
         }
 
@@ -352,7 +348,7 @@ namespace Pic_Simulator
                     }
                     else
                     {
-                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
+                        Program.pic.pc.Increment();
                         //skip and perform nop
                         //do one clock cycle
                         Program.pic.DoClockTicks();
@@ -370,7 +366,7 @@ namespace Pic_Simulator
                     }
                     else
                     {
-                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
+                        Program.pic.pc.Increment();
                         //skip and perform nop
                         //do one clock cycle
                         Program.pic.DoClockTicks();
@@ -379,8 +375,9 @@ namespace Pic_Simulator
 
                 case Instruction.CALL:
                     result16 = (UInt16)(data & paramAddressMask);
-                    Program.pic.stack.Push(Program.pic.dataMem.GetPC());
-                    Program.pic.dataMem.SetPC(result16);
+                    Program.pic.stack.Push(Program.pic.pc.GetValue());
+                    Program.pic.pc.SetValue(result16);
+                    //Program.pic.dataMem.UpdatePC();
                     return true;
 
                 case Instruction.CLRF:
@@ -432,7 +429,7 @@ namespace Pic_Simulator
                     }
                     if (result == 0)
                     {
-                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
+                        Program.pic.pc.Increment();
                         //do one clock cycle
                         Program.pic.DoClockTicks();
                     }
@@ -451,7 +448,7 @@ namespace Pic_Simulator
                     }
                     if (result == 0)
                     {
-                        Program.pic.dataMem.SetPC((UInt16)(Program.pic.dataMem.GetPC() + 1));
+                        Program.pic.pc.Increment();
                         //do one clock cycle
                         Program.pic.DoClockTicks();
                     }
@@ -505,7 +502,8 @@ namespace Pic_Simulator
 
                 case Instruction.GOTO:
                     result16 = (UInt16)(data & paramAddressMask);
-                    Program.pic.dataMem.SetPC(result16);
+                    Program.pic.pc.SetValue(result16);
+                    //Program.pic.dataMem.UpdatePC();
                     return true;
 
                 case Instruction.IORLW:
@@ -584,11 +582,11 @@ namespace Pic_Simulator
                 case Instruction.RETLW:
                     param = (byte)(data);
                     Program.pic.wReg.SetValue(param);
-                    Program.pic.dataMem.SetPC(Program.pic.stack.Pop());
+                    Program.pic.pc.SetValue(Program.pic.stack.Pop());
                     return true;
 
                 case Instruction.RETURN:
-                    Program.pic.dataMem.SetPC(Program.pic.stack.Pop());
+                    Program.pic.pc.SetValue(Program.pic.stack.Pop());
                     return true;
 
                 case Instruction.RLF:
