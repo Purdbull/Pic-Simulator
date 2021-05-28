@@ -127,7 +127,9 @@ namespace Pic_Simulator
                 {
                     rtext_Code.Text = File.ReadAllText(ofd.FileName);
                     lbl_Code.Text = ofd.FileName;
-                    Program.pic = new PIC();
+
+                    FinalizePIC();
+                    Initialize();
                 }
             } 
             catch (IOException exception)
@@ -232,7 +234,7 @@ namespace Pic_Simulator
         private void btn_Stop_Click(object sender, EventArgs e)
         {
             threadKillRequest = true;
-            Finalize();
+            FinalizePIC();
             WriteDebugOutput("Debugging stopped!");
             DisableButtons(new List<Button>() { btn_Step, btn_Continue, btn_Stop });
             EnableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug });
@@ -245,6 +247,7 @@ namespace Pic_Simulator
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
+            this.breakpoints = new List<int>();
             Initialize();
             ExecuteCode(false);
         }
@@ -506,11 +509,13 @@ namespace Pic_Simulator
             rtext_Output.Text = message;
         }
 
-        public void Finalize()
+        public void FinalizePIC()
         {
             //clean up after finishing code execution
             Unmark();
             Program.pic.Reset();
+            UpdateGUI(this, new UpdateEventArgs<byte>());
+            Unmark();
         }
 
         public void ResetPortButtonColors()
