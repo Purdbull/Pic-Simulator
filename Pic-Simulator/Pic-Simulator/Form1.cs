@@ -262,7 +262,7 @@ namespace Pic_Simulator
                     EnableButtons(new List<Button>() { btn_Stop });
                     DisableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug, btn_Step });
                 });
-                    while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc.GetValue())) && enableBreakpoints))
+                    while (!(IsBreakpoint(Program.pic.progMem.GetKeyAtIndex(Program.pic.pc)) && enableBreakpoints))
                     {
                         if (threadKillRequest)
                         {
@@ -378,7 +378,7 @@ namespace Pic_Simulator
 
 
             tlp_SpecialRegisters.Controls.Add(new Label() { Text = "PC", TextAlign = ContentAlignment.MiddleCenter }, 0, tlp_SpecialRegisters.RowCount);
-            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Convert.ToString(Program.pic.pc.GetValue()), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
+            tlp_SpecialRegisters.Controls.Add(new Label() { Text = Convert.ToString(Program.pic.pc), TextAlign = ContentAlignment.MiddleCenter }, 1, tlp_SpecialRegisters.RowCount);
 
             tlp_SpecialRegisters.RowStyles.Add(new RowStyle());
             tlp_SpecialRegisters.RowCount++;
@@ -493,7 +493,7 @@ namespace Pic_Simulator
 
         public void UpdateGUI(object sender, UpdateEventArgs<byte> e)
         {
-            UInt16 line = Program.pic.pc.GetValue();
+            UInt16 line = Program.pic.pc;
             MarkLine(line);
             UpdateMemoryGUI();
             UpdatePortButtons();

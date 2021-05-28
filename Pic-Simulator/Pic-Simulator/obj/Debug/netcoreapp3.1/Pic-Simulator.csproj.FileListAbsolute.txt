@@ -4,7 +4,6 @@ C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\De
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.runtimeconfig.dev.json
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.dll
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\bin\Debug\netcoreapp3.1\Pic-Simulator.pdb
-C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.csprojAssemblyReference.cache
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic_Simulator.Form1.resources
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.csproj.GenerateResource.cache
 C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.AssemblyInfoInputs.cache
@@ -28,3 +27,4 @@ C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simula
 C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.dll
 C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.pdb
 C:\Users\Moritz Knapp\Desktop\DH\Rechnertechnik\PicSimu\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.genruntimeconfig.cache
+C:\Users\mails\Documents\GitHub\Pic-Simulator\Pic-Simulator\Pic-Simulator\obj\Debug\netcoreapp3.1\Pic-Simulator.csprojAssemblyReference.cache
