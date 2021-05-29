@@ -44,6 +44,8 @@ namespace Pic_Simulator
 
         public int clock { get; private set; }
 
+        public int prevClock { get; private set; }
+
         public int tmr0Inhibit;
 
         public int timerClock;
@@ -65,6 +67,7 @@ namespace Pic_Simulator
             this.stack = new Stack<UInt16>(8);
 
             this.clock = 0;
+            this.prevClock = 0;
             this.tmr0Inhibit = 0;
             this.timerClock = 0;
 
@@ -77,6 +80,7 @@ namespace Pic_Simulator
 
         public bool Step(bool updateGUI)
         {
+            prevClock = clock;
             if (CheckInterrupt()) 
             {
                 if (updateGUI) { OnStepGUIUpdate(new UpdateEventArgs<byte>()); }
@@ -141,7 +145,7 @@ namespace Pic_Simulator
 
         public void DoClockTicks()
         {
-            clock ++;
+            clock++;
             if (tmr0Inhibit > 0)
             {
                 tmr0Inhibit--;

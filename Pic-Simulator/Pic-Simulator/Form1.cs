@@ -128,7 +128,7 @@ namespace Pic_Simulator
                     rtext_Code.Text = File.ReadAllText(ofd.FileName);
                     lbl_Code.Text = ofd.FileName;
 
-                    FinalizePIC();
+                    FinalizeGUI();
                     Initialize();
                 }
             } 
@@ -234,7 +234,7 @@ namespace Pic_Simulator
         private void btn_Stop_Click(object sender, EventArgs e)
         {
             threadKillRequest = true;
-            FinalizePIC();
+            FinalizeGUI();
             WriteDebugOutput("Debugging stopped!");
             DisableButtons(new List<Button>() { btn_Step, btn_Continue, btn_Stop });
             EnableButtons(new List<Button>() { btn_Save, btn_SaveAs, btn_OpenFile, btn_Run, btn_Debug });
@@ -500,22 +500,31 @@ namespace Pic_Simulator
             MarkLine(line);
             UpdateMemoryGUI();
             UpdatePortButtons();
+            UpdateClock();
         }
 
-        
+        private void UpdateClock()
+        {
+            int clockTicks = Program.pic.clock - Program.pic.prevClock;
+            float clckfrequency = float.Parse(this.txb_Clock.Text);
+            float clckPeriod = 1.0f / clckfrequency;
+            float currentPassedTime = float.Parse(this.lbl_TimePassed.Text[0..^3]);
+            this.lbl_TimePassed.Text = Convert.ToString(currentPassedTime + clockTicks * clckPeriod) + " μs";
+        }
 
         public void WriteDebugOutput(string message)
         {
             rtext_Output.Text = message;
         }
 
-        public void FinalizePIC()
+        public void FinalizeGUI()
         {
             //clean up after finishing code execution
             Unmark();
             Program.pic.Reset();
             UpdateGUI(this, new UpdateEventArgs<byte>());
             Unmark();
+            this.lbl_TimePassed.Text = "0 μs";
         }
 
         public void ResetPortButtonColors()
