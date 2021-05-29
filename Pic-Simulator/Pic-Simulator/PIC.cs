@@ -77,6 +77,8 @@ namespace Pic_Simulator
 
         public bool Step(bool updateGUI)
         {
+            if (CheckInterrupt()) return true;
+
             UInt16 data = CodeExecution.Fetch();
 
             if (data == UInt16.MaxValue) return false; //end of code has been reached
@@ -99,6 +101,40 @@ namespace Pic_Simulator
             Init();
         }
 
+        bool CheckInterrupt()
+        {
+            if (dataMem.GetFlag((byte)RegisterAddress.INTCON, 7))
+            {
+                //TMR0 INTERRUPT
+                if(dataMem.GetFlag((byte)RegisterAddress.INTCON, 2) && dataMem.GetFlag((byte)RegisterAddress.INTCON, 5))
+                {
+                    Interrupt();
+                    return true;
+                }
+                //EXTERNAL INTERRUPT
+                else if (dataMem.GetFlag((byte)RegisterAddress.INTCON, 1) && dataMem.GetFlag((byte)RegisterAddress.INTCON, 4))
+                {
+                    Interrupt();
+                    return true;
+                }
+                //PORT RB INTERRUPT
+                else if (dataMem.GetFlag((byte)RegisterAddress.INTCON, 0) && dataMem.GetFlag((byte)RegisterAddress.INTCON, 3))
+                {
+                    Interrupt();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        void Interrupt()
+        {
+            dataMem.ClearFlag((byte)RegisterAddress.INTCON, 7);
+
+            CodeExecution.Execute(CodeExecution.Instruction.CALL, 0b_00100000_00000100);
+
+        }
+
         public void DoClockTicks()
         {
             clock ++;
@@ -116,9 +152,6 @@ namespace Pic_Simulator
 
         public void UpdateTimer()
         {
-            //TODO: FIX ON TEST PROGRAM 7
-            //TODO: CLEAR TMR0 on?
-
             if (!dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5)) //TMR0 assigned to CLOCK
             {
                 bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
@@ -128,6 +161,8 @@ namespace Pic_Simulator
                     if (!prescalerAssignment)
                     {
                         byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
+                        //set T0IF interrupt
+                        if(oldValue == byte.MaxValue) { dataMem.SetFlag((byte)RegisterAddress.INTCON, 2); }
                         dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
                         tmr0Inhibit = 0;
                     }
@@ -136,6 +171,7 @@ namespace Pic_Simulator
                 {
                     this.timerClock = 0;
                     byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
+                    if (oldValue == byte.MaxValue) { dataMem.SetFlag((byte)RegisterAddress.INTCON, 2); }
                     dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
                     tmr0Inhibit = 0;
                 }

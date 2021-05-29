@@ -6,7 +6,7 @@ namespace ExtensionMethods
 {
     public static class Extensions
     {
-        public enum RegisterAddress
+        public enum RegisterAddress: byte
         {
             INDIRECT    =   0,
             TMR0        =   1,

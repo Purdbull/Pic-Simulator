@@ -36,6 +36,18 @@ namespace Pic_Simulator
                     return; //Indirect write to INDF results in no-op
                 }
             }
+            //If INTCON
+            //else if(address == 11)
+            //{
+            //    bool currentGIE = GetFlag((byte)RegisterAddress.INTCON, 7);
+            //    bool newGIE = value.GetBit(7);
+
+            //    //reset INTCON if GIE is cleared
+            //    if(currentGIE && !newGIE)
+            //    {
+            //        SetValue((byte)RegisterAddress.INTCON, 0);
+            //    }
+            //}
 
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 

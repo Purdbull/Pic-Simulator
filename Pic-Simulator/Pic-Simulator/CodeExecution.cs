@@ -801,6 +801,8 @@ namespace Pic_Simulator
                 case Instruction.CLRWDT:
                     return true;
                 case Instruction.RETFIE:
+                    Program.pic.pc = Program.pic.stack.Pop();
+                    Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 7);
                     return true;
                 case Instruction.SLEEP:
                     return true;
