@@ -25,7 +25,7 @@ namespace Pic_Simulator
         public void Set(byte address, bool bank, byte value)
         {
             //Indirect addressing
-            if (address == 0)
+            if (address == (byte)RegisterAddress.INDIRECT)
             {
                 //Write to the address in FSR instead
                 address = this.Get((byte)RegisterAddress.FSR);
@@ -36,18 +36,25 @@ namespace Pic_Simulator
                     return; //Indirect write to INDF results in no-op
                 }
             }
-            //If INTCON
-            //else if(address == 11)
-            //{
-            //    bool currentGIE = GetFlag((byte)RegisterAddress.INTCON, 7);
-            //    bool newGIE = value.GetBit(7);
-
-            //    //reset INTCON if GIE is cleared
-            //    if(currentGIE && !newGIE)
-            //    {
-            //        SetValue((byte)RegisterAddress.INTCON, 0);
-            //    }
-            //}
+            //RB0
+            else if (address == (byte)RegisterAddress.PORTB && !bank)
+            {
+                bool RB0prev = this.GetFlag((byte)RegisterAddress.PORTB, false, 0);
+                bool RB0new = address.GetBit(0);
+                if(RB0prev != RB0new)
+                {
+                    //Rising Edge Interrupt
+                    if (RB0new && GetFlag((byte)RegisterAddress.OPTION, true, 6))
+                    {
+                        SetFlag((byte)RegisterAddress.INTCON, 1);
+                    }
+                    //Falling Edge Interrupt
+                    else if(!RB0new && !GetFlag((byte)RegisterAddress.OPTION, true, 6))
+                    {
+                        SetFlag((byte)RegisterAddress.INTCON, 1);
+                    }
+                }
+            }
 
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 
@@ -86,7 +93,7 @@ namespace Pic_Simulator
         public byte Get(byte address, bool bank)
         {
             //Indirect addressing
-            if (address << 1 == 0)
+            if (address == (byte)RegisterAddress.INDIRECT)
             {
                 //Write to the address in FSR instead
                 address = this.Get((byte)RegisterAddress.FSR);
