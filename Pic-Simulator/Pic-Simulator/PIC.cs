@@ -77,7 +77,11 @@ namespace Pic_Simulator
 
         public bool Step(bool updateGUI)
         {
-            if (CheckInterrupt()) return true;
+            if (CheckInterrupt()) 
+            {
+                if (updateGUI) { OnStepGUIUpdate(new UpdateEventArgs<byte>()); }
+                return true;
+            }
 
             UInt16 data = CodeExecution.Fetch();
 

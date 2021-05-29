@@ -648,6 +648,8 @@ namespace Pic_Simulator
                 btn_RB0.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 0); //Setting RB0
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -663,6 +665,8 @@ namespace Pic_Simulator
                 btn_RB1.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 1); //Setting RB1
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -678,6 +682,8 @@ namespace Pic_Simulator
                 btn_RB2.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 2); //Setting RB2
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -693,6 +699,8 @@ namespace Pic_Simulator
                 btn_RB3.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 3); //Setting RB3
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -708,6 +716,8 @@ namespace Pic_Simulator
                 btn_RB4.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 4); //Setting RB4
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -723,6 +733,8 @@ namespace Pic_Simulator
                 btn_RB5.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 5); //Setting RB5
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -738,6 +750,8 @@ namespace Pic_Simulator
                 btn_RB6.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 6); //Setting RB6
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
@@ -753,6 +767,8 @@ namespace Pic_Simulator
                 btn_RB7.BackColor = Color.LightGreen;
                 Program.pic.dataMem.SetFlag(6, false, 7); //Setting RB7
             }
+            //Set PORT RB INTERRUPT
+            Program.pic.dataMem.SetFlag((byte)RegisterAddress.INTCON, 0);
             UpdateMemoryGUI();
         }
 
