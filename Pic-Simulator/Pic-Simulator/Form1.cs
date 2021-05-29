@@ -127,6 +127,7 @@ namespace Pic_Simulator
                 {
                     rtext_Code.Text = File.ReadAllText(ofd.FileName);
                     lbl_Code.Text = ofd.FileName;
+                    this.breakpoints = new List<int>();
 
                     FinalizeGUI();
                     Initialize();
