@@ -248,7 +248,6 @@ namespace Pic_Simulator
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
-            this.breakpoints = new List<int>();
             Initialize();
             ExecuteCode(false);
         }
@@ -780,6 +779,11 @@ namespace Pic_Simulator
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rtext_Code_TextChanged(object sender, EventArgs e)
         {
 
         }

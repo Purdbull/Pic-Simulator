@@ -38,8 +38,6 @@ namespace Pic_Simulator
             } 
         }
 
-        public DataField WDT { get; private set; }
-
         public Stack<UInt16> stack;
 
         public int clock { get; private set; }
@@ -61,7 +59,6 @@ namespace Pic_Simulator
             this.progMem = new ProgramMemory();
             this.dataMem = new DataMemory();
             this.wReg = new DataField();
-            this.WDT = new DataField();
             this.pc = 0;
 
             this.stack = new Stack<UInt16>(8);
@@ -151,42 +148,41 @@ namespace Pic_Simulator
                 tmr0Inhibit--;
                 return;
             }
-            else
+            else if (!dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5))
             {
                 timerClock++;
                 UpdateTimer();
             }
+
+            if (dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5))
+            {
+                UpdateTimer();
+            }
+
         }
 
         public void UpdateTimer()
         {
-            if (!dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5)) //TMR0 assigned to CLOCK
+            bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
+            if (this.timerClock % dataMem.GetPrescaler(prescalerAssignment) == 0)
             {
-                bool prescalerAssignment = dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 3);
-                if (this.timerClock % dataMem.GetPrescaler(prescalerAssignment) == 0)
+                this.timerClock = 0;
+                if (!prescalerAssignment)
                 {
-                    this.timerClock = 0;
-                    if (!prescalerAssignment)
-                    {
-                        byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
-                        //set T0IF interrupt
-                        if(oldValue == byte.MaxValue) { dataMem.SetFlag((byte)RegisterAddress.INTCON, 2); }
-                        dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
-                        tmr0Inhibit = 0;
-                    }
-                }
-                else if (prescalerAssignment)
-                {
-                    this.timerClock = 0;
                     byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
-                    if (oldValue == byte.MaxValue) { dataMem.SetFlag((byte)RegisterAddress.INTCON, 2); }
+                    //set T0IF interrupt
+                    if(oldValue == byte.MaxValue) { dataMem.SetFlag((byte)RegisterAddress.INTCON, 2); }
                     dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
                     tmr0Inhibit = 0;
                 }
             }
-            else //TMR0 assigned to RB4/T0CKI
+            else if (prescalerAssignment)
             {
-                //TODO
+                this.timerClock = 0;
+                byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);
+                if (oldValue == byte.MaxValue) { dataMem.SetFlag((byte)RegisterAddress.INTCON, 2); }
+                dataMem.Set((byte)RegisterAddress.TMR0, false, (byte)(oldValue + 1));
+                tmr0Inhibit = 0;
             }
         }
     }

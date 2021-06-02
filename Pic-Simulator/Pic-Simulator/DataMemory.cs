@@ -55,6 +55,25 @@ namespace Pic_Simulator
                     }
                 }
             }
+            //TMR0 COUNTER MODE
+            else if (address == (byte)RegisterAddress.PORTA && !bank && GetFlag((byte)RegisterAddress.OPTION, true, 5))
+            {
+                bool RA4prev = this.GetFlag((byte)RegisterAddress.PORTB, false, 4);
+                bool RA4new = address.GetBit(4);
+                if (RA4prev != RA4new)
+                {
+                    //Rising Edge TMR0 increment
+                    if (RA4new && !GetFlag((byte)RegisterAddress.OPTION, true, 4))
+                    {
+                        
+                    }
+                    //Falling Edge TMR0 increment
+                    else if (!RA4new && GetFlag((byte)RegisterAddress.OPTION, true, 4))
+                    {
+                        
+                    }
+                }
+            }
 
             byte fullAddress = (byte)(((address << 1) >> 1) + (Convert.ToByte(bank) << 7));
 

@@ -34,12 +34,6 @@ namespace Pic_Simulator
             this.rtext_Code = new System.Windows.Forms.RichTextBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lbl_us = new System.Windows.Forms.Label();
-            this.lbl_WDTCountdown = new System.Windows.Forms.Label();
-            this.chckBx_TimerActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tlp_SpecialRegisters = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -78,7 +72,6 @@ namespace Pic_Simulator
             this.lbl_TimePassed = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txb_Clock = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -124,6 +117,7 @@ namespace Pic_Simulator
             this.rtext_Code.Text = " ";
             this.rtext_Code.WordWrap = false;
             this.rtext_Code.Click += new System.EventHandler(this.richTextBox2_Click);
+            this.rtext_Code.TextChanged += new System.EventHandler(this.rtext_Code_TextChanged);
             this.rtext_Code.DoubleClick += new System.EventHandler(this.rtext_Code_DoubleClick);
             // 
             // textBox16
@@ -139,71 +133,6 @@ namespace Pic_Simulator
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(94, 27);
             this.textBox17.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.lbl_us);
-            this.groupBox1.Controls.Add(this.lbl_WDTCountdown);
-            this.groupBox1.Controls.Add(this.chckBx_TimerActive);
-            this.groupBox1.Location = new System.Drawing.Point(263, 563);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(229, 133);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Timer";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(94, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 20);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "00000000";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 20);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Prescaler";
-            // 
-            // lbl_us
-            // 
-            this.lbl_us.AutoSize = true;
-            this.lbl_us.Location = new System.Drawing.Point(54, 86);
-            this.lbl_us.Name = "lbl_us";
-            this.lbl_us.Size = new System.Drawing.Size(24, 20);
-            this.lbl_us.TabIndex = 2;
-            this.lbl_us.Text = "μs";
-            // 
-            // lbl_WDTCountdown
-            // 
-            this.lbl_WDTCountdown.AutoSize = true;
-            this.lbl_WDTCountdown.Location = new System.Drawing.Point(16, 86);
-            this.lbl_WDTCountdown.Name = "lbl_WDTCountdown";
-            this.lbl_WDTCountdown.Size = new System.Drawing.Size(28, 20);
-            this.lbl_WDTCountdown.TabIndex = 1;
-            this.lbl_WDTCountdown.Text = "0.0";
-            // 
-            // chckBx_TimerActive
-            // 
-            this.chckBx_TimerActive.AutoSize = true;
-            this.chckBx_TimerActive.Location = new System.Drawing.Point(20, 54);
-            this.chckBx_TimerActive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chckBx_TimerActive.Name = "chckBx_TimerActive";
-            this.chckBx_TimerActive.Size = new System.Drawing.Size(108, 24);
-            this.chckBx_TimerActive.TabIndex = 0;
-            this.chckBx_TimerActive.Text = "WDT Active";
-            this.chckBx_TimerActive.UseVisualStyleBackColor = true;
-            this.chckBx_TimerActive.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -609,7 +538,7 @@ namespace Pic_Simulator
             this.groupBox6.Controls.Add(this.lbl_TimePassed);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.txb_Clock);
-            this.groupBox6.Location = new System.Drawing.Point(263, 700);
+            this.groupBox6.Location = new System.Drawing.Point(263, 563);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -659,7 +588,6 @@ namespace Pic_Simulator
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.rtext_Code);
             this.Controls.Add(this.lbl_Code);
             this.Controls.Add(this.label1);
@@ -668,8 +596,6 @@ namespace Pic_Simulator
             this.Name = "Form1";
             this.Text = "Pic-Simulator";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -691,14 +617,12 @@ namespace Pic_Simulator
         private System.Windows.Forms.RichTextBox rtext_Code;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tlp_Bank0;
         private System.Windows.Forms.TableLayoutPanel tlp_Bank1;
-        private System.Windows.Forms.CheckBox chckBx_TimerActive;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btn_OpenFile;
         private System.Windows.Forms.Button btn_Save;
@@ -727,10 +651,6 @@ namespace Pic_Simulator
         private System.Windows.Forms.Button btn_SaveAs;
         private System.Windows.Forms.Button btn_Run;
         private System.Windows.Forms.TableLayoutPanel tlp_SpecialRegisters;
-        private System.Windows.Forms.Label lbl_us;
-        private System.Windows.Forms.Label lbl_WDTCountdown;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label lbl_TimePassed;
         private System.Windows.Forms.Label label6;
