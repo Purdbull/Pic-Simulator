@@ -140,7 +140,7 @@ namespace Pic_Simulator
 
         }
 
-        public void DoClockTicks()
+        public void DoClockTicks(bool source)
         {
             clock++;
             if (tmr0Inhibit > 0)
@@ -148,14 +148,14 @@ namespace Pic_Simulator
                 tmr0Inhibit--;
                 return;
             }
-            else if (!dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5))
+            else if (!dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5) && !source)
             {
                 timerClock++;
                 UpdateTimer();
             }
-
-            if (dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5))
+            else if (dataMem.GetFlag((byte)RegisterAddress.OPTION, true, 5) && source)
             {
+                timerClock++;
                 UpdateTimer();
             }
 
@@ -176,7 +176,7 @@ namespace Pic_Simulator
                     tmr0Inhibit = 0;
                 }
             }
-            else if (prescalerAssignment)
+            if (prescalerAssignment)
             {
                 this.timerClock = 0;
                 byte oldValue = dataMem.Get((byte)RegisterAddress.TMR0, false);

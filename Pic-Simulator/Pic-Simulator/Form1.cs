@@ -572,6 +572,14 @@ namespace Pic_Simulator
 
         private void RA4_Click(object sender, EventArgs e)
         {
+            if(Program.pic.dataMem.GetFlag(5, false, 4) && Program.pic.dataMem.GetFlag(1, true, 4))
+            {
+                Program.pic.DoClockTicks(true);
+            }
+            else if (!Program.pic.dataMem.GetFlag(5, false, 4) && !Program.pic.dataMem.GetFlag(1, true, 4))
+            {
+                Program.pic.DoClockTicks(true);
+            }
             if (btn_RA4.BackColor == Color.LightGreen)
             {
                 btn_RA4.BackColor = Color.Tomato;

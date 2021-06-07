@@ -176,7 +176,7 @@ namespace Pic_Simulator
 
             //Increment PIC clock
             for (int i = 0; i < instrClockCycles[instruction]; i++) {
-                Program.pic.DoClockTicks();
+                Program.pic.DoClockTicks(false);
             }
 
             switch (instruction)
@@ -358,7 +358,7 @@ namespace Pic_Simulator
                         Program.pic.pc++;
                         //skip and perform nop
                         //do one clock cycle
-                        Program.pic.DoClockTicks();
+                        Program.pic.DoClockTicks(false);
                     }
                     return true;
                      
@@ -376,7 +376,7 @@ namespace Pic_Simulator
                         Program.pic.pc++;
                         //skip and perform nop
                         //do one clock cycle
-                        Program.pic.DoClockTicks();
+                        Program.pic.DoClockTicks(false);
                     }
                     return true;
 
@@ -438,7 +438,7 @@ namespace Pic_Simulator
                     {
                         Program.pic.pc++;
                         //do one clock cycle
-                        Program.pic.DoClockTicks();
+                        Program.pic.DoClockTicks(false);
                     }
                     return true;
                 case Instruction.INCFSZ:
@@ -457,7 +457,7 @@ namespace Pic_Simulator
                     {
                         Program.pic.pc++;
                         //do one clock cycle
-                        Program.pic.DoClockTicks();
+                        Program.pic.DoClockTicks(false);
                     }
                     return true;
 
@@ -600,7 +600,7 @@ namespace Pic_Simulator
                     param = (byte)(data);
                     dataMemAddress = (byte)(param & 0b_01111111);
                     result = Program.pic.dataMem.Get(dataMemAddress);
-                    carryBit = Program.pic.dataMem.GetFlag((byte)RegisterAddress.STATUS, 2);
+                    carryBit = Program.pic.dataMem.GetFlag((byte)RegisterAddress.STATUS, 0);
                     if (result.GetBit(7))
                     {
                         Program.pic.dataMem.SetFlag((byte)RegisterAddress.STATUS, 0);
