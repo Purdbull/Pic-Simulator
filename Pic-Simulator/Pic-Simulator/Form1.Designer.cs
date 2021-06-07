@@ -347,7 +347,7 @@ namespace Pic_Simulator
             // 
             this.btn_RA3.Location = new System.Drawing.Point(269, 29);
             this.btn_RA3.Name = "btn_RA3";
-            this.btn_RA3.Size = new System.Drawing.Size(43, 29);
+            this.btn_RA3.Size = new System.Drawing.Size(44, 29);
             this.btn_RA3.TabIndex = 0;
             this.btn_RA3.Text = "RA3";
             this.btn_RA3.UseVisualStyleBackColor = true;

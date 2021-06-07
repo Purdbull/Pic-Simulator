@@ -509,7 +509,7 @@ namespace Pic_Simulator
             float clckfrequency = float.Parse(this.txb_Clock.Text);
             float clckPeriod = 1.0f / clckfrequency;
             float currentPassedTime = float.Parse(this.lbl_TimePassed.Text[0..^3]);
-            this.lbl_TimePassed.Text = Convert.ToString(currentPassedTime + clockTicks * clckPeriod) + " μs";
+            this.lbl_TimePassed.Text = Convert.ToString(currentPassedTime + clockTicks * clckPeriod * 4) + " μs";
         }
 
         public void WriteDebugOutput(string message)
